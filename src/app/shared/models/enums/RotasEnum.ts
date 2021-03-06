@@ -1,5 +1,5 @@
 export enum RotasEnum {
-  HOME = "goms",
+  HOME = "home",
   COMPRAS = "compras",
   SEGURANCA = "seguranca",
   QUEM_SOMOS = "quem-somos",
@@ -7,5 +7,6 @@ export enum RotasEnum {
   CADASTRO = "cadastro",
   LOGIN = "login",
   NONE = "",
+  PRODUTOS = "produtos",
   FULL = "full",
 }

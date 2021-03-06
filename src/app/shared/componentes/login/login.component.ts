@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { MessagesConstante } from "../../models/constantes/MessagesConstante";
 
 @Component({
   selector: "app-login",
@@ -10,6 +11,10 @@ import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
+  public msgErro: String;
+  public exibeSenha: Boolean = false;
+  public tipoInput: String = "password";
+  public classeIcone: String = "pi  pi-eye-slash";
 
   constructor(private _router: Router, private _builder: FormBuilder) {
     this.setForm();
@@ -19,29 +24,38 @@ export class LoginComponent implements OnInit {
 
   public setForm() {
     this.form = this._builder.group({
-      mail: [
+      email: [
         { value: null, disabled: false },
         [Validators.required, Validators.email],
       ],
-      password: [
+      senha: [
         { value: null, disabled: false },
         [Validators.required, Validators.minLength(8)],
       ],
     });
   }
 
+  public mostrarSenha() {
+    if (this.exibeSenha) {
+      this.tipoInput = "text";
+      this.classeIcone = "pi pi-eye";
+    } else {
+      this.tipoInput = "password";
+      this.classeIcone = "pi pi-eye-slash";
+    }
+    this.exibeSenha = !this.exibeSenha;
+  }
+
   public logIn() {
-    this._router.navigate([RotasEnum.HOME]);
-    // if (this.form.valid) {
-    //   this.validation.validate = true;
-    //   this._router.navigate([AppRoutesEnum.HOME]);
-    // } else {
-    //   this.validation.validate = false;
-    //   if (this.form.controls.mail.errors) {
-    //     this.validation.text = Messages.INVALID_MAIL;
-    //   } else {
-    //     this.validation.text = Messages.INVALID_PASSWORD;
-    //   }
-    // }
+    if (this.form.valid) {
+      this.msgErro = null;
+      this._router.navigate([RotasEnum.HOME]);
+    } else {
+      if (this.form.controls.email.errors) {
+        this.msgErro = MessagesConstante.EMAIL_INVALIDO;
+      } else {
+        this.msgErro = MessagesConstante.SENHA_INVALIDA;
+      }
+    }
   }
 }

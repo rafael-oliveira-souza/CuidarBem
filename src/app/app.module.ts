@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
 import { NgxLoadingModule } from "ngx-loading";
 import { AppComponent } from "./app.component";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +14,7 @@ import { AppComponent } from "./app.component";
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxLoadingModule.forRoot({}),
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

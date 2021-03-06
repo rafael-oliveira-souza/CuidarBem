@@ -1,0 +1,29 @@
+@import "../../../../estilos/cores.scss";
+
+button {
+  border: none;
+  background: none;
+  color: $laranja;
+  font-size: 20px;
+  padding: 12px;
+}
+
+button.btn-warning:hover {
+  background: $laranja !important;
+  color: $branco;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+button.btn-warning:focus {
+  background: $laranja !important;
+  color: $branco !important;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+:host {
+  ::ng-deep p-toolbar div.p-toolbar.p-component {
+    background: $branco !important;
+  }
+}

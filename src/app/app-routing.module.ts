@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { LoginComponent } from "./seguranca/componentes/login/login.component";
+import { LoginComponent } from "./shared/componentes/login/login.component";
 import { RotasEnum } from "./shared/models/enums/RotasEnum";
 
 const routes: Routes = [
   {
     path: RotasEnum.NONE,
-    component: LoginComponent,
+    redirectTo: RotasEnum.LOGIN,
     pathMatch: RotasEnum.FULL,
   },
   {
@@ -14,13 +14,16 @@ const routes: Routes = [
     loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
   },
   {
-    path: RotasEnum.SEGURANCA,
-    loadChildren: () =>
-      import("./seguranca/seguranca.module").then((m) => m.SegurancaModule),
-  },
-  {
     path: RotasEnum.COMPRAS,
     loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
+  },
+  {
+    path: RotasEnum.LOGIN,
+    component: LoginComponent,
+  },
+  {
+    path: "**",
+    redirectTo: RotasEnum.LOGIN,
   },
 ];
 
