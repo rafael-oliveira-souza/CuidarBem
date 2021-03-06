@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "./estilos/cores.scss";
+
+* {
+  font-family: FuturaLT, sans-serif !important;
+}
+
+body {
+  background: #f3f5f9;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 12px;
+}
