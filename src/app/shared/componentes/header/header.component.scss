@@ -1,10 +1,21 @@
 @import "../../../../estilos/cores.scss";
 
+.bg-header {
+  // border-bottom: 1px solid #46aef7;
+}
+
 button {
   border: none;
   background: none;
   color: $laranja;
   font-size: 20px;
+  padding: 12px;
+}
+
+button.selecionado {
+  background: $laranja !important;
+  color: $branco;
+  border-radius: 5px;
   padding: 12px;
 }
 
@@ -23,7 +34,7 @@ button.btn-warning:focus {
 }
 
 :host {
-  ::ng-deep p-toolbar div.p-toolbar.p-component {
-    background: $branco !important;
+  ::ng-deep p-toolbar div.app-header.p-toolbar.p-component {
+    // background: $verde !important;
   }
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { RotasEnum } from "../shared/models/enums/RotasEnum";
 import { HomePrincipalComponent } from "./componentes/home-principal/home-principal.component";
 import { HomeProdutosComponent } from "./componentes/home-produtos/home-produtos.component";
+import { HomeQuemSomosComponent } from "./componentes/home-quem-somos/home-quem-somos.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
       },
       {
         path: RotasEnum.QUEM_SOMOS,
-        component: HomeProdutosComponent,
+        component: HomeQuemSomosComponent,
       },
       {
         path: RotasEnum.PRODUTOS,
@@ -24,7 +25,6 @@ const routes: Routes = [
     ],
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

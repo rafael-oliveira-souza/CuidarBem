@@ -10,10 +10,10 @@ a {
 
 .icone-senha {
   position: absolute;
-  top: 30%;
-  right: 7%;
+  top: 28%;
+  right: 5%;
   i {
-    color: $verde;
+    color: $azul;
     font-size: 22px;
   }
 }
@@ -21,4 +21,14 @@ a {
 .erro {
   color: $vermelho;
   text-align: center;
+}
+
+input {
+  background: $branco;
+  border: 1px solid $azul;
+  color: $azul;
+}
+
+label {
+  color: $azul;
 }

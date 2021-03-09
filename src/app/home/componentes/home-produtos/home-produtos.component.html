@@ -1,1 +1,5 @@
-<div>prod</div>
+<div class="row justify-content-center">
+  <div *ngFor="let cartao of cartoes" class="col-3">
+    <app-cartao [cartao]="cartao"></app-cartao>
+  </div>
+</div>

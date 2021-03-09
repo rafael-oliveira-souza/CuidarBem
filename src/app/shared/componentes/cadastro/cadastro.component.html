@@ -1,1 +1,96 @@
-<p>cadastro works!</p>
+<div class="container">
+  <div class="p-4 text-center mb-2">
+    <img src="../../../../assets/images/logo-okipoki_p.jpg" />
+  </div>
+  <form *ngIf="form" [formGroup]="form" class="p-4 row justify-content-center">
+    <div class="col-6">
+      <span class="p-float-label">
+        <input
+          id="nome"
+          class="col-12"
+          type="text"
+          pInputText
+          [formControl]="form.controls.nome"
+          sclass=" ng-invalid ng-dirty"
+        />
+        <label for="nome">Nome</label>
+      </span>
+    </div>
+    <div class="col-6">
+      <span class="p-float-label form-inline">
+        <input
+          id="nascimento"
+          class="col-12"
+          type="date"
+          pInputText
+          [max]="dataMaxima"
+          [min]="dataMinima"
+          [formControl]="form.controls.nascimento"
+          sclass="ng-invalid ng-dirty"
+        />
+        <label for="nascimento">Data de Nascimento</label>
+      </span>
+    </div>
+    <div class="col-6 mt-4">
+      <span class="p-float-label">
+        <input
+          id="email"
+          class="col-12"
+          type="text"
+          pInputText
+          [formControl]="form.controls.email"
+          sclass=" ng-invalid ng-dirty"
+        />
+        <label for="email">Email</label>
+      </span>
+    </div>
+    <div class="col-6 mt-4">
+      <span class="p-float-label form-inline">
+        <input
+          id="genero"
+          class="col-12"
+          type="text"
+          pInputText
+          [max]="dataMaxima"
+          [min]="dataMinima"
+          [formControl]="form.controls.genero"
+          sclass="ng-invalid ng-dirty"
+        />
+        <label for="genero">Gênero</label>
+      </span>
+    </div>
+    <div class="col-6 mt-4">
+      <span class="p-float-label">
+        <input
+          id="senha"
+          class="col-12"
+          type="text"
+          pInputText
+          [formControl]="form.controls.senha"
+          sclass=" ng-invalid ng-dirty"
+        />
+        <label for="senha">Senha</label>
+      </span>
+    </div>
+    <div class="col-6 mt-4">
+      <span class="p-float-label form-inline">
+        <input
+          id="confirmarSenha"
+          class="col-12"
+          type="text"
+          pInputText
+          [max]="dataMaxima"
+          [min]="dataMinima"
+          [formControl]="form.controls.confirmarSenha"
+          sclass="ng-invalid ng-dirty"
+        />
+        <label for="confirmarSenha">Confirmar Senha</label>
+      </span>
+    </div>
+  </form>
+  <div class="p-4 col-12 row justify-content-center text-center">
+    <button (click)="cadastrar()" class="col-4 btn btn-primary">
+      Cadastrar
+    </button>
+  </div>
+</div>

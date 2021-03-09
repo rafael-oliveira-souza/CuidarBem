@@ -1,0 +1,25 @@
+<p-card [header]="cartao.titulo" styleClass="p-card-shadow">
+  <ng-template pTemplate="header">
+    <p-avatar
+      *ngIf="cartao.imagem"
+      height="40"
+      alt="Card"
+      [image]="cartao.imagem"
+      pBadge
+      size="xlarge"
+    ></p-avatar>
+  </ng-template>
+  <p>{{ cartao.descricao }}</p>
+  <ng-template pTemplate="footer">
+    <div class="row justify-content-center">
+      <button
+        pButton
+        type="button"
+        class="text-center"
+        label="Saiba Mais"
+        icon="pi pi-heart"
+        class="p-button-sm p-button-warning text-light"
+      ></button>
+    </div>
+  </ng-template>
+</p-card>

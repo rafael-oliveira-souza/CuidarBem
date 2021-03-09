@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { RotasEnum } from "../../models/enums/RotasEnum";
 
@@ -8,11 +8,14 @@ import { RotasEnum } from "../../models/enums/RotasEnum";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
-  public items: { titulo: string; rota: string }[] = [
-    { titulo: "Produtos", rota: RotasEnum.PRODUTOS },
-    { titulo: "Quem Somos", rota: RotasEnum.QUEM_SOMOS },
-    { titulo: "Dúvidas", rota: RotasEnum.PRODUTOS },
-    { titulo: "Contato", rota: RotasEnum.PRODUTOS },
+  @Input("exibeBarraAcao")
+  public exibeBarraAcao: boolean = true;
+
+  public items: { titulo: string; rota: string; selecionado: boolean }[] = [
+    { titulo: "Produtos", rota: RotasEnum.PRODUTOS, selecionado: true },
+    { titulo: "Quem Somos", rota: RotasEnum.QUEM_SOMOS, selecionado: false },
+    { titulo: "Dúvidas", rota: RotasEnum.PRODUTOS, selecionado: false },
+    { titulo: "Contato", rota: RotasEnum.PRODUTOS, selecionado: false },
   ];
 
   public selecionado: number = 0;
@@ -20,18 +23,20 @@ export class HeaderComponent implements OnInit {
   constructor(private _router: Router, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // this.items.forEach(
-    //   (item: { titulo: string; rota: string }, indice: number) => {
-    //     if (this._router.url.includes(item.rota)) {
-    //       this.selecionado = indice;
-    //     }
-    //   }
-    // );
-    // this.navegar(this.selecionado);
+    this.items.forEach(
+      (item: { titulo: string; rota: string; selecionado: boolean }) => {
+        if (this._router.url.includes(item.rota)) {
+          this.navegar(item);
+        }
+      }
+    );
   }
 
-  navegar(rota: string, element: any) {
-    this._router.navigate([rota], {
+  navegar(item: { titulo: string; rota: string; selecionado: boolean }) {
+    this.items.map((item) => (item.selecionado = false));
+
+    item.selecionado = true;
+    this._router.navigate([item.rota], {
       relativeTo: this._route,
     });
   }

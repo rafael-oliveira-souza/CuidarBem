@@ -3,8 +3,13 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "./estilos/cores.scss";
 
+@font-face {
+  font-family: fredoka;
+  src: url(./assets/fonts/fredoka/FredokaOne-Regular.ttf);
+}
+
 * {
-  font-family: FuturaLT, sans-serif !important;
+  font-family: fredoka, sans-serif;
 }
 
 body {

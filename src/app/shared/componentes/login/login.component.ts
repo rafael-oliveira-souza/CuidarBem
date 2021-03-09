@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { MessagesConstante } from "../../models/constantes/MessagesConstante";
+import { CadastroComponent } from "../cadastro/cadastro.component";
 
 @Component({
   selector: "app-login",
@@ -16,7 +18,12 @@ export class LoginComponent implements OnInit {
   public tipoInput: String = "password";
   public classeIcone: String = "pi  pi-eye-slash";
 
-  constructor(private _router: Router, private _builder: FormBuilder) {
+  constructor(
+    private _router: Router,
+    private _builder: FormBuilder,
+    private _dialogService: DialogService,
+    private _ref: DynamicDialogRef
+  ) {
     this.setForm();
   }
 
@@ -24,14 +31,8 @@ export class LoginComponent implements OnInit {
 
   public setForm() {
     this.form = this._builder.group({
-      email: [
-        { value: null, disabled: false },
-        [Validators.required, Validators.email],
-      ],
-      senha: [
-        { value: null, disabled: false },
-        [Validators.required, Validators.minLength(8)],
-      ],
+      email: [{ value: null, disabled: false }, [Validators.email]],
+      senha: [{ value: null, disabled: false }, [Validators.minLength(8)]],
     });
   }
 
@@ -57,5 +58,13 @@ export class LoginComponent implements OnInit {
         this.msgErro = MessagesConstante.SENHA_INVALIDA;
       }
     }
+  }
+
+  public abrirCadastro() {
+    this._ref.close();
+    const ref = this._dialogService.open(CadastroComponent, {
+      header: "",
+      width: "70%",
+    });
   }
 }

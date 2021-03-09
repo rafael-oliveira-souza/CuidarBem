@@ -1,12 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { LoginComponent } from "./shared/componentes/login/login.component";
 import { RotasEnum } from "./shared/models/enums/RotasEnum";
 
 const routes: Routes = [
   {
     path: RotasEnum.NONE,
-    redirectTo: RotasEnum.LOGIN,
+    redirectTo: RotasEnum.HOME,
     pathMatch: RotasEnum.FULL,
   },
   {
@@ -15,20 +14,17 @@ const routes: Routes = [
   },
   {
     path: RotasEnum.COMPRAS,
-    loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
-  },
-  {
-    path: RotasEnum.LOGIN,
-    component: LoginComponent,
+    loadChildren: () =>
+      import("./compras/compras.module").then((m) => m.ComprasModule),
   },
   {
     path: "**",
-    redirectTo: RotasEnum.LOGIN,
+    redirectTo: RotasEnum.HOME,
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
