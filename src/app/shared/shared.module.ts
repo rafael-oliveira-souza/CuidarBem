@@ -14,6 +14,11 @@ import { CalendarModule } from "primeng/calendar";
 import { OrderListModule } from "primeng/orderlist";
 import { TableModule } from "primeng/table";
 import { DataViewModule } from "primeng/dataview";
+import { DropdownModule } from "primeng/dropdown";
+import { RatingModule } from "primeng/rating";
+import { BadgeModule } from "primeng/badge";
+import { ScrollPanelModule } from "primeng/scrollpanel";
+import { InputNumberModule } from "primeng/inputnumber";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -22,6 +27,7 @@ import { CadastroComponent } from "./componentes/cadastro/cadastro.component";
 import { LoginComponent } from "./componentes/login/login.component";
 import { BarraDeAcoesComponent } from "./componentes/barra-de-acoes/barra-de-acoes.component";
 import { CartaoComponent } from "./componentes/cartao/cartao.component";
+import { ProdutoComponent } from "./componentes/produto/produto.component";
 
 //pipes
 import { CepPipe } from "./pipes/cep.pipe";
@@ -32,6 +38,7 @@ import { EnderecoPipe } from "./pipes/endereco.pipe";
 import { GeneroPipe } from "./pipes/genero.pipe";
 import { MoedaPipe } from "./pipes/moeda.pipe";
 import { SemInfoPipe } from "./pipes/semInfo.pipe";
+import { ScrollComponent } from "./componentes/scroll/scroll.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +49,7 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     LoginComponent,
     BarraDeAcoesComponent,
     CartaoComponent,
+    ProdutoComponent,
 
     //pipes
     CpfPipe,
@@ -52,6 +60,8 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     GeneroPipe,
     CepPipe,
     SemInfoPipe,
+    ProdutoComponent,
+    ScrollComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +80,11 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     OrderListModule,
     TableModule,
     DataViewModule,
+    RatingModule,
+    DropdownModule,
+    BadgeModule,
+    ScrollPanelModule,
+    InputNumberModule,
   ],
   exports: [
     FormsModule,
@@ -82,6 +97,18 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     LoginComponent,
     CartaoComponent,
     BarraDeAcoesComponent,
+    ProdutoComponent,
+    ScrollComponent,
+
+    //pipes
+    CpfPipe,
+    DataPipe,
+    EnderecoPipe,
+    ContinuePipe,
+    MoedaPipe,
+    GeneroPipe,
+    CepPipe,
+    SemInfoPipe,
 
     //prime modules
     InputTextModule,
@@ -94,16 +121,11 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     OrderListModule,
     TableModule,
     DataViewModule,
-
-    //pipes
-    CpfPipe,
-    DataPipe,
-    EnderecoPipe,
-    ContinuePipe,
-    MoedaPipe,
-    GeneroPipe,
-    CepPipe,
-    SemInfoPipe,
+    DropdownModule,
+    RatingModule,
+    BadgeModule,
+    ScrollPanelModule,
+    InputNumberModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent],
   providers: [DialogService],

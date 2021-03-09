@@ -1,0 +1,57 @@
+<p-card styleClass="p-4 p-card-shadow shadow">
+  <ng-template pTemplate="header">
+    <div class="row justify-content-between">
+      <div class="cor-azul">
+        <i class="pi pi-tag"></i>
+        <span>{{ getNomeCategoria(produto.categoria) | titlecase }}</span>
+      </div>
+      <div>
+        <p-badge
+          [value]="getSituacaoEstoque(produto.situacao)"
+          [severity]="getCorSituacaoEstoque(produto.situacao)"
+        ></p-badge>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center text-center mt-4">
+      <!-- <img height="50" width="50" [src]="produto.imagem"/> -->
+      <p-avatar
+        class="col-12"
+        *ngIf="produto.imagem"
+        alt="Card"
+        [image]="produto.imagem"
+        size="xlarge"
+      ></p-avatar>
+      <h3 class="col-12">{{ produto.nome }}</h3>
+      <small class="col-12">{{ produto.descricao | continue: 100 }}</small
+      ><br /><br /><br />
+      <p-rating
+        readonly="true"
+        [cancel]="false"
+        [stars]="5"
+        [(ngModel)]="produto.estoque"
+      ></p-rating>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="row justify-content-between">
+      <span>{{ produto.valor | moeda }}</span>
+      <p-button
+        (click)="irParaCarrinho()"
+        class="p-button-sm p-button-info text-light"
+        icon="pi pi-shopping-cart"
+        [disabled]="produto.situacao == situacaoIndisponivel"
+      ></p-button>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <button
+        pButton
+        type="button"
+        class="text-center"
+        label="Saiba Mais"
+        icon="pi pi-heart"
+        class="p-button-sm p-button-success text-light"
+      ></button>
+    </div>
+  </ng-template>
+</p-card>

@@ -8,3 +8,20 @@
   border: 1px solid $azul;
   margin-top: 10px;
 }
+
+:host ::ng-deep {
+  .tabela-carrinho div.p-datatable-header {
+    background: $verde;
+    color: $branco;
+  }
+
+  .tabela-carrinho div.p-datatable-footer {
+    background: $verde;
+    color: $branco;
+  }
+
+  .p-datatable-thead > tr {
+    background: $verde;
+    color: $branco;
+  }
+}

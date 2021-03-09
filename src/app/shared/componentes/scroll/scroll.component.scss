@@ -1,0 +1,11 @@
+@import "../../../../estilos/cores.scss";
+
+:host ::ng-deep {
+  .p-scrollpanel-bar {
+    background-color: $verde;
+    border-radius: 5px;
+    opacity: 1;
+    transition: background-color 0.2s;
+    margin-right: 110px;
+  }
+}

@@ -1,10 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'cep',
+  name: "cep",
 })
 export class CepPipe implements PipeTransform {
   transform(valor: string, args?: any): any {
-    return valor.toString().substr(0, 5) + '-' + valor.toString().substr(5);
+    return valor.toString().substr(0, 5) + "-" + valor.toString().substr(5);
   }
 }

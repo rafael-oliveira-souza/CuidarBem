@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { SelectItem } from "primeng/api";
 import { Cartao } from "src/app/shared/models/classes/Cartao";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { Mocks } from "src/app/shared/models/constantes/Mocks";
@@ -15,13 +16,19 @@ export class HomeProdutosComponent implements OnInit {
   public situacaoDisponivel = SituacaoProdutoEnum.DISPONIVEL;
   public produtos: Array<Produto> = [];
 
-  constructor(private _router: Router) {}
+  sortOptions: SelectItem[];
 
-  ngOnInit(): void {
+  sortOrder: number;
+
+  sortField: string;
+
+  constructor() {}
+
+  ngOnInit() {
     this.produtos = Mocks.Produtos;
   }
 
-  public continuarComprando() {
-    this._router.navigate([RotasEnum.HOME, RotasEnum.PRODUTOS]);
-  }
+  // public continuarComprando() {
+  //   this._router.navigate([RotasEnum.HOME, RotasEnum.PRODUTOS]);
+  // }
 }

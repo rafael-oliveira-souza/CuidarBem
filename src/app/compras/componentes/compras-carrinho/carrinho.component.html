@@ -1,57 +1,92 @@
 <div>
-  <div class="d-flex justify-content-between bg-carrinho text-light p-5">
+  <div
+    class="d-flex justify-content-between align-items-center bg-carrinho text-light p-5"
+  >
     <div>
+      <img
+        height="50%"
+        width="50%"
+        src="../../../../assets/images/crescer.png"
+      />
+      <h1>Meu Carrinho</h1>
       <!-- <i class="pi pi-arrow-left"></i> -->
     </div>
     <h3>Finalizar compra</h3>
   </div>
 
-  <div class="container mt-5">
-    <!-- <div *ngFor="let produto of produtos" class="p-4">
-      <div class="row justify-content-center align-items-center">
-        <small class="col-8">{{ produto.nome }}</small>
-        <p-avatar
-          alt="Card"
-          [image]="produto.imagem"
-          pBadge
-          size="xlarge"
-        ></p-avatar>
-      </div>
-    </div> -->
-
-    <p-table [value]="produtos">
+  <div class="container-fluid mt-5">
+    <p-table [value]="produtos" styleClass="tabela-carrinho ">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Imagem</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Categoria</th>
+          <th>Estoque</th>
+          <th>Valor</th>
+          <th>Quantidade</th>
+        </tr>
+      </ng-template>
       <ng-template pTemplate="body" let-produto>
         <tr>
           <td>
-            <p-avatar [image]="produto.imagem" size="xlarge"></p-avatar>
+            <img
+              [src]="produto.imagem"
+              [alt]="produto.nome"
+              width="100"
+              class="p-shadow-4"
+            />
           </td>
           <td>{{ produto.nome }}</td>
           <td>{{ produto.descricao }}</td>
-          <td>{{ produto.estoque }}</td>
+          <td>
+            {{ getNomeCategoria(produto.categoria) | titlecase }}
+          </td>
+          <td>{{ produto.quantidade }}</td>
+          <td>{{ produto.valor | moeda }}</td>
+          <td>
+            <span>
+              <p-inputNumber
+                (onInput)="atualizarQuantidade($event.value, produto)"
+                [min]="0"
+                size="3"
+                maxlength="3"
+                [(ngModel)]="produto.quantidade"
+                [max]="produto.estoque"
+                [showButtons]="true"
+              ></p-inputNumber>
+            </span>
+          </td>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="d-flex justify-content-between">
+          <span> Total de produtos: {{ produtos ? produtos.length : 0 }} </span>
+          <span> Valor total: {{ getTotal() | moeda }} </span>
+        </div>
       </ng-template>
     </p-table>
   </div>
 
-  <app-footer>
-    <span class="p-4 float-right form-inline">
-      <button
-        pButton
-        style="opacity: 0.9"
-        type="button"
-        label="Continuar Comprando"
-        icon="pi pi-shopping-cart"
-        (click)="continuarComprando()"
-        class="p-button-sm p-button-warning mr-2 text-light"
-      ></button>
-      <button
-        pButton
-        type="button"
-        label="Finalizar Compra"
-        icon="pi pi-dollar"
-        (click)="finalizarCompra()"
-        class="p-button-sm p-button-success mr-2 text-light"
-      ></button>
-    </span>
-  </app-footer>
+  <!-- <app-footer> -->
+  <span class="p-4 float-right form-inline mt-5">
+    <button
+      pButton
+      style="opacity: 0.9"
+      type="button"
+      label="Continuar Comprando"
+      icon="pi pi-shopping-cart"
+      (click)="continuarComprando()"
+      class="p-button-sm p-button-warning mr-2 text-light"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="Finalizar Compra"
+      icon="pi pi-dollar"
+      (click)="finalizarCompra()"
+      class="p-button-sm p-button-success mr-2 text-light"
+    ></button>
+  </span>
+  <!-- </app-footer> -->
 </div>

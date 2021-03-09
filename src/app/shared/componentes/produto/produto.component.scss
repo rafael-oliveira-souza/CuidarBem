@@ -1,0 +1,11 @@
+@import "../../../../estilos/cores.scss";
+
+.cor-azul {
+  color: $azul;
+}
+
+:host ::ng-deep {
+  span.p-badge {
+    color: $branco;
+  }
+}

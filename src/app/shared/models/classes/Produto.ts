@@ -8,7 +8,10 @@ export class Produto {
   valor: number;
   estoque: number;
   cor: string;
-  avaliacao: number;
-  situacao: number;
+  avaliacao: number = 5;
   categoria: number;
+  quantidade: number = 0;
+  situacao: number = SituacaoProdutoEnum.DISPONIVEL;
+
+  constructor() {}
 }
