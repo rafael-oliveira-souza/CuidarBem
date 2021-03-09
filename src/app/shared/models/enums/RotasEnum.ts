@@ -1,6 +1,7 @@
 export enum RotasEnum {
   HOME = "home",
   CARRINHO = "carrinho",
+  CONTATO = "contato",
   COMPRAS = "compras",
   SEGURANCA = "seguranca",
   QUEM_SOMOS = "quem-somos",

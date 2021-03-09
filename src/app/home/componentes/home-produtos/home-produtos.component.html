@@ -1,5 +1,100 @@
-<div class="row justify-content-center">
+<!-- <div class="row justify-content-center">
   <div *ngFor="let cartao of cartoes" class="col-3">
     <app-cartao [cartao]="cartao"></app-cartao>
   </div>
+</div> -->
+
+<div>
+  <p-dataView
+    #dv
+    [value]="produtos"
+    [paginator]="true"
+    [rows]="9"
+    layout="grid"
+  >
+    <!-- <ng-template pTemplate="header">
+      <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+        <p-dropdown
+          [options]="sortOptions"
+          [(ngModel)]="sortKey"
+          placeholder="Sort By valor"
+          (onChange)="onSortChange($event)"
+          styleClass="p-mb-2 p-mb-md-0"
+        ></p-dropdown>
+        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+          <i class="pi pi-search"></i>
+          <input
+            type="search"
+            pInputText
+            placeholder="Search by nome"
+            (input)="dv.filter($event.target.value)"
+          />
+        </span>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </ng-template> -->
+    <ng-template let-produto pTemplate="listItem">
+      <div class="p-col-12">
+        <div class="produc-list-item">
+          <img
+            height="60"
+            width="60"
+            [src]="produto.imagem"
+            [alt]="produto.nome"
+          />
+          <div class="produc-list-detail">
+            <div class="product-name">{{ produto.nome }}</div>
+            <div class="product-description">{{ produto.descricao }}</div>
+            <p-rating [ngModel]="produto.avaliacao"></p-rating>
+            <i class="pi pi-tag product-category-icon"></i
+            ><span class="product-category">{{ produto.categoria }}</span>
+          </div>
+          <div class="produc-list-action">
+            <span class="product-price">{{ produto.valor | moeda }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              label="Adicionar ao carrinho"
+              [disabled]="produto.situacao == situacaoDisponivel"
+            ></p-button>
+            <span [class]="'produto-badge status-'">{{
+              produto.situacao
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-produto pTemplate="gridItem">
+      <div class="p-col-12 p-md-4">
+        <div class="produto-grid-item card">
+          <div class="produto-grid-item-top">
+            <div>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ produto.categoria }}</span>
+            </div>
+            <span [class]="'produto-badge status-'">{{
+              produto.situacao
+            }}</span>
+          </div>
+          <div class="produto-grid-item-content">
+            <img
+              height="60"
+              width="60"
+              [src]="produto.imagem"
+              [alt]="produto.nome"
+            />
+            <div class="product-name">{{ produto.nome }}</div>
+            <div class="product-description">{{ produto.descricao }}</div>
+            <p-rating [ngModel]="produto.avaliacao"></p-rating>
+          </div>
+          <div class="produto-grid-item-bottom">
+            <span class="product-price">{{ produto.valor | moeda }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              [disabled]="produto.situacao == situacaoDisponivel"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
 </div>

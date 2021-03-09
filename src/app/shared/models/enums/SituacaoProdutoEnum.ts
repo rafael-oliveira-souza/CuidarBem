@@ -1,5 +1,5 @@
 export enum SituacaoProdutoEnum {
-  DISPONIVEL = "Disponível",
-  ALUGADO = "Alugado",
-  OFERTA = "Oferta",
+  DISPONIVEL = 1,
+  ALUGADO = 2,
+  OFERTA = 3,
 }

@@ -24,6 +24,10 @@ export class CadastroComponent implements OnInit {
     this.form = this._builder.group({
       nome: [{ value: null, disabled: false }, [Validators.minLength(5)]],
       nascimento: [{ value: this.dataMaxima, disabled: false }, []],
+      email: [{ value: null, disabled: false }, [Validators.email]],
+      genero: [{ value: null, disabled: false }, []],
+      senha: [{ value: null, disabled: false }, []],
+      confirmarSenha: [{ value: null, disabled: false }, []],
     });
   }
 

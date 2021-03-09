@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
   public items: { titulo: string; rota: string; selecionado: boolean }[] = [
     { titulo: "Produtos", rota: RotasEnum.PRODUTOS, selecionado: true },
     { titulo: "Quem Somos", rota: RotasEnum.QUEM_SOMOS, selecionado: false },
-    { titulo: "Dúvidas", rota: RotasEnum.PRODUTOS, selecionado: false },
-    { titulo: "Contato", rota: RotasEnum.PRODUTOS, selecionado: false },
+    { titulo: "Dúvidas", rota: RotasEnum.DUVIDAS, selecionado: false },
+    { titulo: "Contato", rota: RotasEnum.COMPRAS, selecionado: false },
   ];
 
   public selecionado: number = 0;

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="p-4 text-center mb-2">
-    <img src="../../../../assets/images/logo-okipoki_p.jpg" />
+    <img height="" src="../../../../assets/images/crescer.png" />
   </div>
   <form *ngIf="form" [formGroup]="form" class="p-4 row justify-content-center">
     <div class="col-6">
@@ -13,7 +13,7 @@
           [formControl]="form.controls.nome"
           sclass=" ng-invalid ng-dirty"
         />
-        <label for="nome">Nome</label>
+        <label for="nome">Nome:</label>
       </span>
     </div>
     <div class="col-6">
@@ -28,7 +28,7 @@
           [formControl]="form.controls.nascimento"
           sclass="ng-invalid ng-dirty"
         />
-        <label for="nascimento">Data de Nascimento</label>
+        <label for="nascimento"> Nascimento:</label>
       </span>
     </div>
     <div class="col-6 mt-4">
@@ -41,22 +41,32 @@
           [formControl]="form.controls.email"
           sclass=" ng-invalid ng-dirty"
         />
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
       </span>
     </div>
     <div class="col-6 mt-4">
       <span class="p-float-label form-inline">
-        <input
+        <!-- <input
           id="genero"
           class="col-12"
           type="text"
           pInputText
-          [max]="dataMaxima"
-          [min]="dataMinima"
           [formControl]="form.controls.genero"
           sclass="ng-invalid ng-dirty"
-        />
-        <label for="genero">Gênero</label>
+        /> -->
+
+        <select
+          pInputText
+          id="genero"
+          class="col-12"
+          [formControl]="form.controls.genero"
+          sclass=" ng-invalid ng-dirty"
+        >
+          <option></option>
+          <option>Masculino</option>
+          <option>Feminino</option>
+        </select>
+        <label for="genero">Gênero:</label>
       </span>
     </div>
     <div class="col-6 mt-4">
@@ -69,7 +79,7 @@
           [formControl]="form.controls.senha"
           sclass=" ng-invalid ng-dirty"
         />
-        <label for="senha">Senha</label>
+        <label for="senha">Senha:</label>
       </span>
     </div>
     <div class="col-6 mt-4">
@@ -84,7 +94,7 @@
           [formControl]="form.controls.confirmarSenha"
           sclass="ng-invalid ng-dirty"
         />
-        <label for="confirmarSenha">Confirmar Senha</label>
+        <label for="confirmarSenha">Confirmar Senha:</label>
       </span>
     </div>
   </form>

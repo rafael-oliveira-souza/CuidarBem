@@ -13,6 +13,7 @@ import { AvatarGroupModule } from "primeng/avatargroup";
 import { CalendarModule } from "primeng/calendar";
 import { OrderListModule } from "primeng/orderlist";
 import { TableModule } from "primeng/table";
+import { DataViewModule } from "primeng/dataview";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -21,6 +22,8 @@ import { CadastroComponent } from "./componentes/cadastro/cadastro.component";
 import { LoginComponent } from "./componentes/login/login.component";
 import { BarraDeAcoesComponent } from "./componentes/barra-de-acoes/barra-de-acoes.component";
 import { CartaoComponent } from "./componentes/cartao/cartao.component";
+
+//pipes
 import { CepPipe } from "./pipes/cep.pipe";
 import { ContinuePipe } from "./pipes/continue.pipe";
 import { CpfPipe } from "./pipes/cpf.pipe";
@@ -66,6 +69,7 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     CalendarModule,
     OrderListModule,
     TableModule,
+    DataViewModule,
   ],
   exports: [
     FormsModule,
@@ -89,6 +93,7 @@ import { SemInfoPipe } from "./pipes/semInfo.pipe";
     CalendarModule,
     OrderListModule,
     TableModule,
+    DataViewModule,
 
     //pipes
     CpfPipe,

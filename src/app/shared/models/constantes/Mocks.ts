@@ -1,3 +1,4 @@
+import { CategoriaProdutoEnum } from "../enums/CategoriaProdutoEnum";
 import { SituacaoProdutoEnum } from "../enums/SituacaoProdutoEnum";
 
 export const Mocks = {
@@ -24,6 +25,9 @@ export const Mocks = {
       cor: "",
       estoque: 3,
       imagem: "/assets/images/abelha.jpg",
+      situacao: SituacaoProdutoEnum.DISPONIVEL,
+      avaliacao: 2,
+      categoria: CategoriaProdutoEnum.EDUCATIVO,
     },
     {
       id: 2,
@@ -31,8 +35,11 @@ export const Mocks = {
       descricao: "Pula Pula",
       valor: 160,
       imagem: "/assets/images/abelha.jpg",
+      situacao: SituacaoProdutoEnum.DISPONIVEL,
+      categoria: CategoriaProdutoEnum.INFANTIL,
       cor: "",
       estoque: 5,
+      avaliacao: 5,
     },
   ],
 };
