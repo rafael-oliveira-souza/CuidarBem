@@ -1,5 +1,4 @@
-import { StringUtils } from './../../modules/shared/models/constants/StringUtils';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 /**
  * Pipe para formatação de CPF/CNPJ.
@@ -10,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  *
  */
 @Pipe({
-  name: 'cpf',
+  name: "cpf",
 })
 export class CpfPipe implements PipeTransform {
   private readonly _REGEX_CPF = new RegExp(/(\d{3})(\d{3})(\d{3})(\d{2})/);
@@ -20,16 +19,13 @@ export class CpfPipe implements PipeTransform {
 
   transform(valor: any, ...parametros: any[]): any {
     if (valor == null) {
-      return '-';
-    }
-    let cpfFormatado: string = StringUtils.leftPad(valor.toString(), 11, '0');
-
-    if (cpfFormatado) {
-      if (this._REGEX_CPF.test(cpfFormatado)) {
-        return cpfFormatado.replace(this._REGEX_CPF, '$1.$2.$3-$4');
-      }
+      return "-";
     }
 
-    return cpfFormatado;
+    if (this._REGEX_CPF.test(valor)) {
+      return valor.replace(this._REGEX_CPF, "$1.$2.$3-$4");
+    }
+
+    return valor;
   }
 }
