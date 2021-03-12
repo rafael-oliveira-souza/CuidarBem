@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { RotasEnum } from "../shared/models/enums/RotasEnum";
 import { CarrinhoComponent } from "./componentes/compras-carrinho/carrinho.component";
+import { ComprasConclusaoComponent } from "./componentes/compras-conclusao/compras-conclusao.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: RotasEnum.CARRINHO,
     component: CarrinhoComponent,
+  },
+  {
+    path: RotasEnum.CONCLUSAO,
+    component: ComprasConclusaoComponent,
   },
 ];
 

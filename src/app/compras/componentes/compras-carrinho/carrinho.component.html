@@ -1,28 +1,34 @@
 <div>
   <div
-    class="d-flex justify-content-between align-items-center bg-carrinho text-light p-5"
+    class="d-flex justify-content-between align-items-center bg-carrinho text-light p-3"
   >
-    <div>
-      <img
-        height="50%"
-        width="50%"
-        src="../../../../assets/images/crescer.png"
-      />
+    <div class="form-inline">
       <h1>Meu Carrinho</h1>
+      <!-- <img
+        height="15%"
+        width="15%"
+        src="../../../../assets/images/crescer.png"
+      /> -->
       <!-- <i class="pi pi-arrow-left"></i> -->
     </div>
     <h3>Finalizar compra</h3>
   </div>
 
-  <div class="container-fluid mt-5">
-    <p-table [value]="produtos" styleClass="tabela-carrinho ">
+  <div class="container-fluid mb-2">
+    <p-table
+      [value]="objetoEnvio.produtos"
+      styleClass="tabela-carrinho "
+      [scrollable]="true"
+      scrollHeight="60vh"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Imagem</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
+          <!-- <th>Nome</th> -->
+          <th colspan="3">Descrição</th>
+          <!-- <th>Categoria</th> -->
           <th>Estoque</th>
+          <th>Prazo de Locação</th>
           <th>Valor</th>
           <th>Quantidade</th>
         </tr>
@@ -37,13 +43,31 @@
               class="p-shadow-4"
             />
           </td>
-          <td>{{ produto.nome }}</td>
-          <td>{{ produto.descricao }}</td>
-          <td>
-            {{ getNomeCategoria(produto.categoria) | titlecase }}
+          <!-- <td>{{ produto.nome }}</td> -->
+          <td colspan="3">
+            <p>
+              {{ produto.nome }} -
+              {{ getNomeCategoria(produto.categoria) | titlecase }} -
+              {{ produto.descricao | continue: 100 }}
+            </p>
           </td>
-          <td>{{ produto.quantidade }}</td>
-          <td>{{ produto.valor | moeda }}</td>
+          <!-- <td>
+            {{ getNomeCategoria(produto.categoria) | titlecase }}
+          </td> -->
+          <td>{{ produto.estoque }}</td>
+          <td>
+            <select
+              pInputText
+              class="col-12"
+              (change)="definirValorDesconto($event.target.value, produto)"
+            >
+              <option value="1">15 Dias</option>
+              <option value="2">30 Dias</option>
+              <option value="3">60 Dias</option>
+              <option value="4">90 Dias</option>
+            </select>
+          </td>
+          <td>{{ getValor(produto) | moeda }}</td>
           <td>
             <span>
               <p-inputNumber
@@ -59,34 +83,37 @@
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="summary">
-        <div class="d-flex justify-content-between">
-          <span> Total de produtos: {{ produtos ? produtos.length : 0 }} </span>
-          <span> Valor total: {{ getTotal() | moeda }} </span>
-        </div>
-      </ng-template>
     </p-table>
   </div>
 
-  <!-- <app-footer> -->
-  <span class="p-4 float-right form-inline mt-5">
-    <button
-      pButton
-      style="opacity: 0.9"
-      type="button"
-      label="Continuar Comprando"
-      icon="pi pi-shopping-cart"
-      (click)="continuarComprando()"
-      class="p-button-sm p-button-warning mr-2 text-light"
-    ></button>
-    <button
-      pButton
-      type="button"
-      label="Finalizar Compra"
-      icon="pi pi-dollar"
-      (click)="finalizarCompra()"
-      class="p-button-sm p-button-success mr-2 text-light"
-    ></button>
-  </span>
-  <!-- </app-footer> -->
+  <app-footer>
+    <div class="bg-light mt-3">
+      <div class="d-flex justify-content-between bg-carrinho text-light p-2">
+        <span>
+          Total de produtos:
+          {{ objetoEnvio.produtos ? objetoEnvio.produtos.length : 0 }}
+        </span>
+        <span> Valor total: {{ valorTotal | moeda }} </span>
+      </div>
+      <span class="p-4 float-right form-inline">
+        <button
+          pButton
+          style="opacity: 0.9"
+          type="button"
+          label="Continuar Comprando"
+          icon="pi pi-shopping-cart"
+          (click)="continuarComprando()"
+          class="p-button-sm p-button-warning mr-2 text-light"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Finalizar Compra"
+          icon="pi pi-dollar"
+          (click)="finalizarCompra()"
+          class="p-button-sm p-button-success mr-2 text-light"
+        ></button>
+      </span>
+    </div>
+  </app-footer>
 </div>

@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 
 @Component({
   selector: "app-scroll",
@@ -6,13 +13,22 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrls: ["./scroll.component.scss"],
 })
 export class ScrollComponent implements OnInit {
+  @ViewChild("scrollFilho") scrollFilho: ElementRef;
+
   @Input("altura")
-  public altura: string = "100%";
+  public altura: string;
 
   @Input("largura")
   public largura: string = "100%";
 
-  constructor() {}
+  constructor(private cdref: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+    if (!this.altura) {
+      this.altura = this.scrollFilho.nativeElement.clientHeight + "px";
+    }
+  }
 }

@@ -1,17 +1,16 @@
 import { SituacaoProdutoEnum } from "../enums/SituacaoProdutoEnum";
 
 export class Produto {
-  id: number;
-  imagem: string;
-  descricao: string;
-  nome: string;
-  valor: number;
-  estoque: number;
-  cor: string;
-  avaliacao: number = 5;
-  categoria: number;
-  quantidade: number = 0;
-  situacao: number = SituacaoProdutoEnum.DISPONIVEL;
-
-  constructor() {}
+  public id: number = null;
+  public imagem: string = null;
+  public descricao: string = null;
+  public nome: string = null;
+  public valor: number = null;
+  public valorDesconto: number = 0;
+  public estoque: number = null;
+  public avaliacao: number = 5;
+  public faixaEtaria: number = 0;
+  public quantidade: number = 0;
+  public categoria: number = null;
+  public situacao: number = SituacaoProdutoEnum.DISPONIVEL;
 }

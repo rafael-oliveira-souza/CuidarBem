@@ -1,7 +1,36 @@
 <div class="container-fluid">
-  <div class="row justify-content-start">
-    <div *ngFor="let produto of produtos" class="col-4 mt-4">
-      <app-produto [produto]="produto"></app-produto>
+  <div class="d-flex justify-content-between">
+    <div class="col-3 mt-2 texto-azul borda-azul">
+      <app-home-produtos-pesquisa
+        [produtos]="produtosBackup"
+        (filtroProdutos)="filtrarProdutos($event)"
+      ></app-home-produtos-pesquisa>
+    </div>
+    <div class="col">
+      <app-scroll altura="76vh">
+        <div class="row justify-content-start p-4">
+          <div *ngFor="let produto of produtos" class="col-4">
+            <div class="mb-4">
+              <app-produto
+                [produto]="produto"
+                (adicionarCarrinnho)="adicionarCarrinnho($event)"
+                (irParaDetalhamento)="irParaDetalhamento($event)"
+              ></app-produto>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+          <p-paginator
+            *ngIf="produtos.length > 0; else elseBlock"
+            [rows]="maxItems"
+            [totalRecords]="produtosFiltrados.length"
+            (onPageChange)="paginar($event.first)"
+          ></p-paginator>
+          <ng-template #elseBlock>
+            <h2 class="mt-5">Nenhum item encontrado.</h2>
+          </ng-template>
+        </div>
+      </app-scroll>
     </div>
   </div>
 </div>

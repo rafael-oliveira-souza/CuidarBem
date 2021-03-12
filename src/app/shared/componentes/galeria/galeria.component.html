@@ -1,0 +1,42 @@
+<p-galleria
+  [(value)]="imagens"
+  [(visible)]="exibeImagem"
+  [(activeIndex)]="indice"
+  [responsiveOptions]="responsiveOptions"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+  [baseZIndex]="100000"
+>
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item" style="width: 100%; display: block" />
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="p-grid p-nogutter p-justify-center">
+      <img [src]="item" style="display: block" />
+    </div>
+  </ng-template>
+</p-galleria>
+<div *ngIf="imagens" class="row justify-content-between">
+  <div class="col-12 mt-2 borda-img text-center" key="index">
+    <img
+      [ngStyle]="{ maxWidth: '100%' }"
+      [src]="imagens[0]"
+      style="cursor: pointer"
+      (click)="abrirImagem(0)"
+    />
+  </div>
+  <div
+    *ngFor="let image of imagens.slice(0, 4); let index = index"
+    class="col-12 col-sm-12 col-md-5 col-lg-6 col-xl-6 mt-2 borda-img text-center"
+    key="index"
+  >
+    <img
+      [ngStyle]="{ maxWidth: '100%' }"
+      [src]="image"
+      style="cursor: pointer"
+      (click)="abrirImagem(index)"
+    />
+  </div>
+</div>

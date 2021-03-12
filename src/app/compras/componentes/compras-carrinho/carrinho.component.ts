@@ -1,9 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { Mocks } from "src/app/shared/models/constantes/Mocks";
 import { ProdutoUtilsConstants } from "src/app/shared/models/constantes/ProdutoUtilsConstante";
+import { StorageUtilsConstante } from "src/app/shared/models/constantes/StorageUtilsConstante";
+import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
+import { AlertaService } from "src/app/shared/servicos/alerta.service";
+import { StorageService } from "src/app/shared/servicos/storage.service";
 
 @Component({
   selector: "app-carrinho",
@@ -11,31 +17,55 @@ import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
   styleUrls: ["./carrinho.component.scss"],
 })
 export class CarrinhoComponent implements OnInit {
-  public produtos: Array<Produto> = [];
+  public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
+  public valorTotal: number = 0;
 
-  constructor(private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _storageService: StorageService,
+    private _alertaService: AlertaService
+  ) {}
 
   ngOnInit(): void {
-    this.produtos = Mocks.Produtos;
+    // this.produtos = Mocks.Produtos;
+    this.carregarCarrinho();
   }
 
-  public getTotal(): number {
-    let total: number = 0;
+  public carregarCarrinho(): void {
+    this._storageService
+      .getItem<ObjetoEnvio>(StorageEnum.OBJETO_ENVIO)
+      .subscribe((objEnvio: ObjetoEnvio) => {
+        if (objEnvio != null) {
+          this.objetoEnvio = objEnvio;
+          this.getValorTotal();
+        }
+      });
+  }
 
-    this.produtos.forEach((prod) => {
-      total += prod.valor * prod.quantidade;
-    });
+  public definirValorDesconto(valor: number, produto: Produto) {
+    // produto.valorDesconto = valor * produto.valor * Mocks.Descontos[0];
+  }
 
-    return total;
+  public getValor(produto: Produto) {
+    return produto.valor - produto.valorDesconto;
+  }
+
+  public getValorTotal() {
+    this.valorTotal = ProdutoUtilsConstants.getValorTotalProdutos(
+      this.objetoEnvio.produtos
+    );
   }
 
   public atualizarQuantidade(value: number, produto: Produto) {
-    let valor = 0;
     if (value) {
-      valor = value > produto.estoque ? produto.estoque : value;
+      produto.quantidade = value > produto.estoque ? produto.estoque : value;
     }
 
-    value = valor;
+    this.getValorTotal();
+    this._storageService.setItem<ObjetoEnvio>(
+      StorageEnum.OBJETO_ENVIO,
+      this.objetoEnvio
+    );
   }
 
   public getNomeCategoria(categoria: number) {
@@ -49,8 +79,14 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public continuarComprando() {
-    this._router.navigate([RotasEnum.HOME, RotasEnum.PRODUTOS]);
+    this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
   }
 
-  public finalizarCompra() {}
+  public finalizarCompra() {
+    if (this.valorTotal <= 0) {
+      this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
+    } else {
+      this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);
+    }
+  }
 }

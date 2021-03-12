@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { RotasEnum } from "../../models/enums/RotasEnum";
+import { HeaderService } from "../../servicos/header.service";
 
 @Component({
   selector: "app-header",
@@ -12,15 +13,20 @@ export class HeaderComponent implements OnInit {
   public exibeBarraAcao: boolean = true;
 
   public items: { titulo: string; rota: string; selecionado: boolean }[] = [
-    { titulo: "Produtos", rota: RotasEnum.PRODUTOS, selecionado: true },
+    { titulo: "Loja", rota: RotasEnum.LOJA, selecionado: true },
+    { titulo: "Promoções", rota: RotasEnum.PROMOCOES, selecionado: false },
+    { titulo: "Novidades", rota: RotasEnum.NOVIDADES, selecionado: false },
     { titulo: "Quem Somos", rota: RotasEnum.QUEM_SOMOS, selecionado: false },
-    { titulo: "Dúvidas", rota: RotasEnum.DUVIDAS, selecionado: false },
-    { titulo: "Contato", rota: RotasEnum.COMPRAS, selecionado: false },
+    { titulo: "Contato", rota: RotasEnum.CONTATO, selecionado: false },
   ];
 
   public selecionado: number = 0;
 
-  constructor(private _router: Router, private _route: ActivatedRoute) {}
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _headerService: HeaderService
+  ) {}
 
   ngOnInit(): void {
     this.items.forEach(
@@ -39,5 +45,9 @@ export class HeaderComponent implements OnInit {
     this._router.navigate([item.rota], {
       relativeTo: this._route,
     });
+  }
+
+  setValorPesquisa(valorPesquisa = "") {
+    this._headerService.setValorPesquisa(valorPesquisa);
   }
 }

@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { Produto } from "../../models/classes/Produto";
 import { ProdutoUtilsConstants } from "../../models/constantes/ProdutoUtilsConstante";
-import { RotasEnum } from "../../models/enums/RotasEnum";
 import { SituacaoProdutoEnum } from "../../models/enums/SituacaoProdutoEnum";
 
 @Component({
@@ -13,6 +12,12 @@ import { SituacaoProdutoEnum } from "../../models/enums/SituacaoProdutoEnum";
 export class ProdutoComponent implements OnInit {
   @Input("produto")
   public produto: Produto = new Produto();
+
+  @Output()
+  public adicionarCarrinnho = new EventEmitter<Produto>();
+
+  @Output()
+  public irParaDetalhamento = new EventEmitter<Produto>();
 
   public situacaoIndisponivel = SituacaoProdutoEnum.INDISPONIVEL;
 
@@ -30,7 +35,16 @@ export class ProdutoComponent implements OnInit {
     return ProdutoUtilsConstants.getCorSituacaoEstoque(situacao);
   }
 
-  public irParaCarrinho() {
-    this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CARRINHO]);
+  public addCarrinho() {
+    this.adicionarCarrinnho.emit(this.produto);
+  }
+
+  public goSaibaMais() {
+    this.irParaDetalhamento.emit(this.produto);
+    // this._router.navigate([
+    //   RotasEnum.HOME,
+    //   RotasEnum.PRODUTOS,
+    //   RotasEnum.DESCRICAO,
+    // ]);
   }
 }

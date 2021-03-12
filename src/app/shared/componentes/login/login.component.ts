@@ -3,7 +3,11 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { ObjetoEnvio } from "../../models/classes/ObjetoEnvio";
 import { MessagesConstante } from "../../models/constantes/MessagesConstante";
+import { StorageUtilsConstante } from "../../models/constantes/StorageUtilsConstante";
+import { StorageEnum } from "../../models/enums/StorageEnum";
+import { StorageService } from "../../servicos/storage.service";
 import { CadastroComponent } from "../cadastro/cadastro.component";
 
 @Component({
@@ -22,7 +26,8 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _builder: FormBuilder,
     private _dialogService: DialogService,
-    private _ref: DynamicDialogRef
+    private _ref: DynamicDialogRef,
+    private _storageService: StorageService
   ) {
     this.setForm();
   }
@@ -47,9 +52,17 @@ export class LoginComponent implements OnInit {
     this.exibeSenha = !this.exibeSenha;
   }
 
+  public instanciarObjetoEnvio() {
+    this._storageService.setItem<ObjetoEnvio>(
+      StorageEnum.OBJETO_ENVIO,
+      new ObjetoEnvio()
+    );
+  }
+
   public logIn() {
     if (this.form.valid) {
       this.msgErro = null;
+      this.instanciarObjetoEnvio();
       this._router.navigate([RotasEnum.HOME]);
     } else {
       if (this.form.controls.email.errors) {

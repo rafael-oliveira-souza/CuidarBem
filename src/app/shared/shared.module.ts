@@ -19,6 +19,13 @@ import { RatingModule } from "primeng/rating";
 import { BadgeModule } from "primeng/badge";
 import { ScrollPanelModule } from "primeng/scrollpanel";
 import { InputNumberModule } from "primeng/inputnumber";
+import { ToastModule } from "primeng/toast";
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { CheckboxModule } from "primeng/checkbox";
+import { ProgressBarModule } from "primeng/progressbar";
+import { SliderModule } from "primeng/slider";
+import { PaginatorModule } from "primeng/paginator";
+import { GalleriaModule } from "primeng/galleria";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -39,6 +46,9 @@ import { GeneroPipe } from "./pipes/genero.pipe";
 import { MoedaPipe } from "./pipes/moeda.pipe";
 import { SemInfoPipe } from "./pipes/semInfo.pipe";
 import { ScrollComponent } from "./componentes/scroll/scroll.component";
+import { PagamentoComponent } from "../home/componentes/pagamento/pagamento.component";
+import { GaleriaComponent } from "./componentes/galeria/galeria.component";
+import { HomeProdutosSaibaMaisComponent } from "../home/componentes/home-produtos-saiba-mais/home-produtos-saiba-mais.component";
 
 @NgModule({
   declarations: [
@@ -50,6 +60,9 @@ import { ScrollComponent } from "./componentes/scroll/scroll.component";
     BarraDeAcoesComponent,
     CartaoComponent,
     ProdutoComponent,
+    ScrollComponent,
+    PagamentoComponent,
+    GaleriaComponent,
 
     //pipes
     CpfPipe,
@@ -60,8 +73,6 @@ import { ScrollComponent } from "./componentes/scroll/scroll.component";
     GeneroPipe,
     CepPipe,
     SemInfoPipe,
-    ProdutoComponent,
-    ScrollComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +96,13 @@ import { ScrollComponent } from "./componentes/scroll/scroll.component";
     BadgeModule,
     ScrollPanelModule,
     InputNumberModule,
+    ToastModule,
+    AutoCompleteModule,
+    CheckboxModule,
+    ProgressBarModule,
+    SliderModule,
+    PaginatorModule,
+    GalleriaModule,
   ],
   exports: [
     FormsModule,
@@ -99,6 +117,8 @@ import { ScrollComponent } from "./componentes/scroll/scroll.component";
     BarraDeAcoesComponent,
     ProdutoComponent,
     ScrollComponent,
+    PagamentoComponent,
+    GaleriaComponent,
 
     //pipes
     CpfPipe,
@@ -126,6 +146,13 @@ import { ScrollComponent } from "./componentes/scroll/scroll.component";
     BadgeModule,
     ScrollPanelModule,
     InputNumberModule,
+    ToastModule,
+    AutoCompleteModule,
+    CheckboxModule,
+    ProgressBarModule,
+    SliderModule,
+    PaginatorModule,
+    GalleriaModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent],
   providers: [DialogService],

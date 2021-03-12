@@ -1,3 +1,8 @@
-<p-scrollPanel [style]="{ width: largura, height: altura }" styleClass="custom">
-  <ng-content></ng-content>
+<p-scrollPanel
+  [ngStyle]="{ width: largura, height: altura }"
+  styleClass="custom"
+>
+  <div #scrollFilho>
+    <ng-content></ng-content>
+  </div>
 </p-scrollPanel>

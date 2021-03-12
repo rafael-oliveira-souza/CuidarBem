@@ -1,1 +1,9 @@
 @import "../../../../estilos/cores.scss";
+
+.texto-azul {
+  color: $azul;
+}
+
+.borda-azul {
+  border-right: 5px solid $azul;
+}

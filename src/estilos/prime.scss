@@ -1,0 +1,29 @@
+@import "./cores.scss";
+
+.p-badge.p-badge-success {
+  background: $verde !important;
+  color: $branco !important;
+}
+
+.p-badge.p-badge-warning {
+  background: $laranja !important;
+  color: $branco !important;
+}
+.p-badge.p-badge-danger {
+  background: $vermelho !important;
+  color: $branco !important;
+}
+
+.p-rating .p-rating-icon.pi-star {
+  color: $azul;
+}
+
+.p-inputtext.p-component {
+  font-family: fredoka, sans-serif;
+}
+
+button {
+  .p-paginator-page {
+    background: blue;
+  }
+}

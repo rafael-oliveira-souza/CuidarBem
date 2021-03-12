@@ -1,0 +1,53 @@
+<div>
+  <h2>Pesquise seu produto</h2>
+  <div class="col">
+    <span class="p-input-icon-right">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        placeholder="Pesquise um produto"
+        (keyup)="filtrarProdutos($event.target.value)"
+      />
+    </span>
+  </div>
+  <div>
+    <h4 class="mt-4">Categoria</h4>
+    <div *ngFor="let cat of categorias">
+      <p-checkbox
+        name="groupname"
+        (onChange)="filtrarPorCategoria()"
+        [value]="cat.id"
+        [label]="cat.nome"
+        [(ngModel)]="categoriasSelecionadas"
+      ></p-checkbox>
+    </div>
+  </div>
+  <div>
+    <h4 class="mt-4 mb-3">Preço</h4>
+    <p-slider
+      (onChange)="filtrarPorPreco()"
+      [(ngModel)]="faixaValores"
+      [range]="true"
+      [min]="0"
+      [max]="500"
+    ></p-slider>
+    <div class="text-center">
+      <small>
+        {{ faixaValores[0] | moeda }} - {{ faixaValores[1] | moeda }}
+      </small>
+    </div>
+  </div>
+  <div class="mb-5">
+    <h4 class="mt-4">Faixa etária</h4>
+    <div *ngFor="let faixa of faixas">
+      <p-checkbox
+        name="groupname"
+        (onChange)="filtrarPorFaixaEtaria()"
+        [value]="faixa.id"
+        [label]="faixa.nome"
+        [(ngModel)]="faixasSelecionadas"
+      ></p-checkbox>
+    </div>
+  </div>
+</div>

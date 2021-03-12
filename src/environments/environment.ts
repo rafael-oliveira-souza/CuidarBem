@@ -1,9 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { environment as prod } from "./environment.prod";
 
 export const environment = {
-  production: false
+  production: false,
+  paypalClient: prod.paypalClient,
 };
 
 /*

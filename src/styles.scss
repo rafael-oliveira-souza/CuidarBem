@@ -2,6 +2,7 @@
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "./estilos/cores.scss";
+@import "./estilos/prime.scss";
 
 @font-face {
   font-family: fredoka;
@@ -44,4 +45,24 @@ h5 {
 
 h6 {
   font-size: 12px;
+}
+
+.cor-azul {
+  color: $azul;
+}
+
+.cor-amarela {
+  color: $amarelo;
+}
+.cor-vermelha {
+  color: $vermelho;
+}
+.cor-verde {
+  color: $verde;
+}
+.cor-roxa {
+  color: $roxo;
+}
+.cor-laranja {
+  color: $laranja;
 }

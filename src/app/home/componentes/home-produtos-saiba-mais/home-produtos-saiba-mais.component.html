@@ -1,0 +1,57 @@
+<div class="container-fluid cor-detalhe" #detalhe>
+  <div class="d-flex justify-content-between">
+    <div class="col-4">
+      <app-galeria></app-galeria>
+    </div>
+    <div class="col">
+      <div class="">
+        <span class="col-12 p-4">
+          <div class="d-flex justify-content-between">
+            <div class="cor-azul">
+              <i class="pi pi-tag"></i>
+              <span>{{ getNomeCategoria(produto.categoria) | titlecase }}</span>
+            </div>
+            <p-badge
+              [value]="getSituacaoEstoque(produto.situacao)"
+              [severity]="getCorSituacaoEstoque(produto.situacao)"
+            ></p-badge>
+          </div>
+          <app-scroll altura="110px">
+            <h1 class="text-center cor-laranja">{{ produto.nome }}</h1>
+            <p class="text-justify mt-5">Descrição: {{ produto.descricao }}</p>
+            <!-- <p>Situação : {{ getSituacaoEstoque(produto.situacao) }}</p> -->
+            <!-- <p>Categoria: {{ getNomeCategoria(produto.categoria) }}</p> -->
+            <p class="float-left">Faixa Etária: {{ produto.faixaEtaria }}</p>
+            <p class="float-right">Valor: {{ produto.valor | moeda }}</p>
+          </app-scroll>
+        </span>
+        <app-footer class="p-3 row justify-content-between">
+          <span class="col-12">
+            Prazo de Locação:
+            <select
+              class="ml-3 mt-2 mb-2"
+              pInputText
+              [disabled]="produtoIndisponivel"
+            >
+              <!-- <option value="">15 Dias</option> -->
+              <option value="1">15 Dias</option>
+              <option value="2">30 Dias</option>
+              <option value="3">60 Dias</option>
+              <option value="4">90 Dias</option>
+            </select>
+          </span>
+          <div class="col mt-2">
+            <button
+              pButton
+              type="button"
+              label="Alugar"
+              icon="pi pi-shopping-cart"
+              (click)="continuarComprando()"
+              class="p-button-sm p-button-warning mr-2 text-light col-6"
+            ></button>
+          </div>
+        </app-footer>
+      </div>
+    </div>
+  </div>
+</div>

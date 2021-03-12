@@ -1,3 +1,4 @@
+import { Produto } from "../classes/Produto";
 import { CategoriaProdutoEnum } from "../enums/CategoriaProdutoEnum";
 import { SituacaoProdutoEnum } from "../enums/SituacaoProdutoEnum";
 import { EnumUtilsConstants } from "./EnumUtilsConstante";
@@ -19,5 +20,15 @@ export const ProdutoUtilsConstants = {
     } else {
       return "warning";
     }
+  },
+
+  getValorTotalProdutos(produtos: Array<Produto>): number {
+    let total: number = 0;
+
+    produtos.forEach((prod) => {
+      total += prod.valor * prod.quantidade - prod.valorDesconto;
+    });
+
+    return total;
   },
 };
