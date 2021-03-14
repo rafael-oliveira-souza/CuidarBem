@@ -1,5 +1,5 @@
-<div class="borda">
-  <p-card styleClass="p-4">
+<div class="">
+  <p-card styleClass="p-4 ">
     <ng-template pTemplate="header">
       <div class="row justify-content-between">
         <div class="cor-azul">
@@ -25,8 +25,8 @@
           size="xlarge"
         ></p-avatar>
         <h3 class="col-12">{{ produto.nome }}</h3>
-        <small class="col-12">{{ produto.descricao | continue: 100 }}</small
-        ><br /><br /><br />
+        <small class="col-12">{{ produto.descricao | continue: 100 }}</small>
+        <br /><br />
         <p-rating
           readonly="true"
           [cancel]="false"

@@ -22,8 +22,26 @@
   font-family: fredoka, sans-serif;
 }
 
-button {
-  .p-paginator-page {
-    background: blue;
+.p-panel-header {
+  background: $azul !important;
+  color: $branco !important;
+
+  span.pi.pi-minus {
+    color: $branco !important;
   }
+  span.pi.pi-plus {
+    color: $branco !important;
+  }
+}
+
+.p-dialog-header span.p-dialog-title {
+  color: $azul;
+}
+
+button.p-confirm-dialog-reject.p-button {
+  background: $vermelho;
+}
+
+button.p-confirm-dialog-accept.p-button {
+  background: $verde;
 }

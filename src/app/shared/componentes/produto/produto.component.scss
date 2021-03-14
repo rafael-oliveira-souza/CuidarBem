@@ -5,11 +5,16 @@
 }
 
 .borda {
-  box-shadow: inset 0 0 10px, 0 0 10px;
+  min-height: 600px;
+  // box-shadow: inset 0 0 10px, 0 0 10px;
 }
 
 :host ::ng-deep {
   span.p-badge {
     color: $branco;
+  }
+
+  div.p-4.p-card.p-component {
+    min-height: 500px;
   }
 }

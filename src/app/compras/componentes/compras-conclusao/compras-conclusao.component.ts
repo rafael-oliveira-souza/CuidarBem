@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
-import { ProdutoUtilsConstants } from "src/app/shared/models/constantes/ProdutoUtilsConstante";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
+import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 
 @Component({
@@ -20,7 +20,8 @@ export class ComprasConclusaoComponent implements OnInit {
   constructor(
     private _router: Router,
     private _storageService: StorageService,
-    private _alertaService: AlertaService
+    private _alertaService: AlertaService,
+    private _produtoService: ProdutoService
   ) {}
 
   ngOnInit(): void {
@@ -43,10 +44,8 @@ export class ComprasConclusaoComponent implements OnInit {
   }
 
   public getValorPagamento() {
-    this.valorPagamento = ProdutoUtilsConstants.getValorTotalProdutos(
+    this.valorPagamento = this._produtoService.getValorTotalProdutos(
       this.objetoEnvio.produtos
     );
-
-    console.log(this.valorPagamento);
   }
 }

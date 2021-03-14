@@ -1,17 +1,21 @@
 <div class="container-fluid cor-detalhe" #detalhe>
-  <div class="d-flex justify-content-between">
-    <div class="col-4">
-      <app-galeria></app-galeria>
+  <div class="row justify-content-between">
+    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+      <app-galeria [imagens]="imagens"></app-galeria>
+      <img class="mt-5" height="80" src="/assets/images/crescer.png" />
     </div>
     <div class="col">
       <div class="">
         <span class="col-12 p-4">
-          <div class="d-flex justify-content-between">
-            <div class="cor-azul">
+          <div class="row justify-content-between mb-5">
+            <div
+              class="col-12 col-sm-12 col-md-6 col-ls-6 col-xs-6 text-left cor-azul"
+            >
               <i class="pi pi-tag"></i>
               <span>{{ getNomeCategoria(produto.categoria) | titlecase }}</span>
             </div>
             <p-badge
+              class="col text-right"
               [value]="getSituacaoEstoque(produto.situacao)"
               [severity]="getCorSituacaoEstoque(produto.situacao)"
             ></p-badge>
@@ -21,36 +25,42 @@
             <p class="text-justify mt-5">Descrição: {{ produto.descricao }}</p>
             <!-- <p>Situação : {{ getSituacaoEstoque(produto.situacao) }}</p> -->
             <!-- <p>Categoria: {{ getNomeCategoria(produto.categoria) }}</p> -->
-            <p class="float-left">Faixa Etária: {{ produto.faixaEtaria }}</p>
-            <p class="float-right">Valor: {{ produto.valor | moeda }}</p>
+            <div class="row justify-content-between mt-5 text-center">
+              <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
+                Faixa Etária: {{ produto.faixaEtaria }} ano(s)
+              </p>
+              <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
+                Valor: {{ getValor() | moeda }}
+              </p>
+            </div>
           </app-scroll>
         </span>
-        <app-footer class="p-3 row justify-content-between">
-          <span class="col-12">
+        <div class="mt-2 p-3 row justify-content-between">
+          <span class="col-12 text-center">
             Prazo de Locação:
             <select
               class="ml-3 mt-2 mb-2"
               pInputText
+              [(ngModel)]="produto.pacote"
+              [value]="produto.pacote"
               [disabled]="produtoIndisponivel"
             >
-              <!-- <option value="">15 Dias</option> -->
-              <option value="1">15 Dias</option>
-              <option value="2">30 Dias</option>
-              <option value="3">60 Dias</option>
-              <option value="4">90 Dias</option>
+              <option *ngFor="let pacote of pacotes" [value]="pacote.id">
+                {{ pacote.quantidadeDias }} dias
+              </option>
             </select>
           </span>
-          <div class="col mt-2">
+          <div class="col mt-2 text-center">
             <button
               pButton
               type="button"
               label="Alugar"
               icon="pi pi-shopping-cart"
               (click)="continuarComprando()"
-              class="p-button-sm p-button-warning mr-2 text-light col-6"
+              class="p-button-sm p-button-warning mr-2 text-light col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6"
             ></button>
           </div>
-        </app-footer>
+        </div>
       </div>
     </div>
   </div>

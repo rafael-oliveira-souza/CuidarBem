@@ -7,8 +7,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import localePt from "@angular/common/locales/pt";
 import { registerLocaleData } from "@angular/common";
-import { DialogService } from "primeng/dynamicdialog";
-import { MessageService } from "primeng/api";
 import { SharedModule } from "./shared/shared.module";
 
 registerLocaleData(localePt);
@@ -21,11 +19,7 @@ registerLocaleData(localePt);
     BrowserAnimationsModule,
     SharedModule,
   ],
-  providers: [
-    DialogService,
-    MessageService,
-    { provide: LOCALE_ID, useValue: "pt" },
-  ],
+  providers: [{ provide: LOCALE_ID, useValue: "pt" }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

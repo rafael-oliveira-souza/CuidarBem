@@ -18,22 +18,26 @@
     </div>
   </ng-template>
 </p-galleria>
-<div *ngIf="imagens" class="row justify-content-between">
-  <div class="col-12 mt-2 borda-img text-center" key="index">
+<div *ngIf="imagens" class="col-12 row justify-content-between">
+  <!-- <div class="col-12 row justify-content-center"> -->
+  <div class="col-12 mt-2 mt-2 borda-img text-center" key="index">
     <img
-      [ngStyle]="{ maxWidth: '100%' }"
+      [ngStyle]="{ maxWidth: '100%', height: altura }"
       [src]="imagens[0]"
       style="cursor: pointer"
       (click)="abrirImagem(0)"
     />
   </div>
   <div
-    *ngFor="let image of imagens.slice(0, 4); let index = index"
-    class="col-12 col-sm-12 col-md-5 col-lg-6 col-xl-6 mt-2 borda-img text-center"
+    *ngFor="
+      let image of imagens.slice(0, this.maxImages - 1);
+      let index = index
+    "
+    class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-2 borda-img text-center"
     key="index"
   >
     <img
-      [ngStyle]="{ maxWidth: '100%' }"
+      [ngStyle]="{ maxWidth: '100%', height: altura }"
       [src]="image"
       style="cursor: pointer"
       (click)="abrirImagem(index)"

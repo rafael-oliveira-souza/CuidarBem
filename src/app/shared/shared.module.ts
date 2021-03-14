@@ -26,6 +26,8 @@ import { ProgressBarModule } from "primeng/progressbar";
 import { SliderModule } from "primeng/slider";
 import { PaginatorModule } from "primeng/paginator";
 import { GalleriaModule } from "primeng/galleria";
+import { PanelModule } from "primeng/panel";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -35,6 +37,9 @@ import { LoginComponent } from "./componentes/login/login.component";
 import { BarraDeAcoesComponent } from "./componentes/barra-de-acoes/barra-de-acoes.component";
 import { CartaoComponent } from "./componentes/cartao/cartao.component";
 import { ProdutoComponent } from "./componentes/produto/produto.component";
+import { ScrollComponent } from "./componentes/scroll/scroll.component";
+import { PagamentoComponent } from "../home/componentes/pagamento/pagamento.component";
+import { GaleriaComponent } from "./componentes/galeria/galeria.component";
 
 //pipes
 import { CepPipe } from "./pipes/cep.pipe";
@@ -45,10 +50,7 @@ import { EnderecoPipe } from "./pipes/endereco.pipe";
 import { GeneroPipe } from "./pipes/genero.pipe";
 import { MoedaPipe } from "./pipes/moeda.pipe";
 import { SemInfoPipe } from "./pipes/semInfo.pipe";
-import { ScrollComponent } from "./componentes/scroll/scroll.component";
-import { PagamentoComponent } from "../home/componentes/pagamento/pagamento.component";
-import { GaleriaComponent } from "./componentes/galeria/galeria.component";
-import { HomeProdutosSaibaMaisComponent } from "../home/componentes/home-produtos-saiba-mais/home-produtos-saiba-mais.component";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -103,6 +105,8 @@ import { HomeProdutosSaibaMaisComponent } from "../home/componentes/home-produto
     SliderModule,
     PaginatorModule,
     GalleriaModule,
+    PanelModule,
+    ConfirmDialogModule,
   ],
   exports: [
     FormsModule,
@@ -153,8 +157,10 @@ import { HomeProdutosSaibaMaisComponent } from "../home/componentes/home-produto
     SliderModule,
     PaginatorModule,
     GalleriaModule,
+    PanelModule,
+    ConfirmDialogModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent],
-  providers: [DialogService],
+  providers: [DialogService, ConfirmationService, MessageService],
 })
 export class SharedModule {}

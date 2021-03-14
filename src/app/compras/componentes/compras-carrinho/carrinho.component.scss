@@ -4,6 +4,12 @@
   background: $azul;
 }
 
+.font-icone {
+  font-size: 25px;
+  color: $azul;
+  cursor: pointer;
+}
+
 .borda-carrinho {
   border: 1px solid $azul;
   margin-top: 10px;
@@ -23,5 +29,52 @@
   .p-datatable-thead > tr {
     background: $verde;
     color: $branco;
+  }
+}
+
+:host ::ng-deep {
+  .tabela-carrinho .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 50rem) {
+  .detalheCarrinhoSm {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 50rem) {
+  :host ::ng-deep {
+    .p-datatable {
+      &.tabela-carrinho {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+          display: none !important;
+        }
+
+        .p-datatable-tbody > tr > td {
+          display: none !important;
+          // display: flex;
+          // flex-direction: row;
+          // flex-wrap: nowrap;
+          // text-align: left;
+          // // clear: left;
+          // border: 0 none;
+
+          // .p-column-title {
+          //   padding: 0.4rem;
+          //   min-width: 30%;
+          //   display: inline-block;
+          //   margin: -0.4em 1em -0.4em -0.4rem;
+          //   font-weight: bold;
+          // }
+
+          // &:last-child {
+          //   border-bottom: 1px solid var(--surface-d);
+          // }
+        }
+      }
+    }
   }
 }

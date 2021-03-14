@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { Produto } from "../../models/classes/Produto";
-import { ProdutoUtilsConstants } from "../../models/constantes/ProdutoUtilsConstante";
 import { SituacaoProdutoEnum } from "../../models/enums/SituacaoProdutoEnum";
+import { ProdutoService } from "../../servicos/produto.service";
 
 @Component({
   selector: "app-produto",
@@ -21,18 +21,21 @@ export class ProdutoComponent implements OnInit {
 
   public situacaoIndisponivel = SituacaoProdutoEnum.INDISPONIVEL;
 
-  constructor(private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _produtoService: ProdutoService
+  ) {}
 
   ngOnInit(): void {}
 
   public getNomeCategoria(categoria: number) {
-    return ProdutoUtilsConstants.getNomeCategoria(categoria);
+    return this._produtoService.getNomeCategoria(categoria);
   }
   public getSituacaoEstoque(situacao: number) {
-    return ProdutoUtilsConstants.getSituacaoEstoque(situacao);
+    return this._produtoService.getSituacaoEstoque(situacao);
   }
   public getCorSituacaoEstoque(situacao: number) {
-    return ProdutoUtilsConstants.getCorSituacaoEstoque(situacao);
+    return this._produtoService.getCorSituacaoEstoque(situacao);
   }
 
   public addCarrinho() {

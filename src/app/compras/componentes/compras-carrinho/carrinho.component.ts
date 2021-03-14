@@ -1,15 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
+import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Produto } from "src/app/shared/models/classes/Produto";
-import { Mocks } from "src/app/shared/models/constantes/Mocks";
-import { ProdutoUtilsConstants } from "src/app/shared/models/constantes/ProdutoUtilsConstante";
-import { StorageUtilsConstante } from "src/app/shared/models/constantes/StorageUtilsConstante";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
-import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
+import { MoedaPipe } from "src/app/shared/pipes/moeda.pipe";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
-import { StorageService } from "src/app/shared/servicos/storage.service";
+import { CompraService } from "src/app/shared/servicos/compra.service";
+import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { ProdutoService } from "src/app/shared/servicos/produto.service";
 
 @Component({
   selector: "app-carrinho",
@@ -17,13 +17,16 @@ import { StorageService } from "src/app/shared/servicos/storage.service";
   styleUrls: ["./carrinho.component.scss"],
 })
 export class CarrinhoComponent implements OnInit {
+  public moedaPipe = new MoedaPipe();
   public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
-  public valorTotal: number = 0;
+  public pacotes: Pacote[] = [];
 
   constructor(
     private _router: Router,
-    private _storageService: StorageService,
-    private _alertaService: AlertaService
+    private _alertaService: AlertaService,
+    private _produtoService: ProdutoService,
+    private _compraService: CompraService,
+    private _locacaoService: LocacaoService
   ) {}
 
   ngOnInit(): void {
@@ -32,26 +35,48 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public carregarCarrinho(): void {
-    this._storageService
-      .getItem<ObjetoEnvio>(StorageEnum.OBJETO_ENVIO)
+    this._compraService
+      .carregarCarrinho()
       .subscribe((objEnvio: ObjetoEnvio) => {
         if (objEnvio != null) {
           this.objetoEnvio = objEnvio;
           this.getValorTotal();
+          this.getPacotes();
         }
       });
   }
 
-  public definirValorDesconto(valor: number, produto: Produto) {
-    // produto.valorDesconto = valor * produto.valor * Mocks.Descontos[0];
+  public getPacotes() {
+    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+      this.pacotes = pacotes;
+    });
   }
 
   public getValor(produto: Produto) {
-    return produto.valor - produto.valorDesconto;
+    this._compraService.salvarCarrinho(this.objetoEnvio);
+
+    return this.moedaPipe.transform(
+      produto.valor *
+        produto.quantidade *
+        this._produtoService.getValorPacote(produto)
+    );
+  }
+
+  public verificarSeRemove(produto: Produto) {
+    this._alertaService.ativarModalConfirmacao(
+      MensagemEnum.DESEJO_REMOVER_ITEM,
+      true,
+      this.removerItem.bind(this, produto)
+    );
+    // this._alertaService.alerta(MensagemEnum.DESEJO_REMOVER_ITEM);
+  }
+
+  public removerItem(produto: Produto) {
+    this._compraService.removerProdutoCarrinho(this.objetoEnvio, produto);
   }
 
   public getValorTotal() {
-    this.valorTotal = ProdutoUtilsConstants.getValorTotalProdutos(
+    return this._produtoService.getValorTotalProdutos(
       this.objetoEnvio.produtos
     );
   }
@@ -61,21 +86,17 @@ export class CarrinhoComponent implements OnInit {
       produto.quantidade = value > produto.estoque ? produto.estoque : value;
     }
 
-    this.getValorTotal();
-    this._storageService.setItem<ObjetoEnvio>(
-      StorageEnum.OBJETO_ENVIO,
-      this.objetoEnvio
-    );
+    this._compraService.salvarCarrinho(this.objetoEnvio);
   }
 
   public getNomeCategoria(categoria: number) {
-    return ProdutoUtilsConstants.getNomeCategoria(categoria);
+    return this._produtoService.getNomeCategoria(categoria);
   }
   public getSituacaoEstoque(situacao: number) {
-    return ProdutoUtilsConstants.getSituacaoEstoque(situacao);
+    return this._produtoService.getSituacaoEstoque(situacao);
   }
   public getCorSituacaoEstoque(situacao: number) {
-    return ProdutoUtilsConstants.getCorSituacaoEstoque(situacao);
+    return this._produtoService.getCorSituacaoEstoque(situacao);
   }
 
   public continuarComprando() {
@@ -83,7 +104,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public finalizarCompra() {
-    if (this.valorTotal <= 0) {
+    if (this.getValorTotal() <= 0) {
       this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
     } else {
       this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);

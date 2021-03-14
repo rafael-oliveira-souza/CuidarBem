@@ -1,15 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { DialogService } from "primeng/dynamicdialog";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Produto } from "src/app/shared/models/classes/Produto";
-import { Mocks } from "src/app/shared/models/constantes/Mocks";
-import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
-import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProdutoEnum";
 import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
-import { AlertaService } from "src/app/shared/servicos/alerta.service";
-import { HeaderService } from "src/app/shared/servicos/header.service";
+import { CompraService } from "src/app/shared/servicos/compra.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 import { HomeProdutosSaibaMaisComponent } from "../home-produtos-saiba-mais/home-produtos-saiba-mais.component";
@@ -30,7 +25,7 @@ export class HomeProdutosComponent implements OnInit {
 
   constructor(
     private _storageService: StorageService,
-    private _alertaService: AlertaService,
+    private _compraService: CompraService,
     private _produtoService: ProdutoService,
     private _dialogService: DialogService
   ) {}
@@ -43,8 +38,8 @@ export class HomeProdutosComponent implements OnInit {
   }
 
   public carregarCarrinho(): void {
-    this._storageService
-      .getItem<ObjetoEnvio>(StorageEnum.OBJETO_ENVIO)
+    this._compraService
+      .carregarCarrinho()
       .subscribe((objEnvio: ObjetoEnvio) => {
         if (objEnvio != null) {
           this.objetoEnvio = objEnvio;
@@ -53,28 +48,7 @@ export class HomeProdutosComponent implements OnInit {
   }
 
   public adicionarCarrinnho(produto: Produto): void {
-    let produtoNoCarrinho: boolean = false;
-    this.objetoEnvio.produtos.forEach((prod) => {
-      if (produto.id == prod.id) {
-        produtoNoCarrinho = true;
-      }
-    });
-
-    if (produtoNoCarrinho) {
-      this._alertaService.alerta(MensagemEnum.PRODUTO_EXISTE_CARRINHO);
-      return;
-    } else {
-      produto.quantidade++;
-      this.objetoEnvio.produtos.push(produto);
-
-      this._storageService.setItem<ObjetoEnvio>(
-        StorageEnum.OBJETO_ENVIO,
-        this.objetoEnvio
-      );
-
-      this._alertaService.sucesso(MensagemEnum.PRODUTO_ADD_CARRINHO);
-      return;
-    }
+    this._compraService.adicionarCarrinnho(this.objetoEnvio, produto);
   }
 
   public filtrarProdutos(produtos: Array<Produto>) {

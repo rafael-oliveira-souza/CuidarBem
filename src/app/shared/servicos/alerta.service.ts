@@ -1,11 +1,38 @@
 import { Injectable } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class AlertaService {
-  constructor(private _messageService: MessageService) {}
+  constructor(
+    private _messageService: MessageService,
+    private _confirmationService: ConfirmationService
+  ) {}
+
+  ativarModalConfirmacao(
+    header: string,
+    exibeBtnCanc = true,
+    funcAceit: Function,
+    funcCanc?: Function
+  ) {
+    this._confirmationService.confirm({
+      header: header,
+      message: null,
+      acceptLabel: "Sim",
+      rejectLabel: "Não",
+      rejectVisible: exibeBtnCanc,
+      accept: () => {
+        funcAceit.call(null);
+      },
+      reject: () => {
+        if (funcCanc) {
+          funcCanc.call(null);
+        }
+      },
+    });
+  }
 
   sucesso(msg: string) {
     const alerta: Mensagem = new Mensagem("success", "Sucesso", msg);

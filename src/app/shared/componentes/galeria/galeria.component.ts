@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { FotoService } from "../../servicos/foto.service";
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-galeria",
@@ -7,7 +6,15 @@ import { FotoService } from "../../servicos/foto.service";
   styleUrls: ["./galeria.component.scss"],
 })
 export class GaleriaComponent implements OnInit {
+  @Input("altura")
+  public altura: string;
+
+  @Input("maxImages")
+  public maxImages: number = 5;
+
+  @Input("imagens")
   public imagens: any[] = [];
+
   public exibeImagem: boolean = false;
   public indice: number = 0;
   public responsiveOptions: any[] = [
@@ -25,13 +32,9 @@ export class GaleriaComponent implements OnInit {
     },
   ];
 
-  constructor(private _fotoService: FotoService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this._fotoService.getImagens().subscribe((images) => {
-      this.imagens = images;
-    });
-  }
+  ngOnInit(): void {}
 
   public abrirImagem(index: number) {
     this.exibeImagem = !this.exibeImagem;

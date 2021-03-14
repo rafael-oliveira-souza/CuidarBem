@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ElementRef,
+} from "@angular/core";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
 import { FaixaEtaria } from "src/app/shared/models/classes/FaixaEtaria";
 import { Produto } from "src/app/shared/models/classes/Produto";
@@ -27,10 +34,13 @@ export class HomeProdutosPesquisaComponent implements OnInit {
   public faixasSelecionadas: number[] = [];
   public faixaValores: number[] = [0, 500];
 
+  public collapsed: boolean = false;
+
   constructor(
     private _headerService: HeaderService,
     private _categoriaService: CategoriaService,
-    private _faixaService: FaixaEtariaService
+    private _faixaService: FaixaEtariaService,
+    private _el: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +59,15 @@ export class HomeProdutosPesquisaComponent implements OnInit {
       });
 
     this.filtrarProdutos();
+  }
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+
+    if (window.screen.width < 500) {
+      this.collapsed = true;
+    }
   }
 
   public filtrarProdutos(valorPesquisa?: string) {
