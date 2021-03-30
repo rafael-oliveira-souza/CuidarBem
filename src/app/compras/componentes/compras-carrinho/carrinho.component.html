@@ -22,7 +22,7 @@
       scrollHeight="55vh"
     >
       <ng-template pTemplate="header">
-        <tr>
+        <tr *ngIf="objetoEnvio.produtos.length > 0">
           <th colspan="2">Imagem</th>
           <!-- <th>Nome</th> -->
           <th colspan="3">Descrição</th>
@@ -55,13 +55,14 @@
           <td>{{ produto.estoque }}</td>
           <td colspan="2">
             <select
+              *ngIf="pacotes.length > 0"
               pInputText
               class="col-12"
-              [(ngModel)]="produto.pacote"
-              [value]="produto.pacote"
+              [(ngModel)]="produto.locacao"
+              [value]="produto.locacao"
             >
               <option *ngFor="let pacote of pacotes" [value]="pacote.id">
-                {{ pacote.quantidadeDias }} dias
+                {{ pacote.qtd_dias }} dias
               </option>
             </select>
           </td>
@@ -88,84 +89,82 @@
         </tr>
       </ng-template>
     </p-table>
-    <app-scroll altura="56vh">
+
+    <div class="row justify-content-center" #t>
       <div
-        class="col-12 d-flex justify-content-center detalheCarrinhoSm mt-2 mb-2"
+        class="col-10 borda-azul row justify-content-center detalheCarrinhoSm ml-1 mr-1 mt-2 mb-2"
+        *ngFor="let produto of objetoEnvio.produtos"
       >
-        <div
-          class="borda-azul row justify-content-center col-12"
-          *ngFor="let produto of objetoEnvio.produtos"
-        >
-          <div class="col-12">
-            <app-galeria
-              altura="80px"
-              [imagens]="[produto.imagem]"
-              [maxImages]="1"
-            ></app-galeria>
-          </div>
-          <div class="col-12">
-            <p class="text-justify">
-              {{ produto.nome }} -
-              {{ getNomeCategoria(produto.categoria) | titlecase }} -
-              {{ produto.descricao | continue: 50 }}
-            </p>
-          </div>
-          <div class="col-6">
-            Estoque:
-            <input
-              class="col-12"
-              type="text"
-              [disabled]="true"
-              pInputText
-              [value]="produto.estoque"
-            />
-          </div>
-          <div class="col-6">
-            Locação:
-            <select
-              pInputText
-              class="col-12"
-              [(ngModel)]="produto.pacote"
-              [value]="produto.pacote"
-            >
-              <option *ngFor="let pacote of pacotes" [value]="pacote.id">
-                {{ pacote.quantidadeDias }} dias
-              </option>
-            </select>
-          </div>
-          <div class="col-6 mb-2">
-            Valor:
-            <input
-              class="col-12"
-              [disabled]="true"
-              type="text"
-              pInputText
-              [value]="getValor(produto)"
-            />
-          </div>
-          <div class="col-6 mb-2">
-            Quantidade:
-            <p>
-              <p-inputNumber
-                (onInput)="atualizarQuantidade($event.value, produto)"
-                [min]="1"
-                size="2"
-                maxlength="3"
-                [(ngModel)]="produto.quantidade"
-                [max]="produto.estoque"
-                [showButtons]="true"
-              ></p-inputNumber>
-            </p>
-          </div>
-          <div>
-            <i
-              class="pi pi-trash font-icone"
-              (click)="verificarSeRemove(produto)"
-            ></i>
-          </div>
+        <div class="col-12">
+          <app-galeria
+            altura="80px"
+            [imagens]="[produto.imagem]"
+            [maxImages]="1"
+          ></app-galeria>
+        </div>
+        <div class="col-12">
+          <p class="text-justify">
+            {{ produto.nome }} -
+            {{ getNomeCategoria(produto.categoria) | titlecase }} -
+            {{ produto.descricao | continue: 50 }}
+          </p>
+        </div>
+        <div class="col-6">
+          Estoque:
+          <input
+            class="col-12"
+            type="text"
+            [disabled]="true"
+            pInputText
+            [value]="produto.estoque"
+          />
+        </div>
+        <div class="col-6">
+          Locação:
+          <select
+            *ngIf="pacotes.length > 0"
+            pInputText
+            class="col-12"
+            [(ngModel)]="produto.locacao"
+            [value]="produto.locacao"
+          >
+            <option *ngFor="let pacote of pacotes" [value]="pacote.id">
+              {{ pacote.qtd_dias }} dias
+            </option>
+          </select>
+        </div>
+        <div class="col-6 mb-2">
+          Valor:
+          <input
+            class="col-12"
+            [disabled]="true"
+            type="text"
+            pInputText
+            [value]="getValor(produto)"
+          />
+        </div>
+        <div class="col-6 mb-2">
+          Quantidade:
+          <p>
+            <p-inputNumber
+              (onInput)="atualizarQuantidade($event.value, produto)"
+              [min]="1"
+              size="2"
+              maxlength="3"
+              [(ngModel)]="produto.quantidade"
+              [max]="produto.estoque"
+              [showButtons]="true"
+            ></p-inputNumber>
+          </p>
+        </div>
+        <div>
+          <i
+            class="pi pi-trash font-icone"
+            (click)="verificarSeRemove(produto)"
+          ></i>
         </div>
       </div>
-    </app-scroll>
+    </div>
   </div>
 
   <app-footer>
@@ -175,7 +174,10 @@
           Total de produtos:
           {{ objetoEnvio.produtos ? objetoEnvio.produtos.length : 0 }}
         </span>
-        <span> Valor total: {{ getValorTotal() | moeda }} </span>
+        <span>
+          Valor total:
+          {{ getValorTotal(objetoEnvio.produtos, pacotes) | moeda }}
+        </span>
       </div>
       <span class="p-2 float-right form-inline">
         <button

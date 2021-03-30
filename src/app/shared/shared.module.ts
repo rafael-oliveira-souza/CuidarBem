@@ -28,6 +28,8 @@ import { PaginatorModule } from "primeng/paginator";
 import { GalleriaModule } from "primeng/galleria";
 import { PanelModule } from "primeng/panel";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { CarouselModule } from "primeng/carousel";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -38,8 +40,8 @@ import { BarraDeAcoesComponent } from "./componentes/barra-de-acoes/barra-de-aco
 import { CartaoComponent } from "./componentes/cartao/cartao.component";
 import { ProdutoComponent } from "./componentes/produto/produto.component";
 import { ScrollComponent } from "./componentes/scroll/scroll.component";
-import { PagamentoComponent } from "../home/componentes/pagamento/pagamento.component";
 import { GaleriaComponent } from "./componentes/galeria/galeria.component";
+import { LoaderComponent } from "./componentes/loader/loader.component";
 
 //pipes
 import { CepPipe } from "./pipes/cep.pipe";
@@ -63,8 +65,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
     CartaoComponent,
     ProdutoComponent,
     ScrollComponent,
-    PagamentoComponent,
     GaleriaComponent,
+    LoaderComponent,
 
     //pipes
     CpfPipe,
@@ -107,6 +109,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
     GalleriaModule,
     PanelModule,
     ConfirmDialogModule,
+    CarouselModule,
+    ProgressSpinnerModule,
   ],
   exports: [
     FormsModule,
@@ -121,8 +125,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
     BarraDeAcoesComponent,
     ProdutoComponent,
     ScrollComponent,
-    PagamentoComponent,
     GaleriaComponent,
+    LoaderComponent,
 
     //pipes
     CpfPipe,
@@ -159,6 +163,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
     GalleriaModule,
     PanelModule,
     ConfirmDialogModule,
+    CarouselModule,
+    ProgressSpinnerModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent],
   providers: [DialogService, ConfirmationService, MessageService],

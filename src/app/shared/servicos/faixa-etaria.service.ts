@@ -1,5 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { FaixaEtaria } from "../models/classes/FaixaEtaria";
 import { Mocks } from "../models/constantes/Mocks";
 
@@ -10,11 +12,25 @@ export class FaixaEtariaService {
   private objectSource = new BehaviorSubject([]);
   private observableObject = this.objectSource.asObservable();
 
-  constructor() {}
+  constructor(private _http: HttpClient) {}
 
   public getFaixasEtarias(): Observable<Array<FaixaEtaria>> {
-    this.objectSource.next(Mocks.FaixaEtaria);
+    // this.objectSource.next(Mocks.FaixaEtaria);
+    // return this.observableObject;
+    return this._http.get<Array<FaixaEtaria>>(
+      `${environment.api_server}/faixa/todos`
+    );
+  }
 
-    return this.observableObject;
+  public getFaixaEtariaById(id: number): Observable<FaixaEtaria> {
+    return this._http.get<FaixaEtaria>(
+      `${environment.api_server}/faixa?id=${id}`
+    );
+  }
+
+  public removeFaixaById(id: number) {
+    return this._http.delete<any>(
+      `${environment.api_server}/faixa/excluir?id=${id}`
+    );
   }
 }

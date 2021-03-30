@@ -16,6 +16,7 @@
             <div class="mb-4">
               <app-produto
                 [produto]="produto"
+                [categoria]="getNomeCategoria(produto.categoria)"
                 (adicionarCarrinnho)="adicionarCarrinnho($event)"
                 (irParaDetalhamento)="irParaDetalhamento($event)"
               ></app-produto>

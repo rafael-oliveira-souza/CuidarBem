@@ -4,7 +4,7 @@
       <div class="row justify-content-between">
         <div class="cor-azul">
           <i class="pi pi-tag"></i>
-          <span>{{ getNomeCategoria(produto.categoria) | titlecase }}</span>
+          <span *ngIf="categoria">{{ categoria.nome | titlecase }}</span>
         </div>
         <div>
           <p-badge
@@ -31,7 +31,7 @@
           readonly="true"
           [cancel]="false"
           [stars]="5"
-          [(ngModel)]="produto.estoque"
+          [(ngModel)]="produto.avaliacao"
         ></p-rating>
       </div>
     </ng-template>

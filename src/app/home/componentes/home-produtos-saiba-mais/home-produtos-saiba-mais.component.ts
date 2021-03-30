@@ -7,13 +7,12 @@ import { Produto } from "src/app/shared/models/classes/Produto";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProdutoEnum";
-import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { FotoService } from "src/app/shared/servicos/foto.service";
 import { LocacaoService } from "src/app/shared/servicos/locacao.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
-import { StorageService } from "src/app/shared/servicos/storage.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
+import { Categoria } from "src/app/shared/models/classes/Categoria";
 
 @Component({
   selector: "app-home-produtos-saiba-mais",
@@ -21,10 +20,13 @@ import { CompraService } from "src/app/shared/servicos/compra.service";
   styleUrls: ["./home-produtos-saiba-mais.component.scss"],
 })
 export class HomeProdutosSaibaMaisComponent implements OnInit {
-  @Input()
+  @Input("produto")
   public produto: Produto;
 
-  @Input()
+  @Input("categoria")
+  public categoria: Categoria;
+
+  @Input("objetoEnvio")
   public objetoEnvio: ObjetoEnvio;
 
   public imagens: any[] = [];
@@ -35,7 +37,6 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     private _fotoService: FotoService,
     public _router: Router,
     public _config: DynamicDialogConfig,
-    private _storageService: StorageService,
     private _produtoService: ProdutoService,
     private _locacaoService: LocacaoService,
     private _alertaService: AlertaService,
@@ -44,23 +45,20 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pacotes = this._config.data.pacotes;
     this.produto = this._config.data.produto;
+    this.categoria = this._config.data.categoria;
     this.objetoEnvio = this._config.data.objetoEnvio;
+
     this.produtoIndisponivel =
       this.produto.situacao == SituacaoProdutoEnum.INDISPONIVEL;
+
     this.getImagens();
-    this.getPacotes();
   }
 
   public getImagens() {
     this._fotoService.getImagens().subscribe((imagens: any[]) => {
       this.imagens = imagens;
-    });
-  }
-
-  public getPacotes() {
-    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this.pacotes = pacotes;
     });
   }
 
@@ -71,13 +69,10 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     return this._produtoService.getCorSituacaoEstoque(situacao);
   }
 
-  public getNomeCategoria(categoria: number) {
-    return this._produtoService.getNomeCategoria(categoria);
-  }
-
   public getValor(): number {
-    return (
-      this.produto.valor * this._produtoService.getValorPacote(this.produto)
+    return this._produtoService.getValorTotalProdutos(
+      [this.produto],
+      this.pacotes
     );
   }
 

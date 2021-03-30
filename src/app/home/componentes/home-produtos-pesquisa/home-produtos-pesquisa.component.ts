@@ -123,7 +123,7 @@ export class HomeProdutosPesquisaComponent implements OnInit {
 
     if (this.faixasSelecionadas.length > 0) {
       this.produtos = this.produtosBackup.filter((prod) =>
-        this.faixasSelecionadas.includes(prod.faixaEtaria)
+        this.faixasSelecionadas.includes(prod.faixa_etaria)
       );
     } else {
       this.produtos = this.produtosBackup;

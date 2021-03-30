@@ -1,12 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { DialogService } from "primeng/dynamicdialog";
+import { HomeMinhaContaComponent } from "src/app/home/componentes/home-minha-conta/home-minha-conta.component";
 import { ObjetoEnvio } from "../../models/classes/ObjetoEnvio";
+import { Pacote } from "../../models/classes/Pacote";
+import { Produto } from "../../models/classes/Produto";
+import { Usuario } from "../../models/classes/Usuario";
+import { MensagemEnum } from "../../models/enums/MensagemEnum";
 import { RotasEnum } from "../../models/enums/RotasEnum";
 import { StorageEnum } from "../../models/enums/StorageEnum";
 import { MoedaPipe } from "../../pipes/moeda.pipe";
+import { AlertaService } from "../../servicos/alerta.service";
+import { CompraService } from "../../servicos/compra.service";
+import { LocacaoService } from "../../servicos/locacao.service";
 import { ProdutoService } from "../../servicos/produto.service";
 import { StorageService } from "../../servicos/storage.service";
+import { UsuarioService } from "../../servicos/usuario.service";
 import { CadastroComponent } from "../cadastro/cadastro.component";
 import { LoginComponent } from "../login/login.component";
 
@@ -16,36 +25,53 @@ import { LoginComponent } from "../login/login.component";
   styleUrls: ["./barra-de-acoes.component.scss"],
 })
 export class BarraDeAcoesComponent implements OnInit {
+  public usuarioLogado: Boolean = true;
   public moedaPipe: MoedaPipe = new MoedaPipe();
   public labelCarrinho: string = `Carrinho: 0 Itens - R$ 0,00`;
+  public labelEntrar: string = "Entrar";
+  public pacotes: Pacote[] = [];
+  public objEnvio: ObjetoEnvio = new ObjetoEnvio();
 
   constructor(
     private _dialogService: DialogService,
     private _router: Router,
     private _storageService: StorageService,
+    private _alerta: AlertaService,
+    private _locacaoService: LocacaoService,
+    private _compraService: CompraService,
     private _produtoService: ProdutoService
   ) {}
 
   ngOnInit(): void {
-    this.carregarCarrinho();
+    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+      this.pacotes = pacotes;
+      this.carregarCarrinho();
+    });
   }
 
   public carregarCarrinho(): void {
-    this._storageService
-      .getItem<ObjetoEnvio>(StorageEnum.OBJETO_ENVIO)
-      .subscribe((objEnvio: ObjetoEnvio) => {
-        if (objEnvio != null) {
-          this.getValorTotal(objEnvio);
-        }
-      });
+    this._compraService.getObjetoEnvio().subscribe(
+      (objEnv: ObjetoEnvio) => {
+        this.objEnvio = this._storageService.getItem<ObjetoEnvio>(
+          StorageEnum.OBJETO_ENVIO
+        );
+
+        let produtos = this.objEnvio ? this.objEnvio.produtos : [];
+        this.getValorTotal(produtos, this.pacotes);
+      },
+      (erro) => {
+        this._alerta.alerta(MensagemEnum.FALHA_AO_RECUPERAR_CARRINHO);
+      }
+    );
   }
 
-  public getValorTotal(objEnvio: ObjetoEnvio) {
+  public getValorTotal(produtos: Produto[], pacotes: Pacote[]) {
     let valorTotal: number = this._produtoService.getValorTotalProdutos(
-      objEnvio.produtos
+      produtos,
+      pacotes
     );
 
-    this.setLabelCarrinho(objEnvio.produtos.length, valorTotal);
+    this.setLabelCarrinho(produtos.length, valorTotal);
   }
 
   public setLabelCarrinho(quantidadeProdutos: number, valorTotal: number) {
@@ -54,10 +80,20 @@ export class BarraDeAcoesComponent implements OnInit {
   }
 
   public abrirLogin() {
-    const ref = this._dialogService.open(LoginComponent, {
-      header: "",
-      width: "70%",
-    });
+    let usuario: Usuario = this._storageService.getItem<Usuario>(
+      StorageEnum.USUARIO
+    );
+    if (usuario) {
+      const ref = this._dialogService.open(HomeMinhaContaComponent, {
+        header: "Meu Perfil",
+        width: "70%",
+      });
+    } else {
+      const ref = this._dialogService.open(LoginComponent, {
+        header: "",
+        width: "70%",
+      });
+    }
   }
 
   public abrirCadastro() {
@@ -68,6 +104,10 @@ export class BarraDeAcoesComponent implements OnInit {
   }
 
   public abrirCarrinho() {
-    this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CARRINHO]);
+    if (this.objEnvio && this.objEnvio.produtos.length > 0) {
+      this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CARRINHO]);
+    } else {
+      this._alerta.alerta(MensagemEnum.CARRINHO_VAZIO);
+    }
   }
 }

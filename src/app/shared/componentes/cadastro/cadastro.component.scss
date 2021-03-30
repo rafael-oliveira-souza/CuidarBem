@@ -1,7 +1,24 @@
+@import "../../../../estilos/cores.scss";
+
 input {
   text-align: center;
 }
 
 select {
   text-align-last: center;
+}
+
+.icone-senha {
+  position: absolute;
+  top: 28%;
+  right: 8%;
+  i {
+    color: $azul;
+    font-size: 16px;
+  }
+}
+
+.erro {
+  color: $vermelho;
+  text-align: center;
 }

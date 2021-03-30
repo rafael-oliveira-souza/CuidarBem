@@ -1,5 +1,13 @@
 @import "./cores.scss";
 
+.p-scrollpanel-bar {
+  background-color: $azul !important;
+  border-radius: 5px !important;
+  opacity: 1;
+  margin-right: 110px !important;
+  transition: background-color 0.2s !important;
+}
+
 .p-badge.p-badge-success {
   background: $verde !important;
   color: $branco !important;

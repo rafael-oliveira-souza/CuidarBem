@@ -1,5 +1,5 @@
 export class Pacote {
   id: number;
-  quantidadeDias: number;
-  porcentagemDesconto: number;
+  qtd_dias: number;
+  pct_desconto: number;
 }

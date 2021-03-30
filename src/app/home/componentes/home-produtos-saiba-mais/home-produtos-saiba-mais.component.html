@@ -2,7 +2,7 @@
   <div class="row justify-content-between">
     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
       <app-galeria [imagens]="imagens"></app-galeria>
-      <img class="mt-5" height="80" src="/assets/images/crescer.png" />
+      <img class="mt-5" height="50" src="/assets/images/crescer.png" />
     </div>
     <div class="col">
       <div class="">
@@ -12,7 +12,7 @@
               class="col-12 col-sm-12 col-md-6 col-ls-6 col-xs-6 text-left cor-azul"
             >
               <i class="pi pi-tag"></i>
-              <span>{{ getNomeCategoria(produto.categoria) | titlecase }}</span>
+              <span *ngIf="categoria">{{ categoria.nome | titlecase }}</span>
             </div>
             <p-badge
               class="col text-right"
@@ -27,7 +27,7 @@
             <!-- <p>Categoria: {{ getNomeCategoria(produto.categoria) }}</p> -->
             <div class="row justify-content-between mt-5 text-center">
               <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
-                Faixa Etária: {{ produto.faixaEtaria }} ano(s)
+                Faixa Etária: {{ produto.faixa_etaria }} ano(s)
               </p>
               <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
                 Valor: {{ getValor() | moeda }}
@@ -41,12 +41,12 @@
             <select
               class="ml-3 mt-2 mb-2"
               pInputText
-              [(ngModel)]="produto.pacote"
-              [value]="produto.pacote"
+              [(ngModel)]="produto.locacao"
+              [value]="produto.locacao"
               [disabled]="produtoIndisponivel"
             >
               <option *ngFor="let pacote of pacotes" [value]="pacote.id">
-                {{ pacote.quantidadeDias }} dias
+                {{ pacote.qtd_dias }} dias
               </option>
             </select>
           </span>

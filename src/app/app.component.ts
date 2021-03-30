@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { render } from "creditcardpayments/creditCardPayments";
+
+declare var require: any;
 
 @Component({
   selector: "app-root",
@@ -11,4 +12,9 @@ export class AppComponent {
   title = "AppCuidarBem";
 
   constructor() {}
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+  }
 }

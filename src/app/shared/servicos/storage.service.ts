@@ -2,15 +2,13 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { StorageUtilsConstante } from "../models/constantes/StorageUtilsConstante";
 import { StorageEnum } from "../models/enums/StorageEnum";
+import { AlertaService } from "./alerta.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class StorageService {
-  private objectSource = new BehaviorSubject(null);
-  private observableObject: Observable<any> = this.objectSource.asObservable();
-
-  constructor() {}
+  constructor(private _alerta: AlertaService) {}
 
   getAll(): Array<any> {
     return StorageUtilsConstante.getAll();
@@ -24,21 +22,12 @@ export class StorageService {
     StorageUtilsConstante.removeItem(key);
   }
 
-  getItem<T>(key: StorageEnum): Observable<T> {
-    if (this.objectSource.getValue() == null) {
-      const objectConv: T = StorageUtilsConstante.getItem<T>(key);
-      this.objectSource.next(objectConv);
-    }
-
-    return this.observableObject;
+  getItem<T>(key: StorageEnum): T {
+    const objectConv: T = StorageUtilsConstante.getItem<T>(key);
+    return objectConv;
   }
 
   setItem<T>(key: StorageEnum, value: T): void {
     StorageUtilsConstante.setItem<T>(key, value);
-    this.objectSource.next(value);
-  }
-
-  unsubscribe() {
-    this.objectSource.unsubscribe();
   }
 }

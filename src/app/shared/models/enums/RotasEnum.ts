@@ -1,5 +1,7 @@
 export enum RotasEnum {
   HOME = "home",
+  BRINQUEDOS = "brinquedos",
+  BRINQUEDOTECA = "brinquedoteca",
   CARRINHO = "carrinho",
   CONTATO = "contato",
   CONCLUSAO = "conclusao",
@@ -9,7 +11,7 @@ export enum RotasEnum {
   QUEM_SOMOS = "quem-somos",
   NOVIDADES = "novidades",
   CADASTRO = "cadastro",
-  PRODUTOS = "produtos",
+  // PRODUTOS = "produtos",
   PROMOCOES = "promocoes",
   LOGIN = "login",
   NONE = "",

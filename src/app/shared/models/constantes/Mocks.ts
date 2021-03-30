@@ -3,24 +3,9 @@ import { SituacaoProdutoEnum } from "../enums/SituacaoProdutoEnum";
 
 export const Mocks = {
   Categorias: [
-    { id: 1, nome: "Infantil" },
-    { id: 2, nome: "Educativos" },
-    { id: 3, nome: "Andadores" },
-    { id: 4, nome: "Jumpers" },
-    { id: 5, nome: "Mobile" },
-    // {id: 6, nome: "Brinquedos Bebês" },
-    // {id: 7, nome: "Brinquedos para Festa" },
-    // {id: 8, nome: "Cadeirinhas" },
-    // {id: 9, nome: "Carrinhos/Bebê Conforto" },
-    // {id: 10, nome: "Centro de Atividades" },
-    // {id: 11, nome: "Educativos" },
-    // {id: 12, nome: "Instrumentos Musicais" },
-    // {id: 13, nome: "Jumperoo" },
-    // {id: 14, nome: "Mesa de Atividades" },
-    // { id: 15, nome: "Mini Veiculos" },
-    // { id: 16, nome: "Mobile" },
-    // { id: 17, nome: "Tapetes" },
-    // { id: 18, nome: "Veículos Elétricos" },
+    { id: 1, nome: "Montessorianos" },
+    { id: 2, nome: "Linha Baby" },
+    { id: 3, nome: "Linha Kids" },
   ],
   FaixaEtaria: [
     { id: 1, nome: "0 a 6 meses" },

@@ -25,7 +25,7 @@ export class ScrollComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngAfterContentChecked() {
+  ngAfterViewChecked(): void {
     this.cdref.detectChanges();
     if (!this.altura) {
       this.altura = this.scrollFilho.nativeElement.clientHeight + "px";

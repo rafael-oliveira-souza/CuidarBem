@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import localePt from "@angular/common/locales/pt";
 import { registerLocaleData } from "@angular/common";
 import { SharedModule } from "./shared/shared.module";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { LoaderInterceptor } from "./shared/componentes/loader/loader-interceptor";
 
 registerLocaleData(localePt);
 
@@ -16,10 +18,14 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: "pt" }],
+  providers: [
+    { provide: LOCALE_ID, useValue: "pt" },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

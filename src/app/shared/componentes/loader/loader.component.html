@@ -1,0 +1,9 @@
+<div *ngIf="loading$ | async" class="overlay">
+  <div class="spinner">
+    <p-progressSpinner
+      [style]="{ width: '120px', height: '120px' }"
+      strokeWidth="3"
+      styleClass="custom-spinner"
+    ></p-progressSpinner>
+  </div>
+</div>
