@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
+  api_local_server: "http://localhost:4200",
   api_server: "http://localhost:3300",
   secretKey: "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L",
-  url_pag_seguro:
-    "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions?email=ADD_CONTA&token=ADD_TOKEN",
-  paypalClient:
-    "https://www.paypal.com/sdk/js?client-id=AfpnNCrE_eYaOTehaymOXiO6e8-7AgRZE39gbfXBaiZVqwTDWnGrJTBmxVyVT8sLIxCyNRpcv-nM0Ajs",
+  mercadoPago: "https://api.mercadopago.com",
+  mercadoPagoToken:
+    "TEST-7778485648018849-033021-620875813a4ef7e99485798a12728185-410460126",
 };

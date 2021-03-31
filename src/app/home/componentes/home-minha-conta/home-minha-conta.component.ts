@@ -41,21 +41,31 @@ export class HomeMinhaContaComponent implements OnInit {
     let usuario: Usuario = this._storageService.getItem<Usuario>(
       StorageEnum.USUARIO
     );
-    this._usuarioService.getClienteById(usuario.id).subscribe(
-      (cliente: Cliente) => {
-        if (cliente) {
-          this.cliente = cliente;
-          this.setForm();
-          this.formatarCEP();
-          this.formatarCPF();
-          this.formatarTelefone();
+    this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
+    if (this.cliente) {
+      this.setForm();
+      this.formatarCEP();
+      this.formatarCPF();
+      this.formatarTelefone();
+    } else {
+      this._usuarioService.getClienteById(usuario.id).subscribe(
+        (cliente: Cliente) => {
+          if (cliente) {
+            this.cliente = cliente;
+            this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
+            this.setForm();
+            this.formatarCEP();
+            this.formatarCPF();
+            this.formatarTelefone();
+          }
+        },
+        (error) => {
+          this._storageService.removeItem(StorageEnum.USUARIO);
+          this._storageService.removeItem(StorageEnum.CLIENTE);
+          this._alerta.erro(error);
         }
-      },
-      (error) => {
-        this._storageService.removeItem(StorageEnum.USUARIO);
-        this._alerta.erro(error);
-      }
-    );
+      );
+    }
   }
 
   public setForm() {
@@ -95,6 +105,10 @@ export class HomeMinhaContaComponent implements OnInit {
       logradouro: [
         { value: this.cliente.logradouro, disabled: false },
         [Validators.maxLength(100), Validators.required],
+      ],
+      numero: [
+        { value: this.cliente.numero, disabled: false },
+        [Validators.required],
       ],
       complemento: [
         { value: this.cliente.complemento, disabled: false },
@@ -164,6 +178,7 @@ export class HomeMinhaContaComponent implements OnInit {
 
       let cep: string = this.form.controls.cep.value;
       cliente.cep = cep.replace(/\D/g, "");
+      cliente.numero = this.form.controls.numero.value;
       cliente.logradouro = this.form.controls.logradouro.value;
       cliente.complemento = this.form.controls.complemento.value;
       cliente.municipio = this.form.controls.municipio.value;
@@ -171,6 +186,7 @@ export class HomeMinhaContaComponent implements OnInit {
 
       this._usuarioService.atualizarCliente(cliente).subscribe(
         (result) => {
+          this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
           this._alerta.sucesso("Cadastro atualizado com sucesso.");
           this._ref.close();
         },

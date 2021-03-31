@@ -7,7 +7,7 @@ import {
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
-import { LoaderService } from "../../servicos/loader.service";
+import { LoaderService } from "../servicos/loader.service";
 
 @Injectable({ providedIn: "root" })
 export class LoaderInterceptor implements HttpInterceptor {

@@ -1,5 +1,4 @@
 // SDK de Mercado Pago
-alert("enterei")
 const mercadopago = require ('mercadopago');
 const express = require('express');
 const cors = require('cors');
@@ -82,7 +81,7 @@ app.post('/categoria', async(req, res) =>{
 
 app.get('/categoria', async(req, res) =>{
   const id = req.query.id;
-  const todos = await db.getEntidadeById(id, 'Categoria');
+  const todos = await db.getEntidadeById('Categoria', id);
   return Response(todos, res);
 });
 
@@ -99,7 +98,7 @@ app.delete('/cliente/excluir', async(req, res) =>{
 
 app.get('/cliente', async(req, res) =>{
   const id = req.query.id;
-  const todos = await db.getEntidadeById(id, 'Cliente');
+  const todos = await db.getEntidadeById('Cliente', id);
   return Response(todos, res);
 });
 
@@ -138,22 +137,61 @@ app.post('/usuario/login', async(req, res) =>{
   return Response(user, res);
 });
 
-// app.post('/produto', async(req, res) => {
-//   // Configura credenciais
-//   mercadopago.configure({
-//     access_token: 'PROD_ACCESS_TOKEN'
-//   });
+app.post('/mercado-pago', async(req, res) => {
+  // Configura credenciais
+
+  // let preference = {
+  //     items: [
+  //       {
+  //         title: 'Meu produto',
+  //         unit_price: 100,
+  //         quantity: 1,
+  //       }
+  //     ]
+  // };
+
+  // console.log(preference)
+  // console.log(JSON.stringify(preference))
+
+  // mercadopago.configure({
+  //   access_token: 'TEST-7778485648018849-033021-620875813a4ef7e99485798a12728185-410460126'
+  // });
 
 
-//   return await mercadopago.preferences.create(req.body);
-//   // .then(function(response){
-//   // // Este valor substituirá a string "<%= global.id %>" no seu HTML
-//   //   global.id = response.body.id;
-//   // }).catch(function(error){
-//   //   console.log(error);
-//   // });
+  // return await mercadopago.preferences.create(preference);
+  // .then(function(response){
+  // // Este valor substituirá a string "<%= global.id %>" no seu HTML
+  //   global.id = response.body.id;
+  // }).catch(function(error){
+  //   console.log(error);
+  // });
+  const mercadopago = require ('mercadopago');
 
-// });
+  // Add Your credentials
+  mercadopago.configure({
+    access_token: 'PROD_ACCESS_TOKEN'
+    //   access_token: 'TEST-7778485648018849-033021-620875813a4ef7e99485798a12728185-410460126'
+  });
+
+  // Create a preference object
+  let preference = {
+    items: [
+      {
+        title: 'My Item',
+        unit_price: 100,
+        quantity: 1,
+      }
+    ]
+  };
+
+  mercadopago.preferences.create(preference)
+  .then(function(response){
+  // This value replaces the String "<%= global.id %>" in your HTML
+    global.id = response.body.id;
+  }).catch(function(error){
+    console.log(error);
+  });
+});
 
 
 function Response(object, res){

@@ -48,7 +48,7 @@ async function atualizarCliente(cliente){
     const conn = await connection();
     await conn.query(`UPDATE Cliente SET nome='${cliente.nome}', telefone='${cliente.telefone}', cpf='${cliente.cpf}',
     sobrenome='${cliente.sobrenome}', logradouro='${cliente.logradouro}', estado='${cliente.estado}',
-    municipio='${cliente.municipio}', complemento='${cliente.complemento}', cep='${cliente.cep}'
+    municipio='${cliente.municipio}', complemento='${cliente.complemento}', cep='${cliente.cep}', numero='${cliente.numero}'
     WHERE id=${cliente.id}`);
     conn.end();
     return cliente;
@@ -58,7 +58,7 @@ async function atualizarCliente(cliente){
   }
 }
 
-async function getEntidadeById(id, entidade){
+async function getEntidadeById(entidade, id){
   try {
     const conn = await connection();
     const [rows,fields] =  await conn.query(`Select *From ${entidade} WHERE id = ?`, [id]);
@@ -199,11 +199,15 @@ async function getEntidade(entidade){
 
 async function removeEntidadeById(entidade, id){
   try {
-    const conn = await connection();
-
-    const [rows,fields] =  await conn.query(`DELETE FROM ${entidade} WHERE id = ?`, [id]);
-    conn.end();
-    return rows;
+    const entity = await getEntidadeById(entidade, id)
+    if(entity){
+      const conn = await connection();
+      const [rows,fields] =  await conn.query(`Delete From ${entidade} Where id = ?`, [id]);
+      conn.end();
+      return;
+    }else{
+      return new ErrorResponse("Entidade não encontrada");
+    }
   }
   catch (e) {
     return new ErrorResponse(e["message"]);

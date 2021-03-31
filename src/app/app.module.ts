@@ -9,7 +9,8 @@ import localePt from "@angular/common/locales/pt";
 import { registerLocaleData } from "@angular/common";
 import { SharedModule } from "./shared/shared.module";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { LoaderInterceptor } from "./shared/componentes/loader/loader-interceptor";
+import { LoaderInterceptor } from "./shared/interceptors/loader-interceptor";
+import { AuthInterceptor } from "./shared/interceptors/auth-interceptor";
 
 registerLocaleData(localePt);
 
@@ -25,6 +26,7 @@ registerLocaleData(localePt);
   providers: [
     { provide: LOCALE_ID, useValue: "pt" },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

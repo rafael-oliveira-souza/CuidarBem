@@ -5,6 +5,7 @@ export class Cliente {
   complemento: string = null;
   cep: string = null;
   logradouro: string = null;
+  numero: number = null;
   sobrenome: string = null;
   nome: string = null;
   telefone: string = null;

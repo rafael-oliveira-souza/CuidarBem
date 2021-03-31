@@ -30,6 +30,7 @@ import { PanelModule } from "primeng/panel";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { CarouselModule } from "primeng/carousel";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -52,7 +53,7 @@ import { EnderecoPipe } from "./pipes/endereco.pipe";
 import { GeneroPipe } from "./pipes/genero.pipe";
 import { MoedaPipe } from "./pipes/moeda.pipe";
 import { SemInfoPipe } from "./pipes/semInfo.pipe";
-import { ConfirmationService, MessageService } from "primeng/api";
+import { SafePipe } from "./pipes/safe.pipe";
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
     GeneroPipe,
     CepPipe,
     SemInfoPipe,
+    SafePipe,
   ],
   imports: [
     CommonModule,
@@ -137,6 +139,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
     GeneroPipe,
     CepPipe,
     SemInfoPipe,
+    SafePipe,
 
     //prime modules
     InputTextModule,

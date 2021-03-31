@@ -5,7 +5,7 @@
   <form
     *ngIf="form"
     [formGroup]="form"
-    class="p-4 row justify-content-center mb-4"
+    class="p-4 row justify-content-center mb-5"
     autocomplete="off"
   >
     <h4 class="col-12">Dados Pessoais</h4>
@@ -105,7 +105,7 @@
         <label for="municipio">Município:</label>
       </span>
     </div>
-    <div class="col-12 mt-4">
+    <div class="col-9 mt-4">
       <span class="p-float-label">
         <input
           id="logradouro"
@@ -116,6 +116,19 @@
           sclass=" ng-invalid ng-dirty"
         />
         <label for="logradouro">Logradouro:</label>
+      </span>
+    </div>
+    <div class="col-3 mt-4">
+      <span class="p-float-label">
+        <input
+          id="numero"
+          class="col-12"
+          type="text"
+          pInputText
+          [formControl]="form.controls.numero"
+          sclass=" ng-invalid ng-dirty"
+        />
+        <label for="numero">Número:</label>
       </span>
     </div>
     <div class="col-12 mt-4">

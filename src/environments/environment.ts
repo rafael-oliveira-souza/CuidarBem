@@ -5,10 +5,11 @@ import { environment as prod } from "./environment.prod";
 
 export const environment = {
   production: false,
+  api_local_server: prod.api_local_server,
   api_server: prod.api_server,
   secretKey: prod.secretKey,
-  paypalClient: prod.paypalClient,
-  url_pag_seguro: prod.url_pag_seguro,
+  mercadoPago: prod.mercadoPago,
+  mercadoPagoToken: prod.mercadoPagoToken,
 };
 
 /*

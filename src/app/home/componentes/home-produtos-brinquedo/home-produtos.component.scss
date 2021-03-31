@@ -5,5 +5,8 @@
 }
 
 .borda-azul {
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
   border-right: 5px solid $azul;
 }
