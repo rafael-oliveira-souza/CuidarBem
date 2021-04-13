@@ -1,7 +1,9 @@
 export const environment = {
   production: true,
-  api_local_server: "http://localhost:4200",
-  api_server: "http://localhost:3300",
+  // api_local_server: "http://localhost:4200",
+  // api_server: "http://localhost:3300",
+  api_local_server: "https://crescerdf.com",
+  api_server: "https://crescerdf.com",
   secretKey: "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L",
   mercadoPago: "https://api.mercadopago.com",
   mercadoPagoToken:
