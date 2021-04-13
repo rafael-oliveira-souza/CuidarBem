@@ -8,8 +8,9 @@ import { HomeQuemSomosComponent } from "./componentes/home-quem-somos/home-quem-
 import { HomeProdutosSaibaMaisComponent } from "./componentes/home-produtos-saiba-mais/home-produtos-saiba-mais.component";
 import { HomeProdutosPesquisaComponent } from "./componentes/home-produtos-pesquisa/home-produtos-pesquisa.component";
 import { HomeProdutosComponent } from "./componentes/home-produtos-brinquedo/home-produtos.component";
-import { HomeLojaComponent } from './componentes/home-loja/home-loja.component';
-import { HomeMinhaContaComponent } from './componentes/home-minha-conta/home-minha-conta.component';
+import { HomeLojaComponent } from "./componentes/home-loja/home-loja.component";
+import { HomeMinhaContaComponent } from "./componentes/home-minha-conta/home-minha-conta.component";
+import { HomeProdutosBrinquedotecaComponent } from "./componentes/home-produtos-brinquedoteca/home-produtos-brinquedoteca.component";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HomeMinhaContaComponent } from './componentes/home-minha-conta/home-min
     HomeProdutosPesquisaComponent,
     HomeLojaComponent,
     HomeMinhaContaComponent,
+    HomeProdutosBrinquedotecaComponent,
   ],
   imports: [CommonModule, HomeRoutingModule, SharedModule],
 })
