@@ -3,11 +3,15 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { environment } from "src/environments/environment.prod";
+import { Email } from "../../models/classes/Email";
 import { ObjetoEnvio } from "../../models/classes/ObjetoEnvio";
 import { Usuario } from "../../models/classes/Usuario";
-import { MessagesConstante } from "../../models/constantes/MessagesConstante";
+import { UtilsConstante } from "../../models/constantes/UtilsConstante";
+import { MensagemEnum } from "../../models/enums/MensagemEnum";
 import { StorageEnum } from "../../models/enums/StorageEnum";
 import { AlertaService } from "../../servicos/alerta.service";
+import { EmailService } from "../../servicos/email.service";
 import { StorageService } from "../../servicos/storage.service";
 import { UsuarioService } from "../../servicos/usuario.service";
 import { CadastroComponent } from "../cadastro/cadastro.component";
@@ -23,6 +27,7 @@ export class LoginComponent implements OnInit {
   public exibeSenha: Boolean = false;
   public tipoInput: String = "password";
   public classeIcone: String = "pi  pi-eye-slash";
+  public readonly ASSUNTO_EMAIL_TROCA_SENHA = "Crescer Bem - Troca de senha";
 
   constructor(
     private _alerta: AlertaService,
@@ -30,6 +35,7 @@ export class LoginComponent implements OnInit {
     private _dialogService: DialogService,
     private _ref: DynamicDialogRef,
     private _usuarioService: UsuarioService,
+    private _emailService: EmailService,
     private _storageService: StorageService
   ) {
     this.setForm();
@@ -84,9 +90,9 @@ export class LoginComponent implements OnInit {
       );
     } else {
       if (this.form.controls.email.errors) {
-        this.msgErro = MessagesConstante.EMAIL_INVALIDO;
+        this.msgErro = MensagemEnum.EMAIL_INVALIDO;
       } else {
-        this.msgErro = MessagesConstante.SENHA_INVALIDA;
+        this.msgErro = MensagemEnum.SENHA_INVALIDA;
       }
     }
   }
@@ -97,5 +103,40 @@ export class LoginComponent implements OnInit {
       header: "",
       width: "70%",
     });
+  }
+
+  public esqueceuSenha() {
+    let emailUsuario = this.form.controls.email.value;
+
+    if (!emailUsuario) {
+      this._alerta.alerta(MensagemEnum.PREENCHA_EMAIL);
+    } else {
+      let email: Email = new Email();
+      email.usuario = environment.usuarioCrescerBem;
+      email.senha = environment.senhaCrescerBem;
+      email.destinatarios = emailUsuario;
+      email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
+      email.mensagem = this.criarMensagemTrocaSenha();
+
+      this._emailService.enviarEmail(email).subscribe(
+        (res) => {
+          this._alerta.alerta(MensagemEnum.MENSAGEM_ENVIADA_TROCA_SENHA);
+        },
+        (error) => {
+          this._alerta.erro(error.error["mensagem"]);
+        }
+      );
+    }
+  }
+
+  public criarMensagemTrocaSenha() {
+    return `
+      <div style="margin-left: 10px; margin-right: 10px; margin-top: 20px">
+        <div class="">
+          <p>Olá, criamos essa nova senha para você:
+            <b>${UtilsConstante.gerarNovaSenha(8)}</b>
+          </p>
+        </div>
+      </div>`;
   }
 }

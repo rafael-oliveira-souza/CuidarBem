@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { Categoria } from "../models/classes/Categoria";
+import { ImagemProduto } from "../models/classes/ImagemProduto";
 import { Pacote } from "../models/classes/Pacote";
 import { Produto } from "../models/classes/Produto";
 import { EnumUtilsConstants } from "../models/constantes/EnumUtilsConstante";
@@ -30,13 +31,13 @@ export class ProdutoService {
 
   public getProdutos() {
     return this._http.get<Array<Produto>>(
-      `${environment.api_server}/produto/todos`
+      `${environment.apiServer}/produto/todos`
     );
   }
 
   public removeProdutoById(id: number) {
     return this._http.delete<any>(
-      `${environment.api_server}/produto/excluir?id=${id}`
+      `${environment.apiServer}/produto/excluir?id=${id}`
     );
   }
 
@@ -82,5 +83,11 @@ export class ProdutoService {
     });
 
     return valorPacote;
+  }
+
+  public getImagensProdutos(): Observable<Array<ImagemProduto>> {
+    return this._http.get<Array<ImagemProduto>>(
+      `${environment.apiServer}/produto/imagens/todos`
+    );
   }
 }

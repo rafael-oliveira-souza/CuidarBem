@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <h2 class="text-center">Cadastrar {{ form?.nome }}</h2>
+  <div class="row justify-content-center mt-4">
+    <p-selectButton
+      [options]="forms"
+      [(ngModel)]="form"
+      optionLabel="nome"
+      optionValue="valor"
+      (onChange)="alterarFormulario()"
+    ></p-selectButton>
+  </div>
+
+  <div>
+    <h5>Advanced</h5>
+    <p-fileUpload
+      (onUpload)="onUpload($event)"
+      multiple="multiple"
+      mode="basic"
+      accept="image/*"
+      maxFileSize="1000000"
+    >
+      <ng-template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles">
+            {{ file.name }} - {{ file.size }} bytes
+          </li>
+        </ul>
+      </ng-template>
+    </p-fileUpload>
+  </div>
+
+  <form *ngIf="" class="mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+        <label class="col-12">Imagem</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+        <label class="col-12">Descricao</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Nome</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Valor</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Locação</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Estoque</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Avaliação</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Faixa etária</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Quantidade</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Categoria</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4">
+        <label class="col-12">Situação</label>
+        <input class="col-12" type="text" pInputText />
+      </div>
+    </div>
+  </form>
+</div>

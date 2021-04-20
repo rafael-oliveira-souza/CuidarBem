@@ -65,6 +65,14 @@ export class HomeProdutosPesquisaComponent implements OnInit {
     //Called after every check of the component's or directive's content.
     //Add 'implements AfterContentChecked' to the class.
 
+    // if (this.produtosBackup.length > 0) {
+    //   let valMaxProduto = this.produtosBackup
+    //     .map((prod) => prod.valor)
+    //     .sort()[0];
+
+    //   this.faixaValores[1] = valMaxProduto + 30;
+    // }
+
     if (window.screen.width < 500) {
       this.collapsed = true;
     }

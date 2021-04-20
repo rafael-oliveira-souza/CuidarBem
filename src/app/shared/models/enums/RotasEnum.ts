@@ -1,4 +1,5 @@
 export enum RotasEnum {
+  ADMIN = "admin",
   HOME = "home",
   BRINQUEDOS = "brinquedos",
   BRINQUEDOTECA = "brinquedoteca",

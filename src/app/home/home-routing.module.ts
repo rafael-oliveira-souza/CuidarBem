@@ -6,6 +6,7 @@ import { HomeProdutosSaibaMaisComponent } from "./componentes/home-produtos-saib
 import { HomeProdutosComponent } from "./componentes/home-produtos-brinquedo/home-produtos.component";
 import { HomeQuemSomosComponent } from "./componentes/home-quem-somos/home-quem-somos.component";
 import { HomeLojaComponent } from "./componentes/home-loja/home-loja.component";
+import { HomeAdminComponent } from "./componentes/home-admin/home-admin.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: RotasEnum.NONE,
         redirectTo: RotasEnum.LOJA,
+      },
+      {
+        path: RotasEnum.ADMIN,
+        component: HomeAdminComponent,
       },
       {
         path: RotasEnum.LOJA,
@@ -50,7 +55,7 @@ const routes: Routes = [
       },
       {
         path: RotasEnum.CONTATO,
-        component: HomeProdutosComponent,
+        component: HomeQuemSomosComponent,
       },
     ],
   },

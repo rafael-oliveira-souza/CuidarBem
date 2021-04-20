@@ -1,6 +1,10 @@
 import * as moment from "moment";
 
 export const DataUtilsConstants = {
+  newDate(): Date {
+    moment.locale("pt-BR");
+    return moment(new Date()).toDate();
+  },
   getData(data: any): Date {
     if (data != null) {
       moment.locale("pt-BR");
@@ -48,8 +52,13 @@ export const DataUtilsConstants = {
       }
     }
   },
-  diff(data: any, data2: any, type: "years" | "months" | "days"): number {
+  diff(
+    data: any,
+    data2: any,
+    type: "years" | "months" | "days" | "hours" | "minutes" | "seconds"
+  ): number {
     if (this.dataValid(data)) {
+      data2 = moment(data2);
       return moment(data).diff(data2, type);
     }
   },

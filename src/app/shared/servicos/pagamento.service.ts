@@ -27,7 +27,7 @@ export class PagamentoService {
 
   public criarPagamento(pagamento: Pagamento): Observable<Pagamento> {
     return this._http.post<Pagamento>(
-      `${environment.api_server}/pagamento`,
+      `${environment.apiServer}/pagamento`,
       pagamento
     );
   }

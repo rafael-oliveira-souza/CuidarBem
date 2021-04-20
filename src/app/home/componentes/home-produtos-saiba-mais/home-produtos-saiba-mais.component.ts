@@ -13,6 +13,7 @@ import { LocacaoService } from "src/app/shared/servicos/locacao.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
+import { ImagemProduto } from "src/app/shared/models/classes/ImagemProduto";
 
 @Component({
   selector: "app-home-produtos-saiba-mais",
@@ -34,7 +35,6 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   public pacotes: Pacote[] = [];
 
   constructor(
-    private _fotoService: FotoService,
     public _router: Router,
     public _config: DynamicDialogConfig,
     private _produtoService: ProdutoService,
@@ -53,13 +53,17 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     this.produtoIndisponivel =
       this.produto.situacao == SituacaoProdutoEnum.INDISPONIVEL;
 
-    this.getImagens();
+    this.getImagens(this.produto.id);
   }
 
-  public getImagens() {
-    this._fotoService.getImagens().subscribe((imagens: any[]) => {
-      this.imagens = imagens;
-    });
+  public getImagens(idProduto: number) {
+    this._produtoService
+      .getImagensProdutos()
+      .subscribe((imagens: ImagemProduto[]) => {
+        this.imagens = imagens
+          .filter((prod) => prod.id_produto == idProduto)
+          .map((prd) => prd.url_imagem);
+      });
   }
 
   public getSituacaoEstoque(situacao: number) {

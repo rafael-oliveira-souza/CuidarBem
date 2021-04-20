@@ -9,8 +9,9 @@ import { HomeProdutosSaibaMaisComponent } from "./componentes/home-produtos-saib
 import { HomeProdutosPesquisaComponent } from "./componentes/home-produtos-pesquisa/home-produtos-pesquisa.component";
 import { HomeProdutosComponent } from "./componentes/home-produtos-brinquedo/home-produtos.component";
 import { HomeLojaComponent } from "./componentes/home-loja/home-loja.component";
-import { HomeMinhaContaComponent } from "./componentes/home-minha-conta/home-minha-conta.component";
 import { HomeProdutosBrinquedotecaComponent } from "./componentes/home-produtos-brinquedoteca/home-produtos-brinquedoteca.component";
+import { HomeAdminComponent } from "./componentes/home-admin/home-admin.component";
+import { HomeMinhaContaComponent } from "./componentes/home-minha-conta/home-minha-conta.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { HomeProdutosBrinquedotecaComponent } from "./componentes/home-produtos-
     HomeLojaComponent,
     HomeMinhaContaComponent,
     HomeProdutosBrinquedotecaComponent,
+    HomeAdminComponent,
   ],
   imports: [CommonModule, HomeRoutingModule, SharedModule],
+  entryComponents: [HomeMinhaContaComponent],
 })
 export class HomeModule {}

@@ -14,18 +14,18 @@ export class CategoriaService {
   constructor(private _http: HttpClient) {}
 
   public getCategorias(): Observable<Array<Categoria>> {
-    return this._http.get<any>(`${environment.api_server}/categoria/todos`);
+    return this._http.get<any>(`${environment.apiServer}/categoria/todos`);
   }
 
   public getCategoriaById(idCategoria: number): Observable<Categoria> {
     return this._http.get<Categoria>(
-      `${environment.api_server}/categoria?id=${idCategoria}`
+      `${environment.apiServer}/categoria?id=${idCategoria}`
     );
   }
 
   public removeCategoriaById(id: number) {
     return this._http.delete<any>(
-      `${environment.api_server}/categoria/excluir?id=${id}`
+      `${environment.apiServer}/categoria/excluir?id=${id}`
     );
   }
 }

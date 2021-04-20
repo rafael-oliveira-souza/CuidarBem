@@ -1,4 +1,6 @@
 export enum MensagemEnum {
+  EMAIL_INVALIDO = "Email inválido",
+  SENHA_INVALIDA = "Senha inválida",
   COMPRA_EFETUADA_COM_SUCESSO = "Compra efetuada com sucesso.",
   COMPRA_SEM_QUANTIDADE_ITEMS = "Por favor, selecione a quantidade de produtos desejados.",
   DESEJO_REMOVER_ITEM = "Deseja remover o item?",
@@ -15,4 +17,6 @@ export enum MensagemEnum {
   PRODUTO_ADD_CARRINHO = "O produto foi adicionado ao carrinho.",
   NENHUM_CAMPO_FOI_ATUALIZADO = "Nenhum campo foi atualizado.",
   VALOR_PAGAMENTO_INVALIDO = "Valor para pagamento precisa ser maior que zero.",
+  MENSAGEM_ENVIADA_TROCA_SENHA = "Enviamos uma mensagem no seu email para que realize sua troca de senha.",
+  PREENCHA_EMAIL = "Por favor, preencha o seu email para que possamos recuperar sua senha.",
 }

@@ -17,29 +17,29 @@ export class UsuarioService {
   ) {}
 
   public criarUsuario(usuario: Usuario) {
-    return this._http.post<any>(`${environment.api_server}/usuario`, usuario);
+    return this._http.post<any>(`${environment.apiServer}/usuario`, usuario);
   }
 
   public criarCliente(cliente: Cliente) {
-    return this._http.post<any>(`${environment.api_server}/cliente`, cliente);
+    return this._http.post<any>(`${environment.apiServer}/cliente`, cliente);
   }
 
   public atualizarCliente(cliente: Cliente) {
     return this._http.put<any>(
-      `${environment.api_server}/cliente/atualizar`,
+      `${environment.apiServer}/cliente/atualizar`,
       cliente
     );
   }
 
   public getClienteById(idCliente: number): Observable<Cliente> {
     return this._http.get<Cliente>(
-      `${environment.api_server}/cliente?id=${idCliente}`
+      `${environment.apiServer}/cliente?id=${idCliente}`
     );
   }
 
   public login(usuario: Usuario): Observable<Usuario> {
     return this._http.post<any>(
-      `${environment.api_server}/usuario/login`,
+      `${environment.apiServer}/usuario/login`,
       usuario
     );
   }
@@ -54,7 +54,7 @@ export class UsuarioService {
 
   public removeUsuarioById(id: number) {
     return this._http.delete<any>(
-      `${environment.api_server}/usuario/excluir?id=${id}`
+      `${environment.apiServer}/usuario/excluir?id=${id}`
     );
   }
 }

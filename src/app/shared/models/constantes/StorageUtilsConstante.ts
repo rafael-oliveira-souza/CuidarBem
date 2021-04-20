@@ -1,4 +1,5 @@
 import { StorageEnum } from "../enums/StorageEnum";
+import { DataUtilsConstants } from "./DataUtilsConstante";
 
 export const StorageUtilsConstante = {
   getAll(): Array<any> {
@@ -31,6 +32,10 @@ export const StorageUtilsConstante = {
   },
 
   setItem<T>(key: StorageEnum, value: T): void {
+    if (value) {
+      value["dataCriacao"] = DataUtilsConstants.newDate();
+    }
+
     let object: string = JSON.stringify(value);
     localStorage.setItem(key, object);
   },

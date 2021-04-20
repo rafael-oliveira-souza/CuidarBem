@@ -1,4 +1,4 @@
 export class FaixaEtaria {
-  id: number;
-  nome: string;
+  id: number = null;
+  nome: string = null;
 }

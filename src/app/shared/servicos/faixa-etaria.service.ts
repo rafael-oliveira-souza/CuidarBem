@@ -18,19 +18,19 @@ export class FaixaEtariaService {
     // this.objectSource.next(Mocks.FaixaEtaria);
     // return this.observableObject;
     return this._http.get<Array<FaixaEtaria>>(
-      `${environment.api_server}/faixa/todos`
+      `${environment.apiServer}/faixa/todos`
     );
   }
 
   public getFaixaEtariaById(id: number): Observable<FaixaEtaria> {
     return this._http.get<FaixaEtaria>(
-      `${environment.api_server}/faixa?id=${id}`
+      `${environment.apiServer}/faixa?id=${id}`
     );
   }
 
   public removeFaixaById(id: number) {
     return this._http.delete<any>(
-      `${environment.api_server}/faixa/excluir?id=${id}`
+      `${environment.apiServer}/faixa/excluir?id=${id}`
     );
   }
 }

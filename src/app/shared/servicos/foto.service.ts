@@ -11,7 +11,7 @@ export class FotoService {
 
   constructor() {}
 
-  public getImagens(): Observable<Array<any>> {
+  public getImagensProdutos(): Observable<Array<any>> {
     this.objectSource.next(Mocks.Imagens);
 
     return this.observableObject;

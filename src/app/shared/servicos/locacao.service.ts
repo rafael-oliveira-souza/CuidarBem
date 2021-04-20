@@ -14,18 +14,18 @@ export class LocacaoService {
   constructor(private _http: HttpClient) {}
 
   public getPacotes(): Observable<Array<Pacote>> {
-    return this._http.get<any>(`${environment.api_server}/pacote/todos`);
+    return this._http.get<any>(`${environment.apiServer}/pacote/todos`);
   }
 
   public getPacoteById(idPacote: number): Observable<Pacote> {
     return this._http.get<Pacote>(
-      `${environment.api_server}/pacote?id=${idPacote}`
+      `${environment.apiServer}/pacote?id=${idPacote}`
     );
   }
 
   public removePacoteById(id: number) {
     return this._http.delete<any>(
-      `${environment.api_server}/pacote/excluir?id=${id}`
+      `${environment.apiServer}/pacote/excluir?id=${id}`
     );
   }
 }

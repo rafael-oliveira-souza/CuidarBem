@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DialogService } from "primeng/dynamicdialog";
+import { LoginComponent } from "src/app/shared/componentes/login/login.component";
 import { Cliente } from "src/app/shared/models/classes/Cliente";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
@@ -33,6 +35,7 @@ export class ComprasConclusaoComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
+    private _dialogService: DialogService,
     private _alertaService: AlertaService,
     private _storageService: StorageService,
     private _pagamentoService: PagamentoService,
@@ -124,9 +127,9 @@ export class ComprasConclusaoComponent implements OnInit {
       pedido.payer.identification.number = parseInt(cliente.cpf);
       pedido.payer.identification.type = "CPF";
 
-      pedido.back_urls.success = `${environment.api_local_server}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
-      pedido.back_urls.failure = `${environment.api_local_server}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
-      pedido.back_urls.pending = `${environment.api_local_server}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.success = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.failure = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.pending = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
 
       pedido.payer.date_created = DataUtilsConstants.dataConvertDateToString(
         new Date()
@@ -144,9 +147,13 @@ export class ComprasConclusaoComponent implements OnInit {
     } else {
       if (!usuario) {
         this._alertaService.erro(MensagemEnum.EFETUE_LOGIN);
-        this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
+        const ref = this._dialogService.open(LoginComponent, {
+          header: "",
+          width: "70%",
+        });
+        // this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
       } else if (this.valorPagamento <= 0) {
-        this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
+        // this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
         this._alertaService.erro(MensagemEnum.VALOR_PAGAMENTO_INVALIDO);
       } else if (!cliente) {
         this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);

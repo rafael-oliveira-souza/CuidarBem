@@ -31,6 +31,8 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { CarouselModule } from "primeng/carousel";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { SelectButtonModule } from "primeng/selectbutton";
+import { FileUploadModule } from "primeng/fileupload";
 
 //components
 import { HeaderComponent } from "./componentes/header/header.component";
@@ -113,6 +115,8 @@ import { SafePipe } from "./pipes/safe.pipe";
     ConfirmDialogModule,
     CarouselModule,
     ProgressSpinnerModule,
+    SelectButtonModule,
+    FileUploadModule,
   ],
   exports: [
     FormsModule,
@@ -168,6 +172,8 @@ import { SafePipe } from "./pipes/safe.pipe";
     ConfirmDialogModule,
     CarouselModule,
     ProgressSpinnerModule,
+    SelectButtonModule,
+    FileUploadModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent],
   providers: [DialogService, ConfirmationService, MessageService],
