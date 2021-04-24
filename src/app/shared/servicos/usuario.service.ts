@@ -44,6 +44,19 @@ export class UsuarioService {
     );
   }
 
+  public atualizarSenha(
+    usuario: Usuario,
+    novaSenha: string
+  ): Observable<Usuario> {
+    return this._http.post<any>(
+      `${environment.apiServer}/usuario/atualizarSenha`,
+      {
+        usuario: usuario,
+        novaSenha: novaSenha,
+      }
+    );
+  }
+
   public logout(): void {
     this._storageService.removeAll();
   }

@@ -127,9 +127,9 @@ export class ComprasConclusaoComponent implements OnInit {
       pedido.payer.identification.number = parseInt(cliente.cpf);
       pedido.payer.identification.type = "CPF";
 
-      pedido.back_urls.success = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
-      pedido.back_urls.failure = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
-      pedido.back_urls.pending = `${environment.apiLocalServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.success = `${environment.apiCrescerBemServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.failure = `${environment.apiCrescerBemServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
+      pedido.back_urls.pending = `${environment.apiCrescerBemServer}/${RotasEnum.COMPRAS}/${RotasEnum.CONCLUSAO}`;
 
       pedido.payer.date_created = DataUtilsConstants.dataConvertDateToString(
         new Date()

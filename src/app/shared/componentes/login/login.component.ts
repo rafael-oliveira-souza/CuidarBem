@@ -106,26 +106,32 @@ export class LoginComponent implements OnInit {
   }
 
   public esqueceuSenha() {
-    let emailUsuario = this.form.controls.email.value;
+    if (this.form.controls.email.valid) {
+      let emailUsuario = this.form.controls.email.value;
 
-    if (!emailUsuario) {
-      this._alerta.alerta(MensagemEnum.PREENCHA_EMAIL);
+      if (!emailUsuario) {
+        this._alerta.alerta(MensagemEnum.PREENCHA_EMAIL);
+      } else {
+        let email: Email = new Email();
+        email.usuario = environment.usuarioCrescerBem;
+        email.senha = environment.senhaCrescerBem;
+        email.destinatarios = emailUsuario;
+        email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
+        email.mensagem = this.criarMensagemTrocaSenha();
+
+        this._emailService.enviarEmail(email).subscribe(
+          (res) => {
+            this._alerta.alerta(
+              `Enviamos uma mensagem no email <b>${emailUsuario}</b> para que realize sua troca de senha.`
+            );
+          },
+          (error) => {
+            this._alerta.erro(error.error["mensagem"]);
+          }
+        );
+      }
     } else {
-      let email: Email = new Email();
-      email.usuario = environment.usuarioCrescerBem;
-      email.senha = environment.senhaCrescerBem;
-      email.destinatarios = emailUsuario;
-      email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
-      email.mensagem = this.criarMensagemTrocaSenha();
-
-      this._emailService.enviarEmail(email).subscribe(
-        (res) => {
-          this._alerta.alerta(MensagemEnum.MENSAGEM_ENVIADA_TROCA_SENHA);
-        },
-        (error) => {
-          this._alerta.erro(error.error["mensagem"]);
-        }
-      );
+      this._alerta.erro(MensagemEnum.EMAIL_INVALIDO);
     }
   }
 

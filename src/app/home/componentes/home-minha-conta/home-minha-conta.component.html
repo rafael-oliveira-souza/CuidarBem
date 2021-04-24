@@ -2,155 +2,215 @@
   <!-- <div class="p-2 text-center">
     <img height="60px" src="../../../../assets/images/crescer.png" />
   </div> -->
-  <form
-    *ngIf="form"
-    [formGroup]="form"
-    class="p-4 row justify-content-center mb-5"
-    autocomplete="off"
-  >
-    <h4 class="col-12">Dados Pessoais</h4>
-    <div class="col-6 mt-3">
-      <span class="p-float-label">
-        <input
-          id="nome"
-          class="col-12"
-          type="text"
+  <div *ngIf="!alteraSenha">
+    <form
+      *ngIf="form"
+      [formGroup]="form"
+      class="p-4 row justify-content-center mb-5"
+      autocomplete="off"
+    >
+      <h4 class="col-12">Dados Pessoais</h4>
+      <div class="col-6 mt-3">
+        <span class="p-float-label">
+          <input
+            id="nome"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.nome"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="nome">Nome:</label>
+        </span>
+      </div>
+      <div class="col-6 mt-3">
+        <span class="p-float-label">
+          <input
+            id="sobrenome"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.sobrenome"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="sobrenome">Sobrenome:</label>
+        </span>
+      </div>
+      <div class="col-6 mt-4 mb-4">
+        <span class="p-float-label">
+          <input
+            id="cpf"
+            class="col-12"
+            type="text"
+            pInputText
+            (keyup)="formatarCPF()"
+            [formControl]="form.controls.cpf"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="cpf">CPF:</label>
+        </span>
+      </div>
+      <div class="col-6 mt-4 mb-4">
+        <span class="p-float-label">
+          <input
+            id="telefone"
+            class="col-12"
+            type="text"
+            pInputText
+            (keyup)="formatarTelefone()"
+            [formControl]="form.controls.telefone"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="telefone">Telefone:</label>
+        </span>
+      </div>
+      <h4 class="col-12">Endereço</h4>
+      <div class="col-12 mt-3">
+        <span class="p-float-label">
+          <input
+            id="cep"
+            class="col-12"
+            type="text"
+            pInputText
+            (keyup)="formatarCEP()"
+            [formControl]="form.controls.cep"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="cep">CEP:</label>
+        </span>
+      </div>
+      <div class="col-6 mt-4">
+        <select
           pInputText
-          [formControl]="form.controls.nome"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="nome">Nome:</label>
-      </span>
-    </div>
-    <div class="col-6 mt-3">
-      <span class="p-float-label">
-        <input
-          id="sobrenome"
+          id="estado"
           class="col-12"
-          type="text"
-          pInputText
-          [formControl]="form.controls.sobrenome"
+          [formControl]="form.controls.estado"
           sclass=" ng-invalid ng-dirty"
-        />
-        <label for="sobrenome">Sobrenome:</label>
-      </span>
-    </div>
-    <div class="col-6 mt-4 mb-4">
-      <span class="p-float-label">
-        <input
-          id="cpf"
-          class="col-12"
-          type="text"
-          pInputText
-          (keyup)="formatarCPF()"
-          [formControl]="form.controls.cpf"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="cpf">CPF:</label>
-      </span>
-    </div>
-    <div class="col-6 mt-4 mb-4">
-      <span class="p-float-label">
-        <input
-          id="telefone"
-          class="col-12"
-          type="text"
-          pInputText
-          (keyup)="formatarTelefone()"
-          [formControl]="form.controls.telefone"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="telefone">Telefone:</label>
-      </span>
-    </div>
-    <h4 class="col-12">Endereço</h4>
-    <div class="col-12 mt-3">
-      <span class="p-float-label">
-        <input
-          id="cep"
-          class="col-12"
-          type="text"
-          pInputText
-          (keyup)="formatarCEP()"
-          [formControl]="form.controls.cep"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="cep">CEP:</label>
-      </span>
-    </div>
-    <div class="col-6 mt-4">
-      <select
-        pInputText
-        id="estado"
-        class="col-12"
-        [formControl]="form.controls.estado"
-        sclass=" ng-invalid ng-dirty"
-      >
-        <option value="null">Selecione um estado</option>
-        <option *ngFor="let uf of ufs" [value]="uf.sigla">
-          {{ uf.nome }}
-        </option>
-      </select>
-    </div>
-    <div class="col-6 mt-4">
-      <span class="p-float-label">
-        <input
-          id="municipio"
-          class="col-12"
-          type="text"
-          pInputText
-          [formControl]="form.controls.municipio"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="municipio">Município:</label>
-      </span>
-    </div>
-    <div class="col-9 mt-4">
-      <span class="p-float-label">
-        <input
-          id="logradouro"
-          class="col-12"
-          type="text"
-          pInputText
-          [formControl]="form.controls.logradouro"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="logradouro">Logradouro:</label>
-      </span>
-    </div>
-    <div class="col-3 mt-4">
-      <span class="p-float-label">
-        <input
-          id="numero"
-          class="col-12"
-          type="text"
-          pInputText
-          [formControl]="form.controls.numero"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="numero">Número:</label>
-      </span>
-    </div>
-    <div class="col-12 mt-4">
-      <span class="p-float-label">
-        <input
-          id="complemento"
-          class="col-12"
-          type="text"
-          pInputText
-          [formControl]="form.controls.complemento"
-          sclass=" ng-invalid ng-dirty"
-        />
-        <label for="complemento">Complemento:</label>
-      </span>
-    </div>
-  </form>
+        >
+          <option value="null">Selecione um estado</option>
+          <option *ngFor="let uf of ufs" [value]="uf.sigla">
+            {{ uf.nome }}
+          </option>
+        </select>
+      </div>
+      <div class="col-6 mt-4">
+        <span class="p-float-label">
+          <input
+            id="municipio"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.municipio"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="municipio">Município:</label>
+        </span>
+      </div>
+      <div class="col-9 mt-4">
+        <span class="p-float-label">
+          <input
+            id="logradouro"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.logradouro"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="logradouro">Logradouro:</label>
+        </span>
+      </div>
+      <div class="col-3 mt-4">
+        <span class="p-float-label">
+          <input
+            id="numero"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.numero"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="numero">Número:</label>
+        </span>
+      </div>
+      <div class="col-12 mt-4">
+        <span class="p-float-label">
+          <input
+            id="complemento"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="form.controls.complemento"
+            sclass=" ng-invalid ng-dirty"
+          />
+          <label for="complemento">Complemento:</label>
+        </span>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="alteraSenha">
+    <form
+      *ngIf="formAlteraSenha"
+      [formGroup]="formAlteraSenha"
+      class="p-4 row justify-content-center mb-5"
+    >
+      <h4 class="col-12">Alterar Senha</h4>
+      <div class="col-4 mt-4">
+        <span class="p-float-label">
+          <input
+            id="senhaAt"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="formAlteraSenha.controls.senhaAtual"
+          />
+          <label for="senhaAt">Senha atual:</label>
+        </span>
+      </div>
+      <div class="col-4 mt-4">
+        <span class="p-float-label">
+          <input
+            id="senha"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="formAlteraSenha.controls.novaSenha"
+          />
+          <label for="senha">Nova senha:</label>
+        </span>
+      </div>
+      <div class="col-4 mt-4">
+        <span class="p-float-label">
+          <input
+            id="senhaCop"
+            class="col-12"
+            type="text"
+            pInputText
+            [formControl]="formAlteraSenha.controls.novaSenhaCp"
+          />
+          <label for="senhaCop">Repita a nova senha:</label>
+        </span>
+      </div>
+      <small *ngIf="exibirAlertaSenha()" class="col-12 mt-2 text-center">
+        A nova senha difere da senha repetida.
+      </small>
+    </form>
+  </div>
   <app-footer class="">
     <div class="bg-white">
       <div class="d-flex justify-content-center text-light p-2">
         <span class="p-2 float-right form-inline">
           <button
             pButton
+            type="button"
+            label="Alterar Senha"
+            icon="pi pi-user"
+            [disabled]="exibirAlertaSenha()"
+            (click)="alterarSenha()"
+            class="p-button-sm p-button-primary mr-2 mt-2 text-light"
+          ></button>
+          <button
+            pButton
+            *ngIf="!alteraSenha"
             style="opacity: 0.9"
             type="button"
             label="Salvar"
@@ -159,6 +219,7 @@
             class="p-button-sm p-button-warning mr-2 mt-2 text-light"
           ></button>
           <button
+            *ngIf="!alteraSenha"
             pButton
             type="button"
             label="Sair da Conta"

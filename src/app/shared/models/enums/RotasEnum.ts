@@ -7,6 +7,7 @@ export enum RotasEnum {
   CONTATO = "contato",
   CONCLUSAO = "conclusao",
   COMPRAS = "compras",
+  CRESCER_BEM = "https://crescerdf.com/",
   DESCRICAO = "descricao",
   SEGURANCA = "seguranca",
   QUEM_SOMOS = "quem-somos",

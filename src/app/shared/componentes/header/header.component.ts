@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
           self._storageService.removeAll();
         }
 
-        self.verificarPerfil(usuario);
+        // self.verificarPerfil(usuario);
       }
     }, 1000);
   }

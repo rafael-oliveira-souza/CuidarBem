@@ -20,7 +20,10 @@ import { UsuarioService } from "src/app/shared/servicos/usuario.service";
   styleUrls: ["./home-minha-conta.component.scss"],
 })
 export class HomeMinhaContaComponent implements OnInit {
+  public usuario: Usuario = new Usuario();
   public cliente: Cliente = new Cliente();
+  public alteraSenha: Boolean = false;
+  public formAlteraSenha: FormGroup;
   public form: FormGroup;
   public ufs = UF;
 
@@ -38,9 +41,7 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public getCliente() {
-    let usuario: Usuario = this._storageService.getItem<Usuario>(
-      StorageEnum.USUARIO
-    );
+    this.usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
     if (this.cliente) {
       this.setForm();
@@ -48,7 +49,7 @@ export class HomeMinhaContaComponent implements OnInit {
       this.formatarCPF();
       this.formatarTelefone();
     } else {
-      this._usuarioService.getClienteById(usuario.id).subscribe(
+      this._usuarioService.getClienteById(this.usuario.id).subscribe(
         (cliente: Cliente) => {
           if (cliente) {
             this.cliente = cliente;
@@ -69,6 +70,21 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public setForm() {
+    this.formAlteraSenha = this._builder.group({
+      senhaAtual: [
+        { value: null, disabled: false },
+        [Validators.minLength(8), Validators.required],
+      ],
+      novaSenha: [
+        { value: null, disabled: false },
+        [Validators.minLength(8), Validators.required],
+      ],
+      novaSenhaCp: [
+        { value: null, disabled: false },
+        [Validators.minLength(8), Validators.required],
+      ],
+    });
+
     this.form = this._builder.group({
       nome: [
         { value: this.cliente.nome, disabled: false },
@@ -201,5 +217,33 @@ export class HomeMinhaContaComponent implements OnInit {
         this._alerta.alerta(MensagemEnum.PREENCHA_TODOS_CAMPOS);
       }
     }
+  }
+
+  public exibirAlertaSenha() {
+    let novaSenha = this.formAlteraSenha.controls.novaSenha.value;
+    let novaSenhaCp = this.formAlteraSenha.controls.novaSenhaCp.value;
+
+    return novaSenha && novaSenhaCp && novaSenha != novaSenhaCp;
+  }
+
+  public alterarSenha() {
+    if (this.alteraSenha) {
+      let novaSenha = this.formAlteraSenha.controls.novaSenha.value;
+      let novaSenhaCp = this.formAlteraSenha.controls.novaSenhaCp.value;
+
+      if (novaSenha == novaSenhaCp) {
+        this._usuarioService.atualizarSenha(this.usuario, novaSenha).subscribe(
+          (result) => {
+            this._alerta.sucesso(MensagemEnum.SENHA_ATUALIZADA_SUCESSO);
+          },
+          (error) => {
+            this._alerta.erro(error.error.mensagem);
+          }
+        );
+      } else {
+        this._alerta.alerta(MensagemEnum.SENHA_INVALIDA);
+      }
+    }
+    this.alteraSenha = !this.alteraSenha;
   }
 }

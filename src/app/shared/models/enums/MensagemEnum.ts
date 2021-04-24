@@ -1,6 +1,7 @@
 export enum MensagemEnum {
   EMAIL_INVALIDO = "Email inválido",
   SENHA_INVALIDA = "Senha inválida",
+  SENHA_ATUALIZADA_SUCESSO = "Senha atualizada com sucesso.",
   COMPRA_EFETUADA_COM_SUCESSO = "Compra efetuada com sucesso.",
   COMPRA_SEM_QUANTIDADE_ITEMS = "Por favor, selecione a quantidade de produtos desejados.",
   DESEJO_REMOVER_ITEM = "Deseja remover o item?",

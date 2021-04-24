@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 import { environment as prod } from "./environment.prod";
 
+const SERVER_BACKEND_LOCAL = "http://localhost:3300";
+
 export const environment = {
   production: false,
-  apiLocalServer: prod.apiLocalServer,
-  apiServer: prod.apiServer,
+  apiCrescerBemServer: prod.apiCrescerBemServer,
+  apiServer: SERVER_BACKEND_LOCAL,
   secretKey: prod.secretKey,
   mercadoPago: prod.mercadoPago,
   mercadoPagoToken: prod.mercadoPagoToken,
