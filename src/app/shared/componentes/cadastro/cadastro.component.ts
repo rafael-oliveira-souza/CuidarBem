@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { Usuario } from "../../models/classes/Usuario";
+import { MensagemEnum } from "../../models/enums/MensagemEnum";
 import { AlertaService } from "../../servicos/alerta.service";
 import { UsuarioService } from "../../servicos/usuario.service";
 
@@ -74,15 +75,20 @@ export class CadastroComponent implements OnInit {
   }
 
   public validarSenhas() {
-    if (this.form.controls.confirmarSenha && this.form.controls.senha) {
+    if (
+      this.form.controls.confirmarSenha.valid &&
+      this.form.controls.senha.valid
+    ) {
       if (
         this.form.controls.confirmarSenha.value !=
         this.form.controls.senha.value
       ) {
-        this.msgErro = "As senhas estão diferentes.";
+        this.msgErro = MensagemEnum.SENHAS_DIFEREM;
       } else {
         this.msgErro = "";
       }
+    } else {
+      this.msgErro = MensagemEnum.SENHA_INVALIDA;
     }
   }
 
@@ -98,18 +104,24 @@ export class CadastroComponent implements OnInit {
       ) {
         this._usuarioService.criarUsuario(usuario).subscribe(
           (result) => {
-            this._alerta.sucesso("Cadastro realizado com sucesso.");
+            this._alerta.sucesso(MensagemEnum.CADASTRO_SUCESSO);
             this._ref.close();
           },
           (error) => {
             if (error["message"]?.includes("Duplicate")) {
-              this._alerta.erro("Email já cadastrado.");
+              this._alerta.erro(MensagemEnum.EMAIL_CADASTRADO);
             }
           }
         );
       }
     } else {
-      this.msgErro = "Preencha todos os campos.";
+      if (this.form.controls.email.invalid) {
+        this.msgErro = MensagemEnum.EMAIL_INVALIDO;
+      } else if (this.form.controls.senha.invalid) {
+        this.msgErro = MensagemEnum.SENHA_INVALIDA;
+      } else {
+        this.msgErro = MensagemEnum.PREENCHA_TODOS_CAMPOS;
+      }
     }
   }
 }

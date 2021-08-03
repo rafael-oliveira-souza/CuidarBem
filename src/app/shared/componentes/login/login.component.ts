@@ -15,6 +15,7 @@ import { EmailService } from "../../servicos/email.service";
 import { StorageService } from "../../servicos/storage.service";
 import { UsuarioService } from "../../servicos/usuario.service";
 import { CadastroComponent } from "../cadastro/cadastro.component";
+import { NovaSenhaComponent } from "../nova-senha/nova-senha.component";
 
 @Component({
   selector: "app-login",
@@ -106,43 +107,10 @@ export class LoginComponent implements OnInit {
   }
 
   public esqueceuSenha() {
-    if (this.form.controls.email.valid) {
-      let emailUsuario = this.form.controls.email.value;
-
-      if (!emailUsuario) {
-        this._alerta.alerta(MensagemEnum.PREENCHA_EMAIL);
-      } else {
-        let email: Email = new Email();
-        email.usuario = environment.usuarioCrescerBem;
-        email.senha = environment.senhaCrescerBem;
-        email.destinatarios = emailUsuario;
-        email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
-        email.mensagem = this.criarMensagemTrocaSenha();
-
-        this._emailService.enviarEmail(email).subscribe(
-          (res) => {
-            this._alerta.alerta(
-              `Enviamos uma mensagem no email <b>${emailUsuario}</b> para que realize sua troca de senha.`
-            );
-          },
-          (error) => {
-            this._alerta.erro(error.error["mensagem"]);
-          }
-        );
-      }
-    } else {
-      this._alerta.erro(MensagemEnum.EMAIL_INVALIDO);
-    }
-  }
-
-  public criarMensagemTrocaSenha() {
-    return `
-      <div style="margin-left: 10px; margin-right: 10px; margin-top: 20px">
-        <div class="">
-          <p>Olá, criamos essa nova senha para você:
-            <b>${UtilsConstante.gerarNovaSenha(8)}</b>
-          </p>
-        </div>
-      </div>`;
+    this._ref.close();
+    const ref = this._dialogService.open(NovaSenhaComponent, {
+      header: "",
+      width: "70%",
+    });
   }
 }

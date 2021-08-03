@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { Categoria } from "../../models/classes/Categoria";
+import { Imagem } from "../../models/classes/Imagem";
 import { Produto } from "../../models/classes/Produto";
 import { MensagemEnum } from "../../models/enums/MensagemEnum";
 import { SituacaoProdutoEnum } from "../../models/enums/SituacaoProdutoEnum";
 import { AlertaService } from "../../servicos/alerta.service";
+import { FotoService } from "../../servicos/foto.service";
 import { ProdutoService } from "../../servicos/produto.service";
 
 @Component({
@@ -29,14 +31,28 @@ export class ProdutoComponent implements OnInit {
   }>();
 
   public situacaoIndisponivel = SituacaoProdutoEnum.INDISPONIVEL;
+  public imagem: string = null;
 
   constructor(
     private _router: Router,
     private _alertaService: AlertaService,
-    private _produtoService: ProdutoService
+    private _produtoService: ProdutoService,
+    private _fotoService: FotoService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getImagem(this.produto.id);
+  }
+
+  public getImagem(idProduto: number) {
+    this._fotoService.getImagensProdutosPorId(idProduto).subscribe((imgs) => {
+      if (imgs.length > 0) {
+        this.imagem = `${imgs[0].diretorio}/${imgs[0].nome}`;
+      } else {
+        this.imagem = "/assets/images/produtos/produtoSemImagem.png";
+      }
+    });
+  }
 
   public getSituacaoEstoque(situacao: number) {
     return this._produtoService.getSituacaoEstoque(situacao);
