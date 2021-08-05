@@ -9,3 +9,10 @@ i,
 img {
   cursor: pointer;
 }
+
+.circular {
+  border: 1px solid $azul;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+}

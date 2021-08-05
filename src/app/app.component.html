@@ -7,3 +7,11 @@
 <p-confirmDialog></p-confirmDialog>
 <app-loader></app-loader>
 <router-outlet></router-outlet>
+
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+/>
+<a *ngIf="showWhatsapp" (click)="abrirWhatsapp()" class="whats">
+  <i style="margin-top: 16px" class="fa fa-whatsapp"></i>
+</a>

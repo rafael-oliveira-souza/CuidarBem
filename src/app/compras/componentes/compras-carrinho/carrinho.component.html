@@ -1,6 +1,13 @@
-<div>
+<div #meuCarrinho>
   <div
-    class="d-flex justify-content-between align-items-center bg-carrinho text-light p-3"
+    class="
+      d-flex
+      justify-content-between
+      align-items-center
+      bg-carrinho
+      text-light
+      p-3
+    "
   >
     <div class="form-inline">
       <h1>Meu Carrinho</h1>
@@ -39,8 +46,9 @@
           <td colspan="2">
             <div class="col">
               <app-galeria
+                *ngIf="imagens.length > 0"
                 altura="80px"
-                [imagens]="[produto.imagem]"
+                [imagens]="getImage(produto.id)"
                 [maxImages]="1"
               ></app-galeria>
             </div>
@@ -92,7 +100,17 @@
 
     <div class="row justify-content-center" #t>
       <div
-        class="col-10 borda-azul row justify-content-center detalheCarrinhoSm ml-1 mr-1 mt-2 mb-2"
+        class="
+          col-10
+          borda-azul
+          row
+          justify-content-center
+          detalheCarrinhoSm
+          ml-1
+          mr-1
+          mt-2
+          mb-2
+        "
         *ngFor="let produto of objetoEnvio.produtos"
       >
         <div class="col-12">

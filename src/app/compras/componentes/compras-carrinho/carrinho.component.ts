@@ -1,17 +1,23 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
+import { Cliente } from "src/app/shared/models/classes/Cliente";
+import { Imagem } from "src/app/shared/models/classes/Imagem";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
 import { MoedaPipe } from "src/app/shared/pipes/moeda.pipe";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
+import { FotoService } from "src/app/shared/servicos/foto.service";
 import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { PdfService } from "src/app/shared/servicos/pdf.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
+import { StorageService } from "src/app/shared/servicos/storage.service";
 
 @Component({
   selector: "app-carrinho",
@@ -23,6 +29,9 @@ export class CarrinhoComponent implements OnInit {
   public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
   public categorias: Categoria[] = [];
   public pacotes: Pacote[] = [];
+  public imagens: Imagem[] = [];
+  public cliente: Cliente = new Cliente();
+  public numeroPedido: number;
 
   constructor(
     private _router: Router,
@@ -30,15 +39,20 @@ export class CarrinhoComponent implements OnInit {
     private _produtoService: ProdutoService,
     private _categoriaService: CategoriaService,
     private _compraService: CompraService,
-    private _locacaoService: LocacaoService
+    private _locacaoService: LocacaoService,
+    private _fotoService: FotoService,
+    private _pdfService: PdfService,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     // this.produtos = Mocks.Produtos;
+    this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
     this.carregarCarrinho();
     if (this.objetoEnvio) {
       this.getPacotes();
       this.getCategorias();
+      this.carregarImagens();
     } else {
       this.objetoEnvio = new ObjetoEnvio();
     }
@@ -46,6 +60,12 @@ export class CarrinhoComponent implements OnInit {
 
   public carregarCarrinho(): void {
     this.objetoEnvio = this._compraService.carregarCarrinho();
+  }
+
+  public carregarImagens(): void {
+    this._fotoService.getImagensPorDiretorios("produtos").subscribe((imgs) => {
+      this.imagens = imgs;
+    });
   }
 
   public getCategorias() {
@@ -125,11 +145,34 @@ export class CarrinhoComponent implements OnInit {
     if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
       this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
     } else {
+      let nota = document.getElementById("NotaFiscalCarrinho");
       this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);
     }
   }
 
   public definirAltura() {
     return window.screen.height * 0.6 + `px`;
+  }
+
+  public getImage(idProduto: number) {
+    let imgs: Imagem[] = this.imagens.filter((img) => img.id == idProduto);
+    let urls = imgs.map((img) => `${imgs[0].diretorio}/${imgs[0].nome}`);
+    if (urls.length > 0) {
+      return urls;
+    } else {
+      return ["/assets/images/produtos/produtoSemImagem.png"];
+    }
+  }
+
+  public formatarTelefone(tel: string) {
+    if (tel) {
+      return tel
+        .replace(/(\d{2})?(\d{4,5})?(\d{4})/, "($1) $2-$3")
+        .substring(0, 15);
+    }
+  }
+
+  public formatarEndereco(cliente: Cliente) {
+    return `${cliente.logradouro} - Numero: ${cliente.numero} - ${cliente.complemento} - ${cliente.municipio} - ${cliente.estado} -  CEP: ${cliente.cep}`;
   }
 }

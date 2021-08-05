@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Imagem } from "src/app/shared/models/classes/Imagem";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
+import { FotoService } from "src/app/shared/servicos/foto.service";
 
 @Component({
   selector: "app-home-loja",
@@ -10,11 +12,14 @@ import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 export class HomeLojaComponent implements OnInit {
   public images: string[] = [];
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private _fotoService: FotoService) {}
 
   ngOnInit(): void {
-    this.images.push("/assets/images/bg_img1.jpeg");
-    this.images.push("/assets/images/bg_img2.jpeg");
+    this._fotoService.getImagensPorDiretorios("carrousel").subscribe((imgs) => {
+      imgs.forEach((img: Imagem) => {
+        this.images.push(`${img.diretorio}/${img.nome}`);
+      });
+    });
   }
 
   public goRota(rota: string) {

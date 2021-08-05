@@ -14,6 +14,7 @@ import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
 import { ImagemProduto } from "src/app/shared/models/classes/ImagemProduto";
+import { Imagem } from "src/app/shared/models/classes/Imagem";
 
 @Component({
   selector: "app-home-produtos-saiba-mais",
@@ -38,7 +39,7 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     public _router: Router,
     public _config: DynamicDialogConfig,
     private _produtoService: ProdutoService,
-    private _locacaoService: LocacaoService,
+    private _fotoService: FotoService,
     private _alertaService: AlertaService,
     private _compraService: CompraService,
     private _ref: DynamicDialogRef
@@ -57,12 +58,10 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   }
 
   public getImagens(idProduto: number) {
-    this._produtoService
-      .getImagensProdutos()
-      .subscribe((imagens: ImagemProduto[]) => {
-        this.imagens = imagens
-          .filter((prod) => prod.id_produto == idProduto)
-          .map((prd) => prd.url_imagem);
+    this._fotoService
+      .getImagensProdutosPorId(idProduto)
+      .subscribe((imagens: Imagem[]) => {
+        this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);
       });
   }
 

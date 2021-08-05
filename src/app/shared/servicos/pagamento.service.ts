@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Pedido } from "../models/classes/Pedido";
+import { PedidoMercadoPago } from "../models/classes/PedidoMercadoPago";
 import { environment } from "src/environments/environment";
 import { Pagamento } from "../models/classes/Pagamento";
 
@@ -11,7 +11,7 @@ import { Pagamento } from "../models/classes/Pagamento";
 export class PagamentoService {
   constructor(private _http: HttpClient) {}
 
-  public criarPedido(pedido: Pedido): Observable<any> {
+  public criarPedidoMecadoPago(pedido: PedidoMercadoPago): Observable<any> {
     let jsonPedido = JSON.stringify(pedido);
     return this._http.post<any>(
       `${environment.mercadoPago}/checkout/preferences`,

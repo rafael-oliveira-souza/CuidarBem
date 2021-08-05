@@ -17,7 +17,25 @@
       ></i>
     </div>
   </div>
-  <div *ngIf="urlMercadoPago" class="row justify-content-center mt-2">
+  <div class="row justify-content-center text-center mt-5">
+    <div class="col-4">
+      <a (click)="abrirPix()">
+        <img class="circular" src="/assets/images/pix.jpeg " />
+      </a>
+      <p>Faz um pix</p>
+    </div>
+    <div class="col-4">
+      <a (click)="abrirMercado()">
+        <img class="circular" src="/assets/images/mercadoPago.jpeg " />
+      </a>
+      <p>Pagar com mercado pago</p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="mercadoOn && urlMercadoPago"
+    class="row justify-content-center mt-2"
+  >
     <div class="col-11">
       <iframe
         width="100%"
@@ -26,5 +44,63 @@
         [src]="urlMercadoPago | safe"
       ></iframe>
     </div>
+  </div>
+  <div *ngIf="pixOn">
+    <div class="row justify-content-center mt-5 text-center">
+      <div class="col-6 row justify-content-center p-4 bg-conclusao">
+        <h3 class="col-12 mb-5">Dados PIX</h3>
+        <div class="col">Nome: {{ dadosPix.nome }}</div>
+        <div class="col">Chave: {{ dadosPix.chave }}</div>
+        <h5 class="col-12 mt-5">
+          Por favor, após a realização da transferência, nos envie o comprovante
+          da transferência e o número do pedido que foi encaminhado ao seu email
+          pelo nosso canal no whatsapp.
+        </h5>
+        <button
+          pButton
+          type="button"
+          label="Finalizar Compra"
+          icon="pi pi-dollar"
+          (click)="salvarPedido(true)"
+          class="p-button-sm p-button-success mr-2 mt-2 text-light"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: none">
+  <div id="NotaFiscalCarrinho" style="text-align: center">
+    <h4>Dados do Pedido</h4>
+    <small>Número do Pedido: {{ numeroPedido }} </small>
+    <hr />
+    <div style="text-align: start; margin-top: 10px">
+      <p>Nome do cliente: {{ cliente.nome + " " + cliente.sobrenome }}</p>
+      <p>CPF: {{ cliente.cpf | cpf }}</p>
+      <p>Telefone: {{ formatarTelefone(cliente.telefone) }}</p>
+      <p>Endereço: {{ formatarEndereco(cliente) }}</p>
+    </div>
+    <div
+      *ngFor="let obj of objetoEnvio.produtos"
+      style="text-align: start; margin-top: 10px"
+    >
+      <hr />
+      <p>Nome: {{ obj.nome }}</p>
+      <p>Descrição: {{ obj.descricao }}</p>
+      <p>Categoria: {{ getNomeCategoria(obj.categoria) }}</p>
+      <p>Quantidade: {{ obj.quantidade }}</p>
+      <p>Valor: {{ getValor(obj) }}</p>
+    </div>
+    <hr />
+    <h4>
+      Total do Pedido:
+      {{ getValorTotal(objetoEnvio.produtos, pacotes) | moeda }}
+    </h4>
+    <br /><br /><br />
+
+    <small
+      >Caso precise de mais informações entre em contato conosco por algum dos
+      nossos canais.</small
+    >
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { DialogService } from "primeng/dynamicdialog";
 import { HomeMinhaContaComponent } from "src/app/home/componentes/home-minha-conta/home-minha-conta.component";
+import { Cliente } from "../../models/classes/Cliente";
 import { ObjetoEnvio } from "../../models/classes/ObjetoEnvio";
 import { Pacote } from "../../models/classes/Pacote";
 import { Produto } from "../../models/classes/Produto";
@@ -39,8 +40,29 @@ export class BarraDeAcoesComponent implements OnInit {
     private _alerta: AlertaService,
     private _locacaoService: LocacaoService,
     private _compraService: CompraService,
-    private _produtoService: ProdutoService
+    private _produtoService: ProdutoService,
+    private _usuarioService: UsuarioService
   ) {}
+
+  ngAfterViewInit(): void {
+    let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
+    if (usuario) {
+      this._usuarioService.getClienteById(usuario.id).subscribe(
+        (cliente: Cliente) => {
+          if (cliente) {
+            this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
+            this.labelEntrar = `Bem vindo ${
+              cliente.nome ? " - " + cliente.nome : ""
+            }`;
+          }
+        },
+        (error) => {
+          this._storageService.removeItem(StorageEnum.CLIENTE);
+          this._alerta.erro(error);
+        }
+      );
+    }
+  }
 
   ngOnInit(): void {
     this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {

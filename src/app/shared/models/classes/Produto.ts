@@ -2,7 +2,6 @@ import { SituacaoProdutoEnum } from "../enums/SituacaoProdutoEnum";
 
 export class Produto {
   public id: number = null;
-  public imagem: string = null;
   public descricao: string = null;
   public nome: string = null;
   public valor: number = null;

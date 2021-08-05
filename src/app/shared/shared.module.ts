@@ -56,6 +56,9 @@ import { GeneroPipe } from "./pipes/genero.pipe";
 import { MoedaPipe } from "./pipes/moeda.pipe";
 import { SemInfoPipe } from "./pipes/semInfo.pipe";
 import { SafePipe } from "./pipes/safe.pipe";
+import { UploadImageComponent } from "./componentes/upload-image/upload-image.component";
+import { ArquivosComponent } from "./componentes/arquivos/arquivos.component";
+import { NovaSenhaComponent } from "./componentes/nova-senha/nova-senha.component";
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import { SafePipe } from "./pipes/safe.pipe";
     ScrollComponent,
     GaleriaComponent,
     LoaderComponent,
+    UploadImageComponent,
+    ArquivosComponent,
+    NovaSenhaComponent,
 
     //pipes
     CpfPipe,
@@ -133,6 +139,9 @@ import { SafePipe } from "./pipes/safe.pipe";
     ScrollComponent,
     GaleriaComponent,
     LoaderComponent,
+    UploadImageComponent,
+    ArquivosComponent,
+    NovaSenhaComponent,
 
     //pipes
     CpfPipe,
@@ -175,7 +184,7 @@ import { SafePipe } from "./pipes/safe.pipe";
     SelectButtonModule,
     FileUploadModule,
   ],
-  entryComponents: [LoginComponent, CadastroComponent],
+  entryComponents: [LoginComponent, CadastroComponent, NovaSenhaComponent],
   providers: [DialogService, ConfirmationService, MessageService],
 })
 export class SharedModule {}

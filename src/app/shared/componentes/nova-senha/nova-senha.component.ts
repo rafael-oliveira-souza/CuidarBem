@@ -62,7 +62,7 @@ export class NovaSenhaComponent implements OnInit {
         email.destinatarios = emailUsuario;
         email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
 
-        this._emailService.enviarEmail(email).subscribe(
+        this._emailService.recuperarSenhaEEnviarEmail(email).subscribe(
           (res) => {
             this._alerta.alerta(
               `Enviamos uma mensagem no email <b>${emailUsuario}</b> para que realize sua troca de senha.`

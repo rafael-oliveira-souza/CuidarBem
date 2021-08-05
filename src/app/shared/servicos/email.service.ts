@@ -20,6 +20,13 @@ export class EmailService {
   constructor(private _http: HttpClient) {}
 
   public enviarEmail(email: Email): Observable<any> {
-    return this._http.post<any>(`${environment.apiServer}/enviar-email`, email);
+    return this._http.post<any>(`${environment.apiServer}/enviarEmail`, email);
+  }
+
+  public recuperarSenhaEEnviarEmail(email: Email): Observable<any> {
+    return this._http.post<any>(
+      `${environment.apiServer}/recuperarSenhaEEnviarEmail`,
+      email
+    );
   }
 }

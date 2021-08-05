@@ -1,30 +1,36 @@
 <!-- <div class="bg-img"></div> -->
 <!-- [autoplayInterval]="4000" [circular]="true" -->
-<p-carousel
-  [value]="images"
-  styleClass="carousel-pg"
-  [autoplayInterval]="4000"
-  [circular]="true"
->
-  <ng-template let-img pTemplate="item">
-    <div [style]="getBgImage(img)">
-      <div class="row justify-content-center pd text-center">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 mt-2">
-          <button class="icone-circ" (click)="goRota('brinquedos')">
-            <img width="80" height="80" src="/assets/icons/brinquedo.svg" />
-            <p>Brinquedos</p>
-          </button>
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 mt-2">
-          <button
-            class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 icone-circ"
-            (click)="goRota('brinquedoteca')"
-          >
-            <img width="80" height="80" src="/assets/icons/brinquedoteca.svg" />
-            <p>Brinquedoteca</p>
-          </button>
+<div *ngIf="images.length > 0">
+  <p-carousel
+    [value]="images"
+    styleClass="carousel-pg"
+    [autoplayInterval]="4000"
+    [circular]="true"
+  >
+    <ng-template let-img pTemplate="item">
+      <div [style]="getBgImage(img)">
+        <div class="row justify-content-center pd text-center">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 mt-2">
+            <button class="icone-circ" (click)="goRota('brinquedos')">
+              <img width="80" height="80" src="/assets/icons/brinquedo.svg" />
+              <p>Brinquedos</p>
+            </button>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 mt-2">
+            <button
+              class="col-12 col-sm-12 col-md-12 col-lg-6 col-xs-6 icone-circ"
+              (click)="goRota('brinquedoteca')"
+            >
+              <img
+                width="80"
+                height="80"
+                src="/assets/icons/brinquedoteca.svg"
+              />
+              <p>Brinquedoteca</p>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </ng-template>
-</p-carousel>
+    </ng-template>
+  </p-carousel>
+</div>

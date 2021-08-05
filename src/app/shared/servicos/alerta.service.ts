@@ -34,18 +34,18 @@ export class AlertaService {
     });
   }
 
-  sucesso(msg: string) {
-    const alerta: Mensagem = new Mensagem("success", "Sucesso", msg);
+  sucesso(msg: string, life?: number) {
+    const alerta: Mensagem = new Mensagem("success", "Sucesso", msg, life);
     this._messageService.add(alerta);
   }
 
-  alerta(msg: string) {
-    const alerta: Mensagem = new Mensagem("warn", "Alerta", msg);
+  alerta(msg: string, life?: number) {
+    const alerta: Mensagem = new Mensagem("warn", "Alerta", msg, life);
     this._messageService.add(alerta);
   }
 
-  erro(msg: string) {
-    const alerta: Mensagem = new Mensagem("error", "Erro", msg);
+  erro(msg: string, life?: number) {
+    const alerta: Mensagem = new Mensagem("error", "Erro", msg, life);
     this._messageService.add(alerta);
   }
 
@@ -63,15 +63,18 @@ export class Mensagem {
   severity: "custom" | "success" | "warn" | "info" | "error";
   summary: string;
   detail: string;
+  life: number;
 
   constructor(
     severity: "custom" | "success" | "warn" | "info" | "error",
     summary: string,
-    detail: string
+    detail: string,
+    life = 2000
   ) {
     // this.key = key;
     this.severity = severity;
     this.summary = summary;
     this.detail = detail;
+    this.life = life;
   }
 }

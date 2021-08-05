@@ -9,6 +9,7 @@ import { Produto } from "../models/classes/Produto";
 import { EnumUtilsConstants } from "../models/constantes/EnumUtilsConstante";
 import { SituacaoProdutoEnum } from "../models/enums/SituacaoProdutoEnum";
 import { CategoriaService } from "./categoria.service";
+import { FotoService } from "./foto.service";
 import { LocacaoService } from "./locacao.service";
 
 @Injectable({
@@ -20,6 +21,7 @@ export class ProdutoService {
   private pacotes: Pacote[] = [];
 
   constructor(
+    private _fotoService: FotoService,
     private _locacaoServiceo: LocacaoService,
     private _categoriaService: CategoriaService,
     private _http: HttpClient
@@ -83,11 +85,5 @@ export class ProdutoService {
     });
 
     return valorPacote;
-  }
-
-  public getImagensProdutos(): Observable<Array<ImagemProduto>> {
-    return this._http.get<Array<ImagemProduto>>(
-      `${environment.apiServer}/produto/imagens/todos`
-    );
   }
 }
