@@ -16,12 +16,12 @@ export class FotoService {
 
   public getImagensProdutosPorId(id: number): Observable<Array<Imagem>> {
     return this._http.get<Array<Imagem>>(
-      `${environment.apiServer}/getImagensPorId?id=${id}`
+      `${environment.apiServer}/imagem/getImagensPorId?id=${id}`
     );
   }
   public getImagensPorDiretorios(diretorio: string): Observable<Array<Imagem>> {
     return this._http.get<Array<Imagem>>(
-      `${environment.apiServer}/getImagensPorDiretorio?diretorio=${diretorio}`
+      `${environment.apiServer}/imagem/getImagensPorDiretorio?diretorio=${diretorio}`
     );
   }
 }
