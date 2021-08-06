@@ -11,6 +11,7 @@ import {
   Mensagem,
 } from "src/app/shared/servicos/alerta.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
+import { LoadService } from "src/app/shared/servicos/load.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 import { UsuarioService } from "src/app/shared/servicos/usuario.service";
 
@@ -33,7 +34,8 @@ export class HomeMinhaContaComponent implements OnInit {
     private _compraService: CompraService,
     private _alerta: AlertaService,
     private _builder: FormBuilder,
-    private _ref: DynamicDialogRef
+    private _ref: DynamicDialogRef,
+    private _loadService: LoadService
   ) {}
 
   ngOnInit(): void {
@@ -134,47 +136,54 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public formatarTelefone() {
-    let telefone: string = this.form.controls.telefone.value;
+    if (this.form && this.form.controls) {
+      let telefone: string = this.form.controls.telefone.value;
 
-    if (telefone) {
-      telefone = telefone.replace(/\D/g, "");
-      if (telefone.length >= 10) {
-        telefone = telefone
-          .replace(/(\d{2})?(\d{4,5})?(\d{4})/, "($1) $2-$3")
-          .substring(0, 15);
+      if (telefone) {
+        telefone = telefone.replace(/\D/g, "");
+        if (telefone.length >= 10) {
+          telefone = telefone
+            .replace(/(\d{2})?(\d{4,5})?(\d{4})/, "($1) $2-$3")
+            .substring(0, 15);
+        }
+        this.form.controls.telefone.setValue(telefone);
       }
-      this.form.controls.telefone.setValue(telefone);
     }
   }
 
   public formatarCEP() {
-    let cep: string = this.form.controls.cep.value;
+    if (this.form && this.form.controls) {
+      let cep: string = this.form.controls.cep.value;
 
-    if (cep) {
-      cep = cep.replace(/\D/g, "");
-      if (cep.length >= 8) {
-        cep = cep.replace(/(\d{5})?(\d{3})/, "$1-$2").substring(0, 9);
+      if (cep) {
+        cep = cep.replace(/\D/g, "");
+        if (cep.length >= 8) {
+          cep = cep.replace(/(\d{5})?(\d{3})/, "$1-$2").substring(0, 9);
+        }
+        this.form.controls.cep.setValue(cep);
       }
-      this.form.controls.cep.setValue(cep);
     }
   }
 
   public formatarCPF() {
-    let cpf: string = this.form.controls.cpf.value;
+    if (this.form && this.form.controls) {
+      let cpf: string = this.form.controls.cpf.value;
 
-    if (cpf) {
-      cpf = cpf.replace(/\D/g, "");
-      if (cpf.length >= 11) {
-        cpf = cpf
-          .replace(/(\d{3})?(\d{3})?(\d{3})?(\d{2})/, "$1.$2.$3-$4")
-          .substring(0, 14);
+      if (cpf) {
+        cpf = cpf.replace(/\D/g, "");
+        if (cpf.length >= 11) {
+          cpf = cpf
+            .replace(/(\d{3})?(\d{3})?(\d{3})?(\d{2})/, "$1.$2.$3-$4")
+            .substring(0, 14);
+        }
+        this.form.controls.cpf.setValue(cpf);
       }
-      this.form.controls.cpf.setValue(cpf);
     }
   }
 
   public logout() {
     this._usuarioService.logout();
+    this._loadService.setLoader(false);
     this._compraService.salvarCarrinho(null);
     this._ref.close();
   }
@@ -202,6 +211,7 @@ export class HomeMinhaContaComponent implements OnInit {
 
       this._usuarioService.atualizarCliente(cliente).subscribe(
         (result) => {
+          this._loadService.setLoader(true);
           this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
           this._alerta.sucesso("Cadastro atualizado com sucesso.");
           this._ref.close();
@@ -211,7 +221,7 @@ export class HomeMinhaContaComponent implements OnInit {
         }
       );
     } else {
-      if (!this.form.touched) {
+      if (this.form && !this.form.touched) {
         this._alerta.alerta(MensagemEnum.NENHUM_CAMPO_FOI_ATUALIZADO);
       } else {
         this._alerta.alerta(MensagemEnum.PREENCHA_TODOS_CAMPOS);
@@ -220,10 +230,14 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public exibirAlertaSenha() {
-    let novaSenha = this.formAlteraSenha.controls.novaSenha.value;
-    let novaSenhaCp = this.formAlteraSenha.controls.novaSenhaCp.value;
+    if (this.formAlteraSenha && this.formAlteraSenha.controls) {
+      let novaSenha = this.formAlteraSenha.controls.novaSenha.value;
+      let novaSenhaCp = this.formAlteraSenha.controls.novaSenhaCp.value;
 
-    return novaSenha && novaSenhaCp && novaSenha != novaSenhaCp;
+      return novaSenha && novaSenhaCp && novaSenha != novaSenhaCp;
+    }
+
+    return false;
   }
 
   public alterarSenha() {
@@ -245,5 +259,6 @@ export class HomeMinhaContaComponent implements OnInit {
       }
     }
     this.alteraSenha = !this.alteraSenha;
+    this._loadService.setLoader(true);
   }
 }

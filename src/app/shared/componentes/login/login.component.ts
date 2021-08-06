@@ -12,6 +12,7 @@ import { MensagemEnum } from "../../models/enums/MensagemEnum";
 import { StorageEnum } from "../../models/enums/StorageEnum";
 import { AlertaService } from "../../servicos/alerta.service";
 import { EmailService } from "../../servicos/email.service";
+import { LoadService } from "../../servicos/load.service";
 import { StorageService } from "../../servicos/storage.service";
 import { UsuarioService } from "../../servicos/usuario.service";
 import { CadastroComponent } from "../cadastro/cadastro.component";
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
     private _ref: DynamicDialogRef,
     private _usuarioService: UsuarioService,
     private _emailService: EmailService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _loaderService: LoadService
   ) {
     this.setForm();
   }
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
       this._usuarioService.login(usuario).subscribe(
         (user: Usuario) => {
           this.salvarUsuario(user);
+          this._loaderService.setLoader(true);
           // this.instanciarObjetoEnvio();
           this._ref.close();
         },

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { DialogService } from "primeng/dynamicdialog";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { HomeMinhaContaComponent } from "src/app/home/componentes/home-minha-conta/home-minha-conta.component";
 import { Cliente } from "../../models/classes/Cliente";
 import { ObjetoEnvio } from "../../models/classes/ObjetoEnvio";
@@ -13,6 +13,7 @@ import { StorageEnum } from "../../models/enums/StorageEnum";
 import { MoedaPipe } from "../../pipes/moeda.pipe";
 import { AlertaService } from "../../servicos/alerta.service";
 import { CompraService } from "../../servicos/compra.service";
+import { LoadService } from "../../servicos/load.service";
 import { LocacaoService } from "../../servicos/locacao.service";
 import { ProdutoService } from "../../servicos/produto.service";
 import { StorageService } from "../../servicos/storage.service";
@@ -41,10 +42,15 @@ export class BarraDeAcoesComponent implements OnInit {
     private _locacaoService: LocacaoService,
     private _compraService: CompraService,
     private _produtoService: ProdutoService,
-    private _usuarioService: UsuarioService
-  ) {}
+    private _usuarioService: UsuarioService,
+    private _loadService: LoadService
+  ) {
+    this._loadService.getLoader().subscribe((r) => {
+      this.carregarUsuario();
+    });
+  }
 
-  ngAfterViewInit(): void {
+  carregarUsuario(): void {
     let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     if (usuario) {
       this._usuarioService.getClienteById(usuario.id).subscribe(
@@ -54,13 +60,18 @@ export class BarraDeAcoesComponent implements OnInit {
             this.labelEntrar = `Bem vindo ${
               cliente.nome ? " - " + cliente.nome : ""
             }`;
+          } else {
+            this.labelEntrar = "Entrar";
           }
         },
         (error) => {
           this._storageService.removeItem(StorageEnum.CLIENTE);
           this._alerta.erro(error);
+          this.labelEntrar = "Entrar";
         }
       );
+    } else {
+      this.labelEntrar = "Entrar";
     }
   }
 
