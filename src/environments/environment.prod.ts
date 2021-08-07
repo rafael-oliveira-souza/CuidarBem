@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   // api_local_server: "http://localhost:4200",
   //apiServer: "http://localhost:3300",
+  apiServer: "https://crescer-df.herokuapp.com",
   // apiCrescerBemServer: "http://localhost:4200",
 
   serverBackend: "https://crescer-df.herokuapp.com",
@@ -10,7 +11,6 @@ export const environment = {
   usuarioCrescerBem: "rafaelsoec@gmail.com",
   senhaCrescerBem: "Ro791356",
   apiCrescerBemServer: "https://crescerdf.com",
-  apiServer: "https://crescer-df.herokuapp.com",
   secretKey: "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L",
   mercadoPago: "https://api.mercadopago.com",
   mercadoPagoToken:

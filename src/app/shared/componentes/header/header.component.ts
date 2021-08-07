@@ -6,6 +6,8 @@ import { PerfilEnum } from "../../models/enums/PerfilEnum";
 import { RotasEnum } from "../../models/enums/RotasEnum";
 import { StorageEnum } from "../../models/enums/StorageEnum";
 import { HeaderService } from "../../servicos/header.service";
+import { LoadService } from "../../servicos/load.service";
+import { LoaderService } from "../../servicos/loader.service";
 import { StorageService } from "../../servicos/storage.service";
 
 @Component({
@@ -31,8 +33,13 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _storageService: StorageService,
-    private _headerService: HeaderService
-  ) {}
+    private _headerService: HeaderService,
+    private _loadService: LoadService
+  ) {
+    this._loadService.getLoader().subscribe((r) => {
+      this.verificarPerfil();
+    });
+  }
 
   ngOnInit(): void {
     this.validarCache();
@@ -87,7 +94,11 @@ export class HeaderComponent implements OnInit {
     }, 1000);
   }
 
-  verificarPerfil(usuario: Usuario) {
+  verificarPerfil() {
+    let usuario: Usuario = this._storageService.getItem<Usuario>(
+      StorageEnum.USUARIO
+    );
+
     if (usuario && usuario.perfil == PerfilEnum.ADMIN) {
       let btnAdmin = this.items.filter((item) => item.titulo == "Admin");
       if (!btnAdmin || btnAdmin.length <= 0) {

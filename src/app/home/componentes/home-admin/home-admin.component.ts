@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
+import { Cliente } from "src/app/shared/models/classes/Cliente";
 import { FaixaEtaria } from "src/app/shared/models/classes/FaixaEtaria";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
+import { Pedido } from "src/app/shared/models/classes/Pedido";
 import { Produto } from "src/app/shared/models/classes/Produto";
+import { ClienteService } from "src/app/shared/servicos/cliente.service";
+import { PedidoService } from "src/app/shared/servicos/pedido.service";
 
 @Component({
   selector: "app-home-admin",
@@ -15,9 +19,15 @@ export class HomeAdminComponent implements OnInit {
   public formulario: FormGroup;
   public forms: { nome: string; valor: any }[];
   public uploadedFiles: any[] = [];
+  public pedidos: Array<Pedido> = [];
+  public clientes: Array<Cliente> = [];
   public form: any;
 
-  constructor(private _builder: FormBuilder) {
+  constructor(
+    private _builder: FormBuilder,
+    private _clienteService: ClienteService,
+    private _pedidoService: PedidoService
+  ) {
     this.forms = [
       { nome: "Produto", valor: { nome: "Produto", valor: 1 } },
       {
@@ -29,7 +39,36 @@ export class HomeAdminComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getClientes();
+    this._pedidoService.getPedidos().subscribe((pedidos) => {
+      this.pedidos = pedidos;
+    });
+  }
+
+  public getClientes() {
+    this._clienteService.getClientes().subscribe((clientes) => {
+      this.clientes = clientes;
+    });
+  }
+
+  public getNomeCliente(id: number) {
+    let nome = "";
+    this.clientes.forEach((cliente) => {
+      if (cliente.id == id) {
+        nome = cliente.nome + " " + cliente.sobrenome + " - " + cliente.cpf;
+        return;
+      }
+    });
+
+    return nome;
+  }
+
+  public atualizarPedidos() {
+    this.pedidos.forEach((ped) => {
+      this._pedidoService.atualizarPedido(ped).subscribe((r) => {});
+    });
+  }
 
   public alterarFormulario() {
     console.log(this.form);

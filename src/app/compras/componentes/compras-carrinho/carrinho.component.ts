@@ -30,7 +30,7 @@ export class CarrinhoComponent implements OnInit {
   public categorias: Categoria[] = [];
   public pacotes: Pacote[] = [];
   public imagens: Imagem[] = [];
-  public cliente: Cliente = new Cliente();
+  public cliente: Cliente;
   public numeroPedido: number;
 
   constructor(
@@ -142,11 +142,25 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public finalizarCompra() {
-    if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
-      this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
+    if (
+      this.cliente &&
+      this.cliente.nome &&
+      this.cliente.sobrenome &&
+      this.cliente.cpf &&
+      this.cliente.telefone &&
+      this.cliente.cep &&
+      this.cliente.logradouro &&
+      this.cliente.municipio &&
+      this.cliente.estado
+    ) {
+      if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
+        this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
+      } else {
+        let nota = document.getElementById("NotaFiscalCarrinho");
+        this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);
+      }
     } else {
-      let nota = document.getElementById("NotaFiscalCarrinho");
-      this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);
+      this._alertaService.alerta(MensagemEnum.ATUALIZACAO_PERFIL);
     }
   }
 
@@ -156,8 +170,8 @@ export class CarrinhoComponent implements OnInit {
 
   public getImage(idProduto: number) {
     let imgs: Imagem[] = this.imagens.filter((img) => img.id == idProduto);
-    let urls = imgs.map((img) => `${imgs[0].diretorio}/${imgs[0].nome}`);
-    if (urls.length > 0) {
+    if (imgs.length > 0) {
+      let urls = imgs.map((img) => `${imgs[0].diretorio}/${imgs[0].nome}`);
       return urls;
     } else {
       return ["/assets/images/produtos/produtoSemImagem.png"];

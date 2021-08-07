@@ -1,4 +1,5 @@
 export enum MensagemEnum {
+  ATUALIZACAO_PERFIL = "Por favor, atualize seus dados de perfil para finalizar a compra.",
   EMAIL_INVALIDO = "Email inválido",
   SENHA_INVALIDA = "Senha inválida. A senha precisa ter 8 ou mais caracteres.",
   SENHA_ATUALIZADA_SUCESSO = "Senha atualizada com sucesso.",

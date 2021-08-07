@@ -1,6 +1,53 @@
-<div class="container mt-4">
-  <h2 class="text-center">Cadastrar {{ form?.nome }}</h2>
-  <div class="row justify-content-center mt-4">
+<div class="container-fluid mt-4 text-center">
+  <h2 class="text-center mb-5">Pedidos</h2>
+
+  <p-table [value]="pedidos" [paginator]="true" [rows]="10" class="headTb">
+    <ng-template pTemplate="header">
+      <tr>
+        <th width="15%">Número</th>
+        <th width="20%">Cliente</th>
+        <th width="25%">Descrição</th>
+        <th width="8%">Quantidade</th>
+        <th width="12%">Valor</th>
+        <th width="10%">Data</th>
+        <th width="10%">Situação</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedido>
+      <tr>
+        <td>{{ pedido.numero }}</td>
+        <td>{{ getNomeCliente(pedido.cliente) }}</td>
+        <td>{{ pedido.descricao }}</td>
+        <td>{{ pedido.quantidade }}</td>
+        <td>{{ pedido.valor | moeda }}</td>
+        <td>{{ pedido.data | data }}</td>
+        <td pEditableColumn>
+          <p-cellEditor class="bord">
+            <ng-template pTemplate="input">
+              <select pInputText [(ngModel)]="pedido.situacao">
+                <option>APROVADO</option>
+                <option>PENDENTE</option>
+                <option>REJEITADO</option>
+              </select>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ pedido.situacao }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button
+    pButton
+    type="button"
+    label="Atualizar Pedidos"
+    icon="pi pi-refresh"
+    (click)="atualizarPedidos()"
+    class="p-button-sm p-button-success mt-5 text-light"
+  ></button>
+
+  <!-- <div class="row justify-content-center mt-4">
     <p-selectButton
       [options]="forms"
       [(ngModel)]="form"
@@ -8,25 +55,6 @@
       optionValue="valor"
       (onChange)="alterarFormulario()"
     ></p-selectButton>
-  </div>
-
-  <div>
-    <h5>Advanced</h5>
-    <p-fileUpload
-      (onUpload)="onUpload($event)"
-      multiple="multiple"
-      mode="basic"
-      accept="image/*"
-      maxFileSize="1000000"
-    >
-      <ng-template pTemplate="content">
-        <ul *ngIf="uploadedFiles.length">
-          <li *ngFor="let file of uploadedFiles">
-            {{ file.name }} - {{ file.size }} bytes
-          </li>
-        </ul>
-      </ng-template>
-    </p-fileUpload>
   </div>
 
   <form *ngIf="" class="mt-5 mb-5">
@@ -85,5 +113,5 @@
         <input class="col-12" type="text" pInputText />
       </div>
     </div>
-  </form>
+  </form> -->
 </div>

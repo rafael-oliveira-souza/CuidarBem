@@ -16,7 +16,10 @@ export class AppComponent {
 
   constructor(private _router: Router) {
     this._router.events.subscribe((rout: any) => {
-      if (window.location.href.includes("home")) {
+      if (
+        window.location.href.includes("home") &&
+        !window.location.href.includes("admin")
+      ) {
         this.showWhatsapp = true;
       } else {
         this.showWhatsapp = false;

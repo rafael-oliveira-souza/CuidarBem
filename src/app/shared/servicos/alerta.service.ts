@@ -69,7 +69,7 @@ export class Mensagem {
     severity: "custom" | "success" | "warn" | "info" | "error",
     summary: string,
     detail: string,
-    life = 2000
+    life = 3500
   ) {
     // this.key = key;
     this.severity = severity;

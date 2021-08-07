@@ -1,0 +1,10 @@
+@import "../../../../estilos/cores.scss";
+
+.headTb::ng-deep th {
+  background: $azul !important;
+  color: $branco !important;
+}
+
+.bord {
+  border-bottom: 2px solid $azul !important;
+}
