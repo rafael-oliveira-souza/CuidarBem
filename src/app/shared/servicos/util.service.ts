@@ -16,9 +16,10 @@ export class UtilService {
   public getLinkWhatsapp(): Observable<string> {
     return this._http.get<string>(`${environment.apiServer}/util/whatsapp`);
   }
-  public getTokenMercadoPago(): Observable<string> {
-    return this._http.get<string>(
-      `${environment.apiServer}/util/tokenMercadoPago`
-    );
-  }
+
+  //public getTokenMercadoPago(): Observable<string> {
+  //return this._http.get<string>(
+  // `${environment.apiServer}/util/tokenMercadoPago`
+  //);
+  //}
 }
