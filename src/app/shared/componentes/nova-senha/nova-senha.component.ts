@@ -57,8 +57,8 @@ export class NovaSenhaComponent implements OnInit {
         this._alerta.alerta(MensagemEnum.PREENCHA_EMAIL);
       } else {
         let email: Email = new Email();
-        email.usuario = environment.usuarioCrescerBem;
-        email.senha = environment.senhaCrescerBem;
+        //email.usuario = environment.usuarioCrescerBem;
+        //email.senha = environment.senhaCrescerBem;
         email.destinatarios = emailUsuario;
         email.assunto = this.ASSUNTO_EMAIL_TROCA_SENHA;
 

@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { environment } from "src/environments/environment";
 
 declare var require: any;
 
@@ -11,7 +10,7 @@ declare var require: any;
 })
 export class AppComponent {
   title = "AppCuidarBem";
-  linkWhatsapp = environment.whatsapp;
+  linkWhatsapp = "";
   showWhatsapp = false;
 
   constructor(private _router: Router) {
@@ -28,6 +27,9 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    // this._utilService.getLinkWhatsapp().subscribe((link) => {
+    // this.linkWhatsapp = link;
+    //});
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }

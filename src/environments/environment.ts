@@ -11,9 +11,9 @@ export const environment = {
   apiServer: prod.serverBackend,
   secretKey: prod.secretKey,
   mercadoPago: prod.mercadoPago,
-  mercadoPagoToken: prod.mercadoPagoToken,
-  whatsapp: prod.whatsapp,
-  pix: prod.pix,
+  //  mercadoPagoToken: prod.mercadoPagoToken,
+  // whatsapp: prod.whatsapp,
+  //pix: prod.pix,
 };
 
 /*

@@ -27,6 +27,7 @@ import { PagamentoService } from "src/app/shared/servicos/pagamento.service";
 import { PedidoService } from "src/app/shared/servicos/pedido.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
+import { UtilService } from "src/app/shared/servicos/util.service";
 import { environment } from "src/environments/environment.prod";
 
 @Component({
@@ -42,7 +43,7 @@ export class ComprasConclusaoComponent implements OnInit {
   public altura: string;
   public mercadoOn = false;
   public pixOn = false;
-  public dadosPix = environment.pix;
+  public dadosPix;
   public pedidos: Array<Pedido> = [];
   public categorias: Categoria[] = [];
   public moedaPipe = new MoedaPipe();
@@ -61,7 +62,8 @@ export class ComprasConclusaoComponent implements OnInit {
     private _pedidoService: PedidoService,
     private _alerta: AlertaService,
     private _categoriaService: CategoriaService,
-    private _emailService: EmailService
+    private _emailService: EmailService,
+    private _utils: UtilService
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +91,10 @@ export class ComprasConclusaoComponent implements OnInit {
     this.altura = window.screen.height * 0.78 + "px";
     this.carregarDadosPagamento();
     this.getCategorias();
+
+    this._utils.getDadosPix().subscribe((pix) => {
+      this.dadosPix = JSON.parse(pix);
+    });
   }
 
   public goHome() {
@@ -286,8 +292,8 @@ export class ComprasConclusaoComponent implements OnInit {
 
     if (usuario) {
       let email: Email = new Email();
-      email.usuario = environment.usuarioCrescerBem;
-      email.senha = environment.senhaCrescerBem;
+      //email.usuario = environment.usuarioCrescerBem;
+      //email.senha = environment.senhaCrescerBem;
       email.destinatarios = usuario.email;
       email.assunto = "Informações sobre o seu pedido";
       email.mensagem = document.getElementById("NotaFiscalCarrinho").outerHTML;
