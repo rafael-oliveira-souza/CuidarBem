@@ -57,7 +57,7 @@ export class BarraDeAcoesComponent implements OnInit {
         (cliente: Cliente) => {
           if (cliente) {
             this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
-            this.labelEntrar = `Bem vindo ${
+            this.labelEntrar = `Meu Perfil ${
               cliente.nome ? " - " + cliente.nome : ""
             }`;
           } else {

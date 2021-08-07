@@ -1,7 +1,7 @@
 <div class="container-fluid cor-detalhe" #detalhe>
   <div class="row justify-content-between">
     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-      <app-galeria [imagens]="imagens"></app-galeria>
+      <app-galeria *ngIf="imagens.length > 0" [imagens]="imagens"></app-galeria>
       <img class="mt-5" height="50" src="/assets/images/crescer.png" />
     </div>
     <div class="col">
@@ -9,7 +9,11 @@
         <span class="col-12 p-4">
           <div class="row justify-content-between mb-5">
             <div
-              class="col-12 col-sm-12 col-md-6 col-ls-6 col-xs-6 text-left cor-azul"
+              class="
+                col-12 col-sm-12 col-md-6 col-ls-6 col-xs-6
+                text-left
+                cor-azul
+              "
             >
               <i class="pi pi-tag"></i>
               <span *ngIf="categoria">{{ categoria.nome | titlecase }}</span>
@@ -57,7 +61,12 @@
               label="Alugar"
               icon="pi pi-shopping-cart"
               (click)="continuarComprando()"
-              class="p-button-sm p-button-warning mr-2 text-light col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6"
+              class="
+                p-button-sm p-button-warning
+                mr-2
+                text-light
+                col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6
+              "
             ></button>
           </div>
         </div>

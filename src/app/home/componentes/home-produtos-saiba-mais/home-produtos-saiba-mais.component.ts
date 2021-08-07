@@ -61,7 +61,11 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     this._fotoService
       .getImagensProdutosPorId(idProduto)
       .subscribe((imagens: Imagem[]) => {
-        this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);
+        if (imagens.length > 0) {
+          this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);
+        } else {
+          this.imagens = ["/assets/images/produtos/produtoSemImagem.png"];
+        }
       });
   }
 
