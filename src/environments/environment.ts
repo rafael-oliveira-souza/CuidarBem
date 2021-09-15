@@ -6,7 +6,7 @@ import { environment as prod } from "./environment.prod";
 export const environment = {
   production: false,
   apiCrescerBemServer: prod.apiCrescerBemServer,
-  apiServer: prod.serverBackend,
+  apiServer: prod.apiServer,
   secretKey: prod.secretKey,
   mercadoPago: prod.mercadoPago,
   mercadoPagoToken: prod.mercadoPagoToken,
