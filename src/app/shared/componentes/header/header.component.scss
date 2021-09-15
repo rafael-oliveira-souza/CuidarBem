@@ -7,27 +7,27 @@
 button {
   border: none;
   background: none;
-  color: $laranja;
+  color: $roxo;
   font-size: 20px;
   padding: 12px;
 }
 
 button.selecionado {
-  background: $laranja !important;
+  background: $roxo !important;
   color: $branco;
   border-radius: 5px;
   padding: 12px;
 }
 
-button.btn-warning:hover {
-  background: $laranja !important;
+button.btn-tela:hover {
+  background: $roxo !important;
   color: $branco;
   border-radius: 5px;
   padding: 12px;
 }
 
-button.btn-warning:focus {
-  background: $laranja !important;
+button.btn-tela:focus {
+  background: $roxo !important;
   color: $branco !important;
   border-radius: 5px;
   padding: 12px;

@@ -43,6 +43,7 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public getCliente() {
+    debugger;
     this.usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
     if (this.cliente) {

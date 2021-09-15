@@ -12,7 +12,7 @@
       <div *ngFor="let item of items; let i = index" class="ml-4">
         <button
           [ngClass]="
-            item.selecionado ? 'btn btn-warning selecionado' : 'btn btn-warning'
+            item.selecionado ? 'btn btn-tela selecionado' : 'btn btn-tela'
           "
           (click)="navegar(item)"
         >

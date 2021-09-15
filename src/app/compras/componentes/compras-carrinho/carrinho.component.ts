@@ -142,25 +142,26 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public finalizarCompra() {
-    if (
-      this.cliente &&
-      this.cliente.nome &&
-      this.cliente.sobrenome &&
-      this.cliente.cpf &&
-      this.cliente.telefone &&
-      this.cliente.cep &&
-      this.cliente.logradouro &&
-      this.cliente.municipio &&
-      this.cliente.estado
-    ) {
-      if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
-        this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
-      } else {
+    if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
+      this._alertaService.alerta(MensagemEnum.CARRINHO_VAZIO);
+      // this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
+    } else {
+      if (
+        this.cliente &&
+        this.cliente.nome &&
+        this.cliente.sobrenome &&
+        this.cliente.cpf &&
+        this.cliente.telefone &&
+        this.cliente.cep &&
+        this.cliente.logradouro &&
+        this.cliente.municipio &&
+        this.cliente.estado
+      ) {
         let nota = document.getElementById("NotaFiscalCarrinho");
         this._router.navigate([RotasEnum.COMPRAS, RotasEnum.CONCLUSAO]);
+      } else {
+        this._alertaService.alerta(MensagemEnum.ATUALIZACAO_PERFIL);
       }
-    } else {
-      this._alertaService.alerta(MensagemEnum.ATUALIZACAO_PERFIL);
     }
   }
 

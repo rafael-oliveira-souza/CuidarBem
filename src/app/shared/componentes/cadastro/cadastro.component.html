@@ -44,6 +44,7 @@
           type="text"
           pInputText
           [formControl]="form.controls.email"
+          autocomplete="off"
           sclass=" ng-invalid ng-dirty"
         />
         <label for="email"> <i class="pi pi-envelope mr-2"></i>Email:</label>
@@ -57,6 +58,7 @@
           [type]="tipoInput"
           pInputText
           [formControl]="form.controls.senha"
+          autocomplete="off"
           sclass="ng-invalid ng-dirty"
         />
         <label for="Confirmarsenha">
@@ -76,6 +78,7 @@
           [type]="tipoInput"
           pInputText
           [formControl]="form.controls.confirmarSenha"
+          autocomplete="off"
           sclass="ng-invalid ng-dirty"
         />
         <label for="Confirmarsenha">

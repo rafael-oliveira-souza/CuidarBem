@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment.prod";
 
 declare var require: any;
 
@@ -10,7 +11,7 @@ declare var require: any;
 })
 export class AppComponent {
   title = "AppCuidarBem";
-  linkWhatsapp = "";
+  linkWhatsapp = environment.whatsapp;
   showWhatsapp = false;
 
   constructor(private _router: Router) {

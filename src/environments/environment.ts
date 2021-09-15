@@ -3,8 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 import { environment as prod } from "./environment.prod";
 
-const serverBackend = "http://localhost:3300";
-
 export const environment = {
   production: false,
   apiCrescerBemServer: prod.apiCrescerBemServer,
@@ -12,8 +10,8 @@ export const environment = {
   secretKey: prod.secretKey,
   mercadoPago: prod.mercadoPago,
   mercadoPagoToken: prod.mercadoPagoToken,
-  // whatsapp: prod.whatsapp,
-  //pix: prod.pix,
+  whatsapp: prod.whatsapp,
+  pix: prod.pix,
 };
 
 /*

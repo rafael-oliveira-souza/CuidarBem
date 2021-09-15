@@ -92,9 +92,10 @@ export class ComprasConclusaoComponent implements OnInit {
     this.carregarDadosPagamento();
     this.getCategorias();
 
-    this._utils.getDadosPix().subscribe((pix) => {
-      this.dadosPix = JSON.parse(pix);
-    });
+    this.dadosPix = environment.pix;
+    // this._utils.getDadosPix().subscribe((pix) => {
+    //   this.dadosPix = JSON.parse(pix);
+    // });
   }
 
   public goHome() {
