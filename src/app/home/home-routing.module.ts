@@ -7,6 +7,9 @@ import { HomeProdutosComponent } from "./componentes/home-produtos-brinquedo/hom
 import { HomeQuemSomosComponent } from "./componentes/home-quem-somos/home-quem-somos.component";
 import { HomeLojaComponent } from "./componentes/home-loja/home-loja.component";
 import { HomeAdminComponent } from "./componentes/home-admin/home-admin.component";
+import { HomeNovidadesComponent } from "./componentes/home-novidades/home-novidades.component";
+import { HomePromocoesComponent } from "./componentes/home-promocoes/home-promocoes.component";
+import { HomeContatoComponent } from "./componentes/home-contato/home-contato.component";
 
 const routes: Routes = [
   {
@@ -47,15 +50,15 @@ const routes: Routes = [
       },
       {
         path: RotasEnum.NOVIDADES,
-        component: HomeQuemSomosComponent,
+        component: HomeNovidadesComponent,
       },
       {
         path: RotasEnum.PROMOCOES,
-        component: HomeQuemSomosComponent,
+        component: HomePromocoesComponent,
       },
       {
         path: RotasEnum.CONTATO,
-        component: HomeQuemSomosComponent,
+        component: HomeContatoComponent,
       },
     ],
   },

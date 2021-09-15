@@ -8,29 +8,29 @@ button {
   border: none;
   background: none;
   color: $roxo;
-  font-size: 20px;
-  padding: 12px;
+  // font-size: 4px !important;
+  padding: 8px !important;
 }
 
 button.selecionado {
   background: $roxo !important;
   color: $branco;
   border-radius: 5px;
-  padding: 12px;
+  padding: 8px !important;
 }
 
 button.btn-tela:hover {
   background: $roxo !important;
   color: $branco;
   border-radius: 5px;
-  padding: 12px;
+  padding: 8px !important;
 }
 
 button.btn-tela:focus {
   background: $roxo !important;
   color: $branco !important;
   border-radius: 5px;
-  padding: 12px;
+  padding: 8px !important;
 }
 
 :host {

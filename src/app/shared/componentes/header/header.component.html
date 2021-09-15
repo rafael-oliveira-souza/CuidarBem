@@ -11,9 +11,7 @@
       </div>
       <div *ngFor="let item of items; let i = index" class="ml-4">
         <button
-          [ngClass]="
-            item.selecionado ? 'btn btn-tela selecionado' : 'btn btn-tela'
-          "
+          [ngClass]="item.selecionado ? ' btn-tela selecionado' : ' btn-tela'"
           (click)="navegar(item)"
         >
           <h3>{{ item.titulo }}</h3>
