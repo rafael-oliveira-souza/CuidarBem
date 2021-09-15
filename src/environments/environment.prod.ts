@@ -1,12 +1,10 @@
 export const environment = {
   production: true,
   // api_local_server: "http://localhost:4200",
-  apiServer: "http://localhost:3300",
-  // apiServer: "https://crescer-df.herokuapp.com",
+  // apiServer: "http://localhost:3300",
+  apiServer: "https://crescer-df.herokuapp.com",
   // apiCrescerBemServer: "http://localhost:4200",
 
-  // serverBackend: "http://localhost:3300",
-  serverBackend: "https://crescer-df.herokuapp.com",
   //usuarioCrescerBem: "ajudandoseufilhoacrescer@gmail.com",
   //senhaCrescerBem: "Crescer2020@",
   //usuarioCrescerBem: "rafaelsoec@gmail.com",
