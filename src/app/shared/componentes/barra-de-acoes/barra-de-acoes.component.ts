@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MenuItem } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { HomeMinhaContaComponent } from "src/app/home/componentes/home-minha-conta/home-minha-conta.component";
 import { Cliente } from "../../models/classes/Cliente";
@@ -27,6 +28,7 @@ import { LoginComponent } from "../login/login.component";
   styleUrls: ["./barra-de-acoes.component.scss"],
 })
 export class BarraDeAcoesComponent implements OnInit {
+  public items: MenuItem[];
   public usuarioLogado: Boolean = true;
   public moedaPipe: MoedaPipe = new MoedaPipe();
   public labelCarrinho: string = `Carrinho: 0 Itens - R$ 0,00`;
@@ -45,9 +47,43 @@ export class BarraDeAcoesComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private _loadService: LoadService
   ) {
+    this.carregarMenu();
     this._loadService.getLoader().subscribe((r) => {
       this.carregarUsuario();
     });
+  }
+
+  ngOnInit(): void {
+    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+      this.pacotes = pacotes;
+      this.carregarCarrinho();
+    });
+  }
+
+  carregarMenu(): void {
+    this.items = [
+      {
+        label: "Cadastrar",
+        icon: "pi pi-pencil",
+        command: () => {
+          this.abrirCadastro();
+        },
+      },
+      {
+        label: this.labelEntrar,
+        icon: "pi pi-user",
+        command: () => {
+          this.abrirLogin();
+        },
+      },
+      {
+        label: this.labelCarrinho,
+        icon: "pi pi-shopping-cart",
+        command: () => {
+          this.abrirCarrinho();
+        },
+      },
+    ];
   }
 
   carregarUsuario(): void {
@@ -75,13 +111,6 @@ export class BarraDeAcoesComponent implements OnInit {
     } else {
       this.labelEntrar = "Entrar";
     }
-  }
-
-  ngOnInit(): void {
-    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this.pacotes = pacotes;
-      this.carregarCarrinho();
-    });
   }
 
   public carregarCarrinho(): void {
@@ -121,12 +150,12 @@ export class BarraDeAcoesComponent implements OnInit {
     if (usuario) {
       const ref = this._dialogService.open(HomeMinhaContaComponent, {
         header: "Meu Perfil",
-        width: "70%",
+        width: "80%",
       });
     } else {
       const ref = this._dialogService.open(LoginComponent, {
         header: "",
-        width: "70%",
+        width: "80%",
       });
     }
   }
@@ -134,7 +163,7 @@ export class BarraDeAcoesComponent implements OnInit {
   public abrirCadastro() {
     const ref = this._dialogService.open(CadastroComponent, {
       header: "",
-      width: "70%",
+      width: "80%",
     });
   }
 

@@ -1,21 +1,27 @@
 <div class="bg-header">
-  <app-barra-de-acoes *ngIf="exibeBarraAcao"></app-barra-de-acoes>
-  <div class="col-12 d-flex justify-content-between align-items-center">
-    <div class="col form-inline">
-      <div class="text-start">
+  <div>
+    <app-barra-de-acoes *ngIf="exibeBarraAcao"></app-barra-de-acoes>
+  </div>
+  <div class="col-12 d-flex justify-content-end align-items-end">
+    <div class="form-inline text-end">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xs-3">
         <img
-          height="80"
+          class="col-12"
           src="/assets/images/crescer.png"
           (click)="navegar(items[0])"
         />
       </div>
-      <div *ngFor="let item of items; let i = index" class="ml-4">
-        <button
-          [ngClass]="item.selecionado ? ' btn-tela selecionado' : ' btn-tela'"
-          (click)="navegar(item)"
-        >
-          <h3>{{ item.titulo }}</h3>
-        </button>
+      <div class="col form-inline mt-5">
+        <div class="ml-3" *ngFor="let item of items; let i = index">
+          <button
+            [ngClass]="
+              item.selecionado ? ' btn-tela selecionado' : '  btn-tela'
+            "
+            (click)="navegar(item)"
+          >
+            <h4>{{ item.titulo }}</h4>
+          </button>
+        </div>
       </div>
       <!-- <span class="p-input-icon-right ml-4">
         <i class="pi pi-search"></i>

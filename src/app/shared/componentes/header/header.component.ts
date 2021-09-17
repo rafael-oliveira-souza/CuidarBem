@@ -20,10 +20,22 @@ export class HeaderComponent implements OnInit {
   public exibeBarraAcao: boolean = true;
 
   public items: { titulo: string; rota: string; selecionado: boolean }[] = [
-    { titulo: "Loja", rota: RotasEnum.LOJA, selecionado: true },
-    { titulo: "Promoções", rota: RotasEnum.PROMOCOES, selecionado: false },
-    { titulo: "Novidades", rota: RotasEnum.NOVIDADES, selecionado: false },
+    { titulo: "Produtos", rota: RotasEnum.LOJA, selecionado: true },
+    { titulo: "Como Alugar", rota: RotasEnum.ALUGAR, selecionado: false },
+    { titulo: "Por Idade", rota: RotasEnum.IDADE, selecionado: false },
+    { titulo: "Dialogando", rota: RotasEnum.DIALOGANDO, selecionado: false },
+    {
+      titulo: "Higienização",
+      rota: RotasEnum.HIGIENIZACAO,
+      selecionado: false,
+    },
     { titulo: "Quem Somos", rota: RotasEnum.QUEM_SOMOS, selecionado: false },
+    { titulo: "Termos de Uso", rota: RotasEnum.TERMOS, selecionado: false },
+    {
+      titulo: "Perguntas Frequentes",
+      rota: RotasEnum.TERMOS,
+      selecionado: false,
+    },
     { titulo: "Contato", rota: RotasEnum.CONTATO, selecionado: false },
   ];
 

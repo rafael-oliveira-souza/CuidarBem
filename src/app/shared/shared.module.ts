@@ -59,6 +59,7 @@ import { SafePipe } from "./pipes/safe.pipe";
 import { UploadImageComponent } from "./componentes/upload-image/upload-image.component";
 import { ArquivosComponent } from "./componentes/arquivos/arquivos.component";
 import { NovaSenhaComponent } from "./componentes/nova-senha/nova-senha.component";
+import { MenuModule } from "primeng/menu";
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { NovaSenhaComponent } from "./componentes/nova-senha/nova-senha.componen
     ProgressSpinnerModule,
     SelectButtonModule,
     FileUploadModule,
+    MenuModule,
   ],
   exports: [
     FormsModule,
@@ -183,6 +185,7 @@ import { NovaSenhaComponent } from "./componentes/nova-senha/nova-senha.componen
     ProgressSpinnerModule,
     SelectButtonModule,
     FileUploadModule,
+    MenuModule,
   ],
   entryComponents: [LoginComponent, CadastroComponent, NovaSenhaComponent],
   providers: [DialogService, ConfirmationService, MessageService],

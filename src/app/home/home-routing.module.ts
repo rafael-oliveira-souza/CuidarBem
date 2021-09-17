@@ -10,6 +10,11 @@ import { HomeAdminComponent } from "./componentes/home-admin/home-admin.componen
 import { HomeNovidadesComponent } from "./componentes/home-novidades/home-novidades.component";
 import { HomePromocoesComponent } from "./componentes/home-promocoes/home-promocoes.component";
 import { HomeContatoComponent } from "./componentes/home-contato/home-contato.component";
+import { HomeAlugarComponent } from "./componentes/home-alugar/home-alugar.component";
+import { HomeDialogandoComponent } from "./componentes/home-dialogando/home-dialogando.component";
+import { HomeHigienizacaoComponent } from "./componentes/home-higienizacao/home-higienizacao.component";
+import { HomePorIdadeComponent } from "./componentes/home-por-idade/home-por-idade.component";
+import { HomeTermosUsoComponent } from "./componentes/home-termos-uso/home-termos-uso.component";
 
 const routes: Routes = [
   {
@@ -59,6 +64,26 @@ const routes: Routes = [
       {
         path: RotasEnum.CONTATO,
         component: HomeContatoComponent,
+      },
+      {
+        path: RotasEnum.ALUGAR,
+        component: HomeAlugarComponent,
+      },
+      {
+        path: RotasEnum.DIALOGANDO,
+        component: HomeDialogandoComponent,
+      },
+      {
+        path: RotasEnum.HIGIENIZACAO,
+        component: HomeHigienizacaoComponent,
+      },
+      {
+        path: RotasEnum.IDADE,
+        component: HomePorIdadeComponent,
+      },
+      {
+        path: RotasEnum.TERMOS,
+        component: HomeTermosUsoComponent,
       },
     ],
   },

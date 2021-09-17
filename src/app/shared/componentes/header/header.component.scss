@@ -4,33 +4,38 @@
   // border-bottom: 1px solid #46aef7;
 }
 
+.buttons {
+}
+
 button {
   border: none;
   background: none;
   color: $roxo;
   // font-size: 4px !important;
-  padding: 8px !important;
+  padding: 7px !important;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 button.selecionado {
   background: $roxo !important;
   color: $branco;
   border-radius: 5px;
-  padding: 8px !important;
+  padding: 7px !important;
 }
 
 button.btn-tela:hover {
   background: $roxo !important;
   color: $branco;
   border-radius: 5px;
-  padding: 8px !important;
+  padding: 7px !important;
 }
 
 button.btn-tela:focus {
   background: $roxo !important;
   color: $branco !important;
   border-radius: 5px;
-  padding: 8px !important;
+  padding: 7px !important;
 }
 
 :host {

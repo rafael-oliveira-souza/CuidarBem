@@ -18,7 +18,9 @@ export class CadastroComponent implements OnInit {
   public msgErro: String;
   public exibeSenha: Boolean = false;
   public tipoInput: String = "password";
+  public tipoInput2: String = "password";
   public classeIcone: String = "pi  pi-eye-slash";
+  public classeIcone2: String = "pi  pi-eye-slash";
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -63,13 +65,23 @@ export class CadastroComponent implements OnInit {
   //   );
   // }
 
-  public mostrarSenha() {
+  public mostrarSenha(icone: number) {
     if (this.exibeSenha) {
-      this.tipoInput = "text";
-      this.classeIcone = "pi pi-eye";
+      if (icone == 1) {
+        this.tipoInput = "text";
+        this.classeIcone = "pi pi-eye";
+      } else {
+        this.tipoInput2 = "text";
+        this.classeIcone2 = "pi pi-eye";
+      }
     } else {
-      this.tipoInput = "password";
-      this.classeIcone = "pi pi-eye-slash";
+      if (icone == 1) {
+        this.tipoInput = "password";
+        this.classeIcone = "pi pi-eye-slash";
+      } else {
+        this.tipoInput2 = "password";
+        this.classeIcone2 = "pi pi-eye-slash";
+      }
     }
     this.exibeSenha = !this.exibeSenha;
   }

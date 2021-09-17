@@ -201,7 +201,7 @@ export class ComprasConclusaoComponent implements OnInit {
         setTimeout(() => {
           const ref = this._dialogService.open(LoginComponent, {
             header: "",
-            width: "70%",
+            width: "80%",
           });
         }, 2500);
 

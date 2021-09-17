@@ -1,27 +1,43 @@
-<span class="float-right form-inline mb-2 mr-5">
-  <button
-    pButton
-    style="opacity: 0.9"
-    type="button"
-    label="Cadastrar"
-    icon="pi pi-pencil"
-    (click)="abrirCadastro()"
-    class="p-button-sm p-button-danger mr-2 text-light borda-inf-circular"
-  ></button>
-  <button
-    pButton
-    type="button"
-    [label]="labelEntrar"
-    icon="pi pi-user"
-    (click)="abrirLogin()"
-    class="p-button-sm p-button-warning mr-2 text-light borda-inf-circular"
-  ></button>
-  <button
-    pButton
-    type="button"
-    [label]="labelCarrinho"
-    icon="pi pi-shopping-cart"
-    (click)="abrirCarrinho()"
-    class="p-button-sm p-button-success mr-2 text-light borda-inf-circular"
-  ></button>
-</span>
+<div class="botoes">
+  <span class="float-right form-inline mb-2 mr-5">
+    <button
+      pButton
+      style="opacity: 0.9"
+      type="button"
+      label="Cadastrar"
+      icon="pi pi-pencil"
+      (click)="abrirCadastro()"
+      class="p-button-sm p-button-danger mr-2 text-light borda-inf-circular"
+    ></button>
+    <button
+      pButton
+      type="button"
+      [label]="labelEntrar"
+      icon="pi pi-user"
+      (click)="abrirLogin()"
+      class="p-button-sm p-button-warning mr-2 text-light borda-inf-circular"
+    ></button>
+    <button
+      pButton
+      type="button"
+      [label]="labelCarrinho"
+      icon="pi pi-shopping-cart"
+      (click)="abrirCarrinho()"
+      class="p-button-sm p-button-success mr-2 text-light borda-inf-circular"
+    ></button>
+  </span>
+</div>
+<div class="menu">
+  <div class="mb-2">
+    <p-menu styleClass="menuBtn" #menu [popup]="true" [model]="items"></p-menu>
+    <button
+      class="col-12"
+      type="button"
+      pButton
+      icon="pi pi-list"
+      label="Menu"
+      (click)="menu.toggle($event)"
+    ></button>
+  </div>
+  <div></div>
+</div>

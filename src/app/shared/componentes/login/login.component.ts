@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
     this._ref.close();
     const ref = this._dialogService.open(CadastroComponent, {
       header: "",
-      width: "70%",
+      width: "80%",
     });
   }
 
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
     this._ref.close();
     const ref = this._dialogService.open(NovaSenhaComponent, {
       header: "",
-      width: "70%",
+      width: "80%",
     });
   }
 }
