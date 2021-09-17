@@ -102,7 +102,7 @@ export class HomeProdutosComponent implements OnInit {
   }) {
     const ref = this._dialogService.open(HomeProdutosSaibaMaisComponent, {
       // header: "Detalhamento de produto",
-      width: "70%",
+      width: "80%",
       data: {
         pacotes: this.pacotes,
         produto: detalhe.produto,

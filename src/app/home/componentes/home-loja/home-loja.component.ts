@@ -29,8 +29,9 @@ export class HomeLojaComponent implements OnInit {
   public getBgImage(img: string) {
     return `
       background-image: url(${img});
+      background-position: center center;
       width: 100%;
-      height: 100vh;
+      height: 75vh;
       background-repeat: no-repeat;
       background-size: cover;
     `;
