@@ -45,8 +45,8 @@
             <select
               class="ml-3 mt-2 mb-2"
               pInputText
-              [(ngModel)]="produto.locacao"
-              [value]="produto.locacao"
+              [(ngModel)]="produto.pacote"
+              [value]="produto.pacote"
               [disabled]="produtoIndisponivel"
             >
               <option *ngFor="let pacote of pacotes" [value]="pacote.id">

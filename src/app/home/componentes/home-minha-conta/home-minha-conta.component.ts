@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { Cliente } from "src/app/shared/models/classes/Cliente";
-import { Usuario } from "src/app/shared/models/classes/Usuario";
+import {
+  Usuario,
+  UsuarioTrocaSenha,
+} from "src/app/shared/models/classes/Usuario";
 import { UF } from "src/app/shared/models/constantes/UF";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
@@ -10,6 +13,7 @@ import {
   AlertaService,
   Mensagem,
 } from "src/app/shared/servicos/alerta.service";
+import { ClienteService } from "src/app/shared/servicos/cliente.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { LoadService } from "src/app/shared/servicos/load.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
@@ -35,6 +39,7 @@ export class HomeMinhaContaComponent implements OnInit {
     private _alerta: AlertaService,
     private _builder: FormBuilder,
     private _ref: DynamicDialogRef,
+    private _clienteService: ClienteService,
     private _loadService: LoadService
   ) {}
 
@@ -43,7 +48,6 @@ export class HomeMinhaContaComponent implements OnInit {
   }
 
   public getCliente() {
-    debugger;
     this.usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
     if (this.cliente) {
@@ -52,7 +56,7 @@ export class HomeMinhaContaComponent implements OnInit {
       this.formatarCPF();
       this.formatarTelefone();
     } else {
-      this._usuarioService.getClienteById(this.usuario.id).subscribe(
+      this._clienteService.getClienteById(this.usuario.id).subscribe(
         (cliente: Cliente) => {
           if (cliente) {
             this.cliente = cliente;
@@ -131,7 +135,7 @@ export class HomeMinhaContaComponent implements OnInit {
       ],
       complemento: [
         { value: this.cliente.complemento, disabled: false },
-        [Validators.maxLength(100), Validators.required],
+        [Validators.maxLength(100)],
       ],
     });
   }
@@ -210,7 +214,7 @@ export class HomeMinhaContaComponent implements OnInit {
       cliente.municipio = this.form.controls.municipio.value;
       cliente.estado = this.form.controls.estado.value;
 
-      this._usuarioService.atualizarCliente(cliente).subscribe(
+      this._clienteService.atualizarCliente(cliente).subscribe(
         (result) => {
           this._loadService.setLoader(true);
           this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
@@ -218,7 +222,7 @@ export class HomeMinhaContaComponent implements OnInit {
           this._ref.close();
         },
         (error) => {
-          this._alerta.erro(error.error.mensagem);
+          this._alerta.erro(error);
         }
       );
     } else {
@@ -243,20 +247,35 @@ export class HomeMinhaContaComponent implements OnInit {
 
   public alterarSenha() {
     if (this.alteraSenha) {
+      let senhaAtual = this.formAlteraSenha.controls.senhaAtual.value;
       let novaSenha = this.formAlteraSenha.controls.novaSenha.value;
       let novaSenhaCp = this.formAlteraSenha.controls.novaSenhaCp.value;
 
-      if (novaSenha == novaSenhaCp) {
-        this._usuarioService.atualizarSenha(this.usuario, novaSenha).subscribe(
-          (result) => {
-            this._alerta.sucesso(MensagemEnum.SENHA_ATUALIZADA_SUCESSO);
-          },
-          (error) => {
-            this._alerta.erro(error.error.mensagem);
-          }
-        );
+      if (!senhaAtual || !novaSenha || !novaSenhaCp) {
+        this._alerta.alerta(MensagemEnum.PREENCHA_TODOS_CAMPOS);
       } else {
-        this._alerta.alerta(MensagemEnum.SENHA_INVALIDA);
+        if (novaSenha == novaSenhaCp) {
+          let user: UsuarioTrocaSenha = new UsuarioTrocaSenha();
+          user.email = this.usuario.email;
+          user.senhaAtual = senhaAtual;
+          user.senhaNova = novaSenha;
+          this._usuarioService.atualizarSenha(user).subscribe(
+            (result) => {
+              this._alerta.sucesso(MensagemEnum.SENHA_ATUALIZADA_SUCESSO);
+              this.formAlteraSenha.controls.senhaAtual.setValue(null);
+              this.formAlteraSenha.controls.novaSenha.setValue(null);
+              this.formAlteraSenha.controls.novaSenhaCp.setValue(null);
+            },
+            (error) => {
+              this.formAlteraSenha.controls.senhaAtual.setValue(null);
+              this.formAlteraSenha.controls.novaSenha.setValue(null);
+              this.formAlteraSenha.controls.novaSenhaCp.setValue(null);
+              this._alerta.erro(error);
+            }
+          );
+        } else {
+          this._alerta.alerta(MensagemEnum.SENHA_INVALIDA);
+        }
       }
     }
     this.alteraSenha = !this.alteraSenha;

@@ -66,7 +66,7 @@ export class HomeAdminComponent implements OnInit {
 
   public atualizarPedidos() {
     this.pedidos.forEach((ped) => {
-      this._pedidoService.atualizarPedido(ped).subscribe((r) => {});
+      this._pedidoService.atualizarSituacaoPedido(ped).subscribe((r) => {});
     });
   }
 

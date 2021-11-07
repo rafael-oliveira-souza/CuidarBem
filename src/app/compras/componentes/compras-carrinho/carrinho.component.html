@@ -46,9 +46,8 @@
           <td colspan="2">
             <div class="col">
               <app-galeria
-                *ngIf="imagens.length > 0"
                 altura="80px"
-                [imagens]="getImage(produto.id)"
+                [imagens]="getImage(produto)"
                 [maxImages]="1"
               ></app-galeria>
             </div>
@@ -66,8 +65,8 @@
               *ngIf="pacotes.length > 0"
               pInputText
               class="col-12"
-              [(ngModel)]="produto.locacao"
-              [value]="produto.locacao"
+              [(ngModel)]="produto.pacote"
+              [value]="produto.pacote"
             >
               <option *ngFor="let pacote of pacotes" [value]="pacote.id">
                 {{ pacote.qtd_dias }} dias
@@ -116,7 +115,7 @@
         <div class="col-12">
           <app-galeria
             altura="80px"
-            [imagens]="[produto.imagem]"
+            [imagens]="getImage(produto)"
             [maxImages]="1"
           ></app-galeria>
         </div>
@@ -143,8 +142,8 @@
             *ngIf="pacotes.length > 0"
             pInputText
             class="col-12"
-            [(ngModel)]="produto.locacao"
-            [value]="produto.locacao"
+            [(ngModel)]="produto.pacote"
+            [value]="produto.pacote"
           >
             <option *ngFor="let pacote of pacotes" [value]="pacote.id">
               {{ pacote.qtd_dias }} dias

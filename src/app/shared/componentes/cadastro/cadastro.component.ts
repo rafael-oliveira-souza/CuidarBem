@@ -120,14 +120,7 @@ export class CadastroComponent implements OnInit {
             this._ref.close();
           },
           (error) => {
-            if (
-              error["message"]?.includes("Duplicate") ||
-              error.error["mensagem"]?.includes("Duplicate")
-            ) {
-              this._alerta.erro(MensagemEnum.EMAIL_CADASTRADO);
-            } else {
-              this._alerta.erro(error.error["mensagem"]);
-            }
+            this._alerta.erro(error);
           }
         );
       }

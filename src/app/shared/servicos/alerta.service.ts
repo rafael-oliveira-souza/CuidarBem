@@ -44,7 +44,18 @@ export class AlertaService {
     this._messageService.add(alerta);
   }
 
-  erro(msg: string, life?: number) {
+  erro(error: any, life?: number) {
+    let msg: string = error;
+    if (typeof error === "object") {
+      if (error["error"]) {
+        msg = error["error"]["message"]
+          ? error["error"]["message"]
+          : error["error"]["mensagem"];
+      } else {
+        msg = error["message"] ? error["message"] : error["mensagem"];
+      }
+    }
+
     const alerta: Mensagem = new Mensagem("error", "Erro", msg, life);
     this._messageService.add(alerta);
   }

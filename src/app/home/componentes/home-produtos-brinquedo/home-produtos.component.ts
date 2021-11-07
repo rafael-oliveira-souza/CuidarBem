@@ -5,10 +5,12 @@ import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProdutoEnum";
+import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
-import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
+import { StorageService } from "src/app/shared/servicos/storage.service";
 import { HomeProdutosSaibaMaisComponent } from "../home-produtos-saiba-mais/home-produtos-saiba-mais.component";
 
 @Component({
@@ -30,9 +32,10 @@ export class HomeProdutosComponent implements OnInit {
   constructor(
     private _compraService: CompraService,
     private _produtoService: ProdutoService,
-    private _locacaoService: LocacaoService,
+    private _pacoteService: PacoteService,
     private _categoriaService: CategoriaService,
-    private _dialogService: DialogService
+    private _dialogService: DialogService,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit() {
@@ -43,6 +46,8 @@ export class HomeProdutosComponent implements OnInit {
 
   public getProdutos() {
     this._produtoService.getProdutos().subscribe((produtos: Produto[]) => {
+      this._storageService.setItem<Produto[]>(StorageEnum.PRODUTOS, produtos);
+
       this.produtosBackup = produtos;
       this.produtos = produtos;
       this.carregarCarrinho();
@@ -50,7 +55,8 @@ export class HomeProdutosComponent implements OnInit {
   }
 
   public getPacotes() {
-    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
+      this._storageService.setItem<Pacote[]>(StorageEnum.PACOTES, pacotes);
       this.pacotes = pacotes;
     });
   }
@@ -59,6 +65,10 @@ export class HomeProdutosComponent implements OnInit {
     this._categoriaService
       .getCategorias()
       .subscribe((categorias: Categoria[]) => {
+        this._storageService.setItem<Categoria[]>(
+          StorageEnum.CATEGORIAS,
+          categorias
+        );
         this.categorias = categorias;
       });
   }

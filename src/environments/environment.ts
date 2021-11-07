@@ -7,11 +7,8 @@ export const environment = {
   production: false,
   apiCrescerBemServer: prod.apiCrescerBemServer,
   apiServer: prod.apiServer,
-  secretKey: prod.secretKey,
   mercadoPago: prod.mercadoPago,
   mercadoPagoToken: prod.mercadoPagoToken,
-  whatsapp: prod.whatsapp,
-  pix: prod.pix,
 };
 
 /*

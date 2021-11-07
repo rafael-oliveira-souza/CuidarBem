@@ -16,9 +16,13 @@ export class HomeLojaComponent implements OnInit {
 
   ngOnInit(): void {
     this._fotoService.getImagensPorDiretorios("carrousel").subscribe((imgs) => {
-      imgs.forEach((img: Imagem) => {
-        this.images.push(`${img.diretorio}/${img.nome}`);
-      });
+      if (imgs.length > 0) {
+        imgs.forEach((img: Imagem) => {
+          this.images.push(`${img.diretorio}/${img.nome}`);
+        });
+      } else {
+        this.images.push("/assets/images/paginainicialsite.png");
+      }
     });
   }
 

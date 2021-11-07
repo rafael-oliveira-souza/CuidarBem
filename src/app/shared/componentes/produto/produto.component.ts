@@ -41,17 +41,15 @@ export class ProdutoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getImagem(this.produto.id);
+    this.getImagem(this.produto.diretorioImagens + "/" + this.produto.imagem);
   }
 
-  public getImagem(idProduto: number) {
-    this._fotoService.getImagensProdutosPorId(idProduto).subscribe((imgs) => {
-      if (imgs.length > 0) {
-        this.imagem = `${imgs[0].diretorio}/${imgs[0].nome}`;
-      } else {
-        this.imagem = "/assets/images/produtos/produtoSemImagem.png";
-      }
-    });
+  public getImagem(imagem: string) {
+    if (imagem != null) {
+      this.imagem = imagem;
+    } else {
+      this.imagem = "/assets/images/produtos/produtoSemImagem.png";
+    }
   }
 
   public getSituacaoEstoque(situacao: number) {

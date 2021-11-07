@@ -10,29 +10,39 @@ import { Cliente } from "../models/classes/Cliente";
 export class ClienteService {
   constructor(private _http: HttpClient) {}
 
+  public criarCliente(cliente: Cliente) {
+    return this._http.post<any>(`${environment.apiServer}/cliente`, cliente);
+  }
+
   public getClientes() {
     return this._http.get<Array<Cliente>>(
-      `${environment.apiServer}/Cliente/todos`
+      `${environment.apiServer}/cliente/todos`
+    );
+  }
+
+  public getClienteById(idCliente: number): Observable<Cliente> {
+    return this._http.get<Cliente>(
+      `${environment.apiServer}/cliente/${idCliente}`
     );
   }
 
   public salvarCliente(Cliente: Cliente) {
     return this._http.post<any>(
-      `${environment.apiServer}/Cliente/salvar`,
+      `${environment.apiServer}/cliente/salvar`,
       Cliente
     );
   }
 
   public atualizarCliente(Cliente: Cliente) {
     return this._http.put<any>(
-      `${environment.apiServer}/Cliente/atualizar`,
+      `${environment.apiServer}/cliente/atualizar`,
       Cliente
     );
   }
 
   public removeClienteById(id: number) {
     return this._http.delete<any>(
-      `${environment.apiServer}/Cliente/excluir?id=${id}`
+      `${environment.apiServer}/cliente/excluir/${id}`
     );
   }
 }

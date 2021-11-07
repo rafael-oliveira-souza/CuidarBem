@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { FaixaEtaria } from "../models/classes/FaixaEtaria";
 import { Mocks } from "../models/constantes/Mocks";
+import { StorageEnum } from "../models/enums/StorageEnum";
+import { StorageService } from "./storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -12,25 +14,31 @@ export class FaixaEtariaService {
   private objectSource = new BehaviorSubject([]);
   private observableObject = this.objectSource.asObservable();
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _storageService: StorageService
+  ) {}
 
   public getFaixasEtarias(): Observable<Array<FaixaEtaria>> {
-    // this.objectSource.next(Mocks.FaixaEtaria);
-    // return this.observableObject;
-    return this._http.get<Array<FaixaEtaria>>(
-      `${environment.apiServer}/faixa/todos`
+    let faixas: FaixaEtaria[] = this._storageService.getItem(
+      StorageEnum.FAIXAS
     );
+    if (faixas && faixas.length > 0) {
+      return new BehaviorSubject(faixas).asObservable();
+    } else {
+      return this._http.get<Array<FaixaEtaria>>(
+        `${environment.apiServer}/faixa/todos`
+      );
+    }
   }
 
   public getFaixaEtariaById(id: number): Observable<FaixaEtaria> {
-    return this._http.get<FaixaEtaria>(
-      `${environment.apiServer}/faixa?id=${id}`
-    );
+    return this._http.get<FaixaEtaria>(`${environment.apiServer}/faixa/${id}`);
   }
 
   public removeFaixaById(id: number) {
     return this._http.delete<any>(
-      `${environment.apiServer}/faixa/excluir?id=${id}`
+      `${environment.apiServer}/faixa/excluir/${id}`
     );
   }
 }

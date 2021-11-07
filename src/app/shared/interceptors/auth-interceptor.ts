@@ -19,13 +19,13 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (location.href.includes(environment.apiCrescerBemServer)) {
-      let rota = location.href.replace(
-        environment.apiCrescerBemServer + "/",
-        ""
-      );
-      this._router.navigate([rota]);
-    }
+    // if (location.href.includes(environment.apiCrescerBemServer)) {
+    //   let rota = location.href.replace(
+    //     environment.apiCrescerBemServer + "/",
+    //     ""
+    //   );
+    //   this._router.navigate([rota]);
+    // }
 
     if (req.url.includes(environment.mercadoPago)) {
       req = req.clone({

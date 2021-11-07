@@ -14,7 +14,7 @@ import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { FotoService } from "src/app/shared/servicos/foto.service";
-import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { PdfService } from "src/app/shared/servicos/pdf.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
@@ -39,7 +39,7 @@ export class CarrinhoComponent implements OnInit {
     private _produtoService: ProdutoService,
     private _categoriaService: CategoriaService,
     private _compraService: CompraService,
-    private _locacaoService: LocacaoService,
+    private _pacoteService: PacoteService,
     private _fotoService: FotoService,
     private _pdfService: PdfService,
     private _storageService: StorageService
@@ -52,7 +52,6 @@ export class CarrinhoComponent implements OnInit {
     if (this.objetoEnvio) {
       this.getPacotes();
       this.getCategorias();
-      this.carregarImagens();
     } else {
       this.objetoEnvio = new ObjetoEnvio();
     }
@@ -60,12 +59,6 @@ export class CarrinhoComponent implements OnInit {
 
   public carregarCarrinho(): void {
     this.objetoEnvio = this._compraService.carregarCarrinho();
-  }
-
-  public carregarImagens(): void {
-    this._fotoService.getImagensPorDiretorios("produtos").subscribe((imgs) => {
-      this.imagens = imgs;
-    });
   }
 
   public getCategorias() {
@@ -89,7 +82,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public getPacotes() {
-    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
       this.pacotes = pacotes;
       // this.getValorTotal(this.objetoEnvio.produtos, pacotes);
     });
@@ -169,11 +162,10 @@ export class CarrinhoComponent implements OnInit {
     return window.screen.height * 0.6 + `px`;
   }
 
-  public getImage(idProduto: number) {
-    let imgs: Imagem[] = this.imagens.filter((img) => img.id == idProduto);
-    if (imgs.length > 0) {
-      let urls = imgs.map((img) => `${imgs[0].diretorio}/${imgs[0].nome}`);
-      return urls;
+  public getImage(produto: Produto) {
+    let imagem = produto.diretorioImagens + "/" + produto.imagem;
+    if (imagem != null) {
+      return [imagem];
     } else {
       return ["/assets/images/produtos/produtoSemImagem.png"];
     }

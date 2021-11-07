@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private _emailService: EmailService,
     private _storageService: StorageService,
+    private _router: Router,
     private _loaderService: LoadService
   ) {
     this.setForm();
@@ -85,11 +86,12 @@ export class LoginComponent implements OnInit {
         (user: Usuario) => {
           this.salvarUsuario(user);
           this._loaderService.setLoader(true);
-          // this.instanciarObjetoEnvio();
+          //this.instanciarObjetoEnvio();
           this._ref.close();
+          this._router.navigate([RotasEnum.HOME]);
         },
         (e) => {
-          this._alerta.erro(e.error["mensagem"]);
+          this._alerta.erro(e);
         }
       );
     } else {

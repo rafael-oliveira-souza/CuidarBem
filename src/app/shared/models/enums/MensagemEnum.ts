@@ -28,4 +28,5 @@ export enum MensagemEnum {
   PEDIDO_NAO_PROCESSADO = "Houve um erro ao processar o seu pedido. Por favor, tente novamente.",
   PEDIDO_FALHOU = "Houve um erro ao enviar o seu pedido. Por favor, tente novamente.",
   USUARIO_NAO_LOGADO = "Por favor, Logue com sua conta novamente para prosseguir.",
+  SESSAO_ENCERRADA = "A sessão foi encerrada. Por favor, logue novamente!",
 }

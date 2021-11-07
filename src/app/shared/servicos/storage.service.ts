@@ -30,4 +30,11 @@ export class StorageService {
   setItem<T>(key: StorageEnum, value: T): void {
     StorageUtilsConstante.setItem<T>(key, value);
   }
+
+  verifyIfExistInMemory(key: StorageEnum): boolean {
+    if (this.getItem(key) != null) {
+      return true;
+    }
+    return false;
+  }
 }

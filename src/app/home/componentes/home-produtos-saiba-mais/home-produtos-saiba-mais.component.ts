@@ -9,7 +9,7 @@ import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProdutoEnum";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { FotoService } from "src/app/shared/servicos/foto.service";
-import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
@@ -54,12 +54,12 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     this.produtoIndisponivel =
       this.produto.situacao == SituacaoProdutoEnum.INDISPONIVEL;
 
-    this.getImagens(this.produto.id);
+    this.getImagens(this.produto.diretorioImagens);
   }
 
-  public getImagens(idProduto: number) {
+  public getImagens(diretorio: string) {
     this._fotoService
-      .getImagensProdutosPorId(idProduto)
+      .getImagensPorDiretorios(diretorio)
       .subscribe((imagens: Imagem[]) => {
         if (imagens.length > 0) {
           this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);

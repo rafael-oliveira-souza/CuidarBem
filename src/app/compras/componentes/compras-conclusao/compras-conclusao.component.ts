@@ -9,7 +9,9 @@ import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Pagamento } from "src/app/shared/models/classes/Pagamento";
 import { Pedido } from "src/app/shared/models/classes/Pedido";
+import { PedidoConclusao } from "src/app/shared/models/classes/PedidoConclusao";
 import { PedidoMercadoPago } from "src/app/shared/models/classes/PedidoMercadoPago";
+import { Pix } from "src/app/shared/models/classes/Pix";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { Usuario } from "src/app/shared/models/classes/Usuario";
 import { DataUtilsConstants } from "src/app/shared/models/constantes/DataUtilsConstante";
@@ -22,7 +24,7 @@ import { MoedaPipe } from "src/app/shared/pipes/moeda.pipe";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { EmailService } from "src/app/shared/servicos/email.service";
-import { LocacaoService } from "src/app/shared/servicos/locacao.service";
+import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { PagamentoService } from "src/app/shared/servicos/pagamento.service";
 import { PedidoService } from "src/app/shared/servicos/pedido.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
@@ -36,6 +38,11 @@ import { environment } from "src/environments/environment.prod";
   styleUrls: ["./compras-conclusao.component.scss"],
 })
 export class ComprasConclusaoComponent implements OnInit {
+  private readonly ASSUNTO_ENVIO_PEDIDO =
+    "Ajudando seu filho a crescer - Informações sobre o seu pedido";
+  private readonly RESULT_ENVIO_PEDIDO =
+    "Enviamos uma mensagem no seu email com as informações do seu pedido.";
+
   public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
   public valorPagamento: number = 0;
   public pacotes: Pacote[] = [];
@@ -43,7 +50,7 @@ export class ComprasConclusaoComponent implements OnInit {
   public altura: string;
   public mercadoOn = false;
   public pixOn = false;
-  public dadosPix;
+  public dadosPix: Pix = new Pix();
   public pedidos: Array<Pedido> = [];
   public categorias: Categoria[] = [];
   public moedaPipe = new MoedaPipe();
@@ -57,7 +64,7 @@ export class ComprasConclusaoComponent implements OnInit {
     private _alertaService: AlertaService,
     private _storageService: StorageService,
     private _pagamentoService: PagamentoService,
-    private _locacaoService: LocacaoService,
+    private _pacoteService: PacoteService,
     private _produtoService: ProdutoService,
     private _pedidoService: PedidoService,
     private _alerta: AlertaService,
@@ -92,10 +99,10 @@ export class ComprasConclusaoComponent implements OnInit {
     this.carregarDadosPagamento();
     this.getCategorias();
 
-    this.dadosPix = environment.pix;
-    // this._utils.getDadosPix().subscribe((pix) => {
-    //   this.dadosPix = JSON.parse(pix);
-    // });
+    // this.dadosPix = environment.pix;
+    this._utils.getDadosPix().subscribe((pix) => {
+      this.dadosPix = pix;
+    });
   }
 
   public goHome() {
@@ -112,7 +119,7 @@ export class ComprasConclusaoComponent implements OnInit {
     );
 
     if (this.objetoEnvio && this.objetoEnvio.produtos.length > 0) {
-      this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+      this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
         this.pacotes = pacotes;
         this.valorPagamento = this._produtoService.getValorTotalProdutos(
           this.objetoEnvio.produtos,
@@ -256,56 +263,42 @@ export class ComprasConclusaoComponent implements OnInit {
     this.mercadoOn = true;
     this.pixOn = false;
     this.criarPedidoMercadoPago();
-    this.salvarPedido(false);
+    // this.salvarPedido(false);
   }
 
-  public salvarPedido(voltar: boolean) {
-    if (this.pedidos.length > 0) {
-      let pedidosSalvos = true;
-      this.pedidos.forEach((pedido) => {
-        this._pedidoService.salvarPedido(pedido).subscribe(
-          (res) => {},
+  public salvarPedido(aguardar: boolean) {
+    let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
+    if (this.pedidos.length > 0 && usuario) {
+      let email: Email = new Email();
+      email.assunto = this.ASSUNTO_ENVIO_PEDIDO;
+      email.mensagem = document.getElementById("NotaFiscalCarrinho").outerHTML;
+      email.destinatarios = usuario.email;
+
+      let pedidoConclusao: PedidoConclusao = new PedidoConclusao();
+      pedidoConclusao.email = email;
+      pedidoConclusao.pedidos = this.pedidos;
+
+      this._pedidoService
+        .salvarPedidoEEnviarPorEmail(pedidoConclusao)
+        .subscribe(
+          (res) => {
+            this._alerta.sucesso(this.RESULT_ENVIO_PEDIDO);
+            this._storageService.setItem<ObjetoEnvio>(
+              StorageEnum.OBJETO_ENVIO,
+              new ObjetoEnvio()
+            );
+            this.goHome();
+          },
           (error) => {
-            pedidosSalvos = false;
+            this._alerta.erro(MensagemEnum.PEDIDO_FALHOU);
           }
         );
-      });
-      if (voltar) {
-        if (pedidosSalvos) {
-          this.enviarEmail();
-          this._alerta.sucesso(MensagemEnum.PEDIDO_ENVIADO);
-          this.goHome();
-          this._storageService.setItem<ObjetoEnvio>(
-            StorageEnum.OBJETO_ENVIO,
-            new ObjetoEnvio()
-          );
-        } else {
-          this._alerta.erro(MensagemEnum.PEDIDO_FALHOU);
-        }
-      } /**/
     } else {
-      this._alerta.erro(MensagemEnum.PEDIDO_NAO_PROCESSADO);
-    }
-  }
-
-  public enviarEmail() {
-    let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
-
-    if (usuario) {
-      let email: Email = new Email();
-      //email.usuario = environment.usuarioCrescerBem;
-      //email.senha = environment.senhaCrescerBem;
-      email.destinatarios = usuario.email;
-      email.assunto = "Informações sobre o seu pedido";
-      email.mensagem = document.getElementById("NotaFiscalCarrinho").outerHTML;
-
-      this._emailService.enviarEmail(email).subscribe((res) => {
-        this._alerta.alerta(
-          `Enviamos uma mensagem no email <b>${usuario.email}</b> com as informações do seu pedido.`
-        );
-      });
-    } else {
-      this._alerta.erro(MensagemEnum.USUARIO_NAO_LOGADO);
+      if (usuario == null) {
+        this._alerta.erro(MensagemEnum.USUARIO_NAO_LOGADO);
+      } else {
+        this._alerta.erro(MensagemEnum.PEDIDO_NAO_PROCESSADO);
+      }
     }
   }
 

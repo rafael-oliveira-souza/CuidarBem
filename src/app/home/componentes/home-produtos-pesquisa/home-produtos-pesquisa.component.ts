@@ -32,7 +32,7 @@ export class HomeProdutosPesquisaComponent implements OnInit {
 
   public categoriasSelecionadas: number[] = [];
   public faixasSelecionadas: number[] = [];
-  public faixaValores: number[] = [0, 500];
+  public faixaValores: number[] = [0, 10000];
 
   public collapsed: boolean = false;
 

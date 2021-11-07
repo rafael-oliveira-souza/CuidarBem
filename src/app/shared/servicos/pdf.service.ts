@@ -10,7 +10,7 @@ export class PdfService {
   constructor(private _http: HttpClient) {}
 
   public generatePdf(html: string): Observable<any> {
-    return this._http.post<any>(`${environment.apiServer}/gerarPdf`, {
+    return this._http.post<any>(`${environment.apiServer}/util/gerarPdf`, {
       html: html,
     });
   }

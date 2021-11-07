@@ -13,9 +13,10 @@ import { RotasEnum } from "../../models/enums/RotasEnum";
 import { StorageEnum } from "../../models/enums/StorageEnum";
 import { MoedaPipe } from "../../pipes/moeda.pipe";
 import { AlertaService } from "../../servicos/alerta.service";
+import { ClienteService } from "../../servicos/cliente.service";
 import { CompraService } from "../../servicos/compra.service";
 import { LoadService } from "../../servicos/load.service";
-import { LocacaoService } from "../../servicos/locacao.service";
+import { PacoteService } from "../../servicos/pacote.service";
 import { ProdutoService } from "../../servicos/produto.service";
 import { StorageService } from "../../servicos/storage.service";
 import { UsuarioService } from "../../servicos/usuario.service";
@@ -41,10 +42,11 @@ export class BarraDeAcoesComponent implements OnInit {
     private _router: Router,
     private _storageService: StorageService,
     private _alerta: AlertaService,
-    private _locacaoService: LocacaoService,
+    private _pacoteService: PacoteService,
     private _compraService: CompraService,
     private _produtoService: ProdutoService,
     private _usuarioService: UsuarioService,
+    private _clienteService: ClienteService,
     private _loadService: LoadService
   ) {
     this.carregarMenu();
@@ -54,7 +56,7 @@ export class BarraDeAcoesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._locacaoService.getPacotes().subscribe((pacotes: Pacote[]) => {
+    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
       this.pacotes = pacotes;
       this.carregarCarrinho();
     });
@@ -89,7 +91,7 @@ export class BarraDeAcoesComponent implements OnInit {
   carregarUsuario(): void {
     let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     if (usuario) {
-      this._usuarioService.getClienteById(usuario.id).subscribe(
+      this._clienteService.getClienteById(usuario.id).subscribe(
         (cliente: Cliente) => {
           if (cliente) {
             this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);
