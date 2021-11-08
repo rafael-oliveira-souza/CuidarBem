@@ -6,6 +6,11 @@ import { FaixaEtaria } from "src/app/shared/models/classes/FaixaEtaria";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Pedido } from "src/app/shared/models/classes/Pedido";
 import { Produto } from "src/app/shared/models/classes/Produto";
+import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
+import {
+  AlertaService,
+  Mensagem,
+} from "src/app/shared/servicos/alerta.service";
 import { ClienteService } from "src/app/shared/servicos/cliente.service";
 import { PedidoService } from "src/app/shared/servicos/pedido.service";
 
@@ -24,7 +29,7 @@ export class HomeAdminComponent implements OnInit {
   public form: any;
 
   constructor(
-    private _builder: FormBuilder,
+    private _alerta: AlertaService,
     private _clienteService: ClienteService,
     private _pedidoService: PedidoService
   ) {
@@ -65,9 +70,14 @@ export class HomeAdminComponent implements OnInit {
   }
 
   public atualizarPedidos() {
-    this.pedidos.forEach((ped) => {
-      this._pedidoService.atualizarSituacaoPedido(ped).subscribe((r) => {});
-    });
+    this._pedidoService.atualizarSituacaoPedido(this.pedidos).subscribe(
+      (r) => {
+        this._alerta.sucesso(MensagemEnum.PEDIDO_ATUALIZADOS);
+      },
+      (error) => {
+        this._alerta.erro(error);
+      }
+    );
   }
 
   public alterarFormulario() {

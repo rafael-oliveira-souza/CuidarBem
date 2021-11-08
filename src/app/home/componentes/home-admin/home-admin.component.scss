@@ -5,6 +5,23 @@
   color: $branco !important;
 }
 
+p {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
 .bord {
   border-bottom: 2px solid $azul !important;
+}
+
+@media screen and (min-width: 50rem) {
+  .detalhe-pedidos {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 50rem) {
+  .tabela-pedidos {
+    display: none !important;
+  }
 }

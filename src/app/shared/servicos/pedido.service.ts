@@ -31,10 +31,10 @@ export class PedidoService {
     );
   }
 
-  public atualizarSituacaoPedido(pedido: Pedido) {
+  public atualizarSituacaoPedido(pedidos: Pedido[]) {
     return this._http.put<any>(
       `${environment.apiServer}/pedido/atualizarSituacao`,
-      pedido
+      pedidos
     );
   }
 
