@@ -24,6 +24,7 @@ export class HomeLojaComponent implements OnInit {
         this.images.push("/assets/images/paginainicialsite.png");
       }
     });
+    this.goRota(RotasEnum.BRINQUEDOS);
   }
 
   public goRota(rota: string) {

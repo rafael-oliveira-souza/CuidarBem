@@ -331,6 +331,18 @@ export class ComprasConclusaoComponent implements OnInit {
     return categoria.nome;
   }
 
+  public getQtdDiasPacote(id: number) {
+    let pacote: Pacote = new Pacote();
+
+    this.pacotes.forEach((pac: Pacote) => {
+      if (pac.id == id) {
+        pacote = pac;
+      }
+    });
+
+    return pacote.qtd_dias;
+  }
+
   public getValorTotal(produtos: Produto[], pacotes: Pacote[]) {
     return this._produtoService.getValorTotalProdutos(produtos, pacotes);
   }

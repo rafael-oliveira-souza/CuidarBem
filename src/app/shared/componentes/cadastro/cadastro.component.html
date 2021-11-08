@@ -5,12 +5,7 @@
       src="../../../../assets/images/crescer.png"
     />
   </div>
-  <form
-    *ngIf="form"
-    [formGroup]="form"
-    class="p-4 row justify-content-center"
-    autocomplete="off"
-  >
+  <form *ngIf="form" [formGroup]="form" class="p-4 row justify-content-center">
     <!-- <div class="col-6">
       <span class="p-float-label">
         <input
@@ -48,6 +43,7 @@
           pInputText
           [formControl]="form.controls.email"
           autocomplete="off"
+          autofocus="off"
           sclass=" ng-invalid ng-dirty"
         />
         <label for="email"> <i class="pi pi-envelope mr-2"></i>Email:</label>
@@ -62,6 +58,7 @@
           pInputText
           [formControl]="form.controls.senha"
           autocomplete="off"
+          autofocus="off"
           sclass="ng-invalid ng-dirty"
         />
         <label for="Confirmarsenha">
@@ -82,6 +79,7 @@
           pInputText
           [formControl]="form.controls.confirmarSenha"
           autocomplete="off"
+          autofocus="off"
           sclass="ng-invalid ng-dirty"
         />
         <label for="Confirmarsenha">

@@ -84,6 +84,27 @@
         min-width: 100%;
       "
     >
+      <h4>Dados do PIX</h4>
+      <div
+        style="
+          text-align: start;
+          margin-top: 10px;
+          margin-left: 10px;
+          margin-right: 10px;
+        "
+      >
+        <hr />
+        <p>Nome: {{ dadosPix.nome }}</p>
+        <p>Chave: {{ dadosPix.chave }}</p>
+      </div>
+    </div>
+    <div
+      style="
+        background-color: transparent;
+        border: 2px solid black;
+        min-width: 100%;
+      "
+    >
       <h4>Dados do Pedido</h4>
       <p>Número do Pedido: {{ numeroPedido }}</p>
       <hr />
@@ -113,6 +134,7 @@
         <p>Nome: {{ obj.nome }}</p>
         <p>Descrição: {{ obj.descricao }}</p>
         <p>Categoria: {{ getNomeCategoria(obj.categoria) }}</p>
+        <p>Pacote: {{ getQtdDiasPacote(obj.pacote) }} dia(s)</p>
         <p>Quantidade: {{ obj.quantidade }}</p>
         <p>Valor: {{ getValor(obj) }}</p>
       </div>

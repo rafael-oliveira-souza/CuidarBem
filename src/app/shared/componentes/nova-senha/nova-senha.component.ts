@@ -34,15 +34,15 @@ export class NovaSenhaComponent implements OnInit {
     // this.recuperarDatas();
     this.form = this._builder.group({
       email: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(5), Validators.email, Validators.required],
       ],
       senha: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(8), Validators.required],
       ],
       confirmarSenha: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(8), Validators.required],
       ],
     });

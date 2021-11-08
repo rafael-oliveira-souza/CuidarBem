@@ -27,25 +27,25 @@ export class CadastroComponent implements OnInit {
     private _alerta: AlertaService,
     private _builder: FormBuilder,
     private _ref: DynamicDialogRef
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.setForm();
   }
-
-  ngOnInit(): void {}
 
   public setForm() {
     // this.recuperarDatas();
     this.form = this._builder.group({
       email: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(5), Validators.email, Validators.required],
       ],
       senha: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(8), Validators.required],
       ],
       confirmarSenha: [
-        { value: null, disabled: false },
+        { value: "", disabled: false },
         [Validators.minLength(8), Validators.required],
       ],
     });
