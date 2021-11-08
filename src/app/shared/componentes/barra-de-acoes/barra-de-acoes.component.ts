@@ -49,9 +49,9 @@ export class BarraDeAcoesComponent implements OnInit {
     private _clienteService: ClienteService,
     private _loadService: LoadService
   ) {
-    this.carregarMenu();
     this._loadService.getLoader().subscribe((r) => {
       this.carregarUsuario();
+      this.carregarCarrinho();
     });
   }
 
@@ -103,15 +103,18 @@ export class BarraDeAcoesComponent implements OnInit {
           } else {
             this.labelEntrar = "Entrar";
           }
+          this.carregarMenu();
         },
         (error) => {
           this._storageService.removeItem(StorageEnum.CLIENTE);
           this._alerta.erro(error);
           this.labelEntrar = "Entrar";
+          this.carregarMenu();
         }
       );
     } else {
       this.labelEntrar = "Entrar";
+      this.carregarMenu();
     }
   }
 
@@ -124,8 +127,10 @@ export class BarraDeAcoesComponent implements OnInit {
 
         let produtos = this.objEnvio ? this.objEnvio.produtos : [];
         this.getValorTotal(produtos, this.pacotes);
+        this.carregarMenu();
       },
       (erro) => {
+        this.carregarMenu();
         this._alerta.alerta(MensagemEnum.FALHA_AO_RECUPERAR_CARRINHO);
       }
     );

@@ -188,7 +188,7 @@ export class HomeMinhaContaComponent implements OnInit {
 
   public logout() {
     this._usuarioService.logout();
-    this._loadService.setLoader(false);
+    this._loadService.setLoader(true);
     this._compraService.salvarCarrinho(null);
     this._ref.close();
   }
