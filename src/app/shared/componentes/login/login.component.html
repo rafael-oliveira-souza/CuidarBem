@@ -5,13 +5,18 @@
       src="../../../../assets/images/crescer.png"
     />
   </div>
-  <form *ngIf="form" [formGroup]="form" class="p-3 row justify-content-center">
+  <form
+    *ngIf="form"
+    [formGroup]="form"
+    class="p-3 row justify-content-center"
+    autocomplete="off"
+    autocomplete="no"
+  >
     <div class="col-12">
       <span class="p-float-label">
         <input
           id="email"
           class="col-12"
-          autocomplete="off"
           type="text"
           pInputText
           [formControl]="form.controls.email"
@@ -26,8 +31,6 @@
           id="senha"
           class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12"
           [type]="tipoInput"
-          autocomplete="off"
-          autofocus="off"
           pInputText
           [formControl]="form.controls.senha"
           sclass="ng-invalid ng-dirty"
