@@ -1,0 +1,12 @@
+<div *ngIf="images.length > 0">
+  <p-carousel
+    [value]="images"
+    styleClass="carousel-pg"
+    [autoplayInterval]="7000"
+    [circular]="true"
+  >
+    <ng-template let-img pTemplate="item">
+      <div [style]="getBgImage(img)"></div>
+    </ng-template>
+  </p-carousel>
+</div>

@@ -20,6 +20,7 @@ import { HomeTermosUsoComponent } from "./componentes/home-termos-uso/home-termo
 import { HomeHigienizacaoComponent } from "./componentes/home-higienizacao/home-higienizacao.component";
 import { HomeDialogandoComponent } from "./componentes/home-dialogando/home-dialogando.component";
 import { HomeAlugarComponent } from "./componentes/home-alugar/home-alugar.component";
+import { HomeCarrouselComponent } from "./componentes/home-carrousel/home-carrousel.component";
 
 @NgModule({
   declarations: [
@@ -40,8 +41,10 @@ import { HomeAlugarComponent } from "./componentes/home-alugar/home-alugar.compo
     HomeHigienizacaoComponent,
     HomeDialogandoComponent,
     HomeAlugarComponent,
+    HomeCarrouselComponent,
   ],
   imports: [CommonModule, HomeRoutingModule, SharedModule],
+  exports: [HomeCarrouselComponent],
   entryComponents: [HomeMinhaContaComponent],
 })
 export class HomeModule {}

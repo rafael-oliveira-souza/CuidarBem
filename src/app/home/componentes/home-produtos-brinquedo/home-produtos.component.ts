@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DialogService } from "primeng/dynamicdialog";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
+import { Imagem } from "src/app/shared/models/classes/Imagem";
 import { ObjetoEnvio } from "src/app/shared/models/classes/ObjetoEnvio";
 import { Pacote } from "src/app/shared/models/classes/Pacote";
 import { Produto } from "src/app/shared/models/classes/Produto";
@@ -28,6 +29,7 @@ export class HomeProdutosComponent implements OnInit {
   public pacotes: Array<Pacote> = [];
 
   public maxItems: number = 6;
+  public images: string[] = [];
 
   constructor(
     private _compraService: CompraService,
@@ -42,6 +44,7 @@ export class HomeProdutosComponent implements OnInit {
     this.getProdutos();
     this.getCategorias();
     this.getPacotes();
+    this.images.push("/assets/images/paginainicialsite.png");
   }
 
   public getProdutos() {

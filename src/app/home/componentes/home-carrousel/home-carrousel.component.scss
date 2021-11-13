@@ -1,0 +1,47 @@
+@import "../../../../estilos/cores.scss";
+
+.bg-img {
+  //background-image: url("../../../../assets/images/bg_img1.jpeg");
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: auto; /* Resize the background image to cover the entire container */
+  width: 100%;
+  // margin-top: px;
+}
+
+.pd {
+  padding-top: 15%;
+  padding-bottom: 20%;
+}
+
+.icone-circ {
+  background: $branco;
+  opacity: 0.7;
+  // background: transparent;
+  // border: 1px solid $branco;
+  // color: $branco;
+  border-radius: 50%;
+  width: 150px;
+  height: 130px;
+  font-size: 18px;
+}
+
+.icone-circ:hover {
+  color: $laranja;
+}
+
+:host ::ng-deep {
+  .p-carousel-container {
+    // overflow-y: scroll;
+    max-height: 100%;
+  }
+  .p-carousel-prev.p-link.p-ripple {
+    display: none;
+  }
+  .p-carousel-next.p-link.p-ripple {
+    display: none;
+  }
+  ul {
+    display: none;
+  }
+}
