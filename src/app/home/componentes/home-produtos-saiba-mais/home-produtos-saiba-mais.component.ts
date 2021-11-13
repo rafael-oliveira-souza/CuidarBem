@@ -15,6 +15,8 @@ import { CompraService } from "src/app/shared/servicos/compra.service";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
 import { ImagemProduto } from "src/app/shared/models/classes/ImagemProduto";
 import { Imagem } from "src/app/shared/models/classes/Imagem";
+import { FaixaEtariaService } from "src/app/shared/servicos/faixa-etaria.service";
+import { FaixaEtaria } from "src/app/shared/models/classes/FaixaEtaria";
 
 @Component({
   selector: "app-home-produtos-saiba-mais",
@@ -31,6 +33,7 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   @Input("objetoEnvio")
   public objetoEnvio: ObjetoEnvio;
 
+  public faixas: FaixaEtaria[] = [];
   public imagens: any[] = [];
   public produtoIndisponivel: boolean = false;
   public pacotes: Pacote[] = [];
@@ -42,6 +45,7 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     private _fotoService: FotoService,
     private _alertaService: AlertaService,
     private _compraService: CompraService,
+    private _faixaService: FaixaEtariaService,
     private _ref: DynamicDialogRef
   ) {}
 
@@ -51,10 +55,22 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     this.categoria = this._config.data.categoria;
     this.objetoEnvio = this._config.data.objetoEnvio;
 
+    this.pacotes.sort(function (a, b) {
+      if (a.qtd_dias > b.qtd_dias) {
+        return 1;
+      }
+      if (a.qtd_dias < b.qtd_dias) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+
     this.produtoIndisponivel =
       this.produto.situacao == SituacaoProdutoEnum.INDISPONIVEL;
 
     this.getImagens(this.produto.diretorioImagens);
+    this.getFaixasEtarias();
   }
 
   public getImagens(diretorio: string) {
@@ -67,6 +83,24 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
           this.imagens = ["/assets/images/produtos/produtoSemImagem.png"];
         }
       });
+  }
+
+  public getFaixasEtarias() {
+    return this._faixaService
+      .getFaixasEtarias()
+      .subscribe((faixas: FaixaEtaria[]) => {
+        this.faixas = faixas;
+      });
+  }
+
+  public getFaixa(faixa: number) {
+    let faixaSelec = this.faixas.filter((faix) => faix.id == faixa);
+
+    if (faixaSelec.length > 0) {
+      return faixaSelec[0].nome;
+    }
+
+    return "";
   }
 
   public getSituacaoEstoque(situacao: number) {
