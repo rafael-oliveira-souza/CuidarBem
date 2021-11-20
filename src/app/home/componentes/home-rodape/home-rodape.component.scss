@@ -1,0 +1,37 @@
+@import "../../../../estilos/cores.scss";
+
+.bg-rodape {
+  border-top: 5px solid $azul;
+  background: $branco;
+  // background-image: url("../../../../assets/images/bg_infantil.jpeg");
+  // background-position: center; /* Center the image */
+  // background-repeat: no-repeat; /* Do not repeat the image */
+  // background-size: cover; /* Resize the background image to cover the entire container */
+  color: $azul;
+}
+
+.borda-lateral {
+  border-right: 1px solid $azul;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.margin-lateral {
+  border-right: 1px solid $azul;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+li {
+  list-style: none;
+  margin-top: 1%;
+}
+
+a {
+  margin-left: 10px;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 30px;
+}

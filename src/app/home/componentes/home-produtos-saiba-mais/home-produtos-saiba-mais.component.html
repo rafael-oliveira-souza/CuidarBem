@@ -10,7 +10,7 @@
           <div class="row justify-content-between mb-5">
             <div
               class="
-                col-12 col-sm-12 col-md-6 col-ls-6 col-xs-6
+                col-12 col-sm-12 col-md-6 col-ls-6 col-xl-6
                 text-left
                 cor-azul
               "
@@ -24,20 +24,20 @@
               [severity]="getCorSituacaoEstoque(produto.situacao)"
             ></p-badge>
           </div>
-          <app-scroll altura="110px">
-            <h1 class="text-center cor-laranja">{{ produto.nome }}</h1>
-            <p class="text-justify mt-5">Descrição: {{ produto.descricao }}</p>
-            <!-- <p>Situação : {{ getSituacaoEstoque(produto.situacao) }}</p> -->
-            <!-- <p>Categoria: {{ getNomeCategoria(produto.categoria) }}</p> -->
-            <div class="row justify-content-between mt-5 text-center">
-              <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
-                Faixa Etária: {{ getFaixa(produto.faixa_etaria) }}
-              </p>
-              <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
-                Valor: {{ getValor() | moeda }}
-              </p>
-            </div>
-          </app-scroll>
+          <!-- <app-scroll altura="110px"> -->
+          <h1 class="text-center cor-laranja">{{ produto.nome }}</h1>
+          <p class="text-justify mt-5">Descrição: {{ produto.descricao }}</p>
+          <!-- <p>Situação : {{ getSituacaoEstoque(produto.situacao) }}</p> -->
+          <!-- <p>Categoria: {{ getNomeCategoria(produto.categoria) }}</p> -->
+          <div class="row justify-content-between mt-5 text-center">
+            <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              Faixa Etária: {{ getFaixa(produto.faixa_etaria) }}
+            </p>
+            <p class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              Valor: {{ getValor() | moeda }}
+            </p>
+          </div>
+          <!-- </app-scroll> -->
         </span>
         <div class="mt-2 p-3 row justify-content-between">
           <span class="col-12 text-center">
@@ -65,7 +65,7 @@
                 p-button-sm p-button-warning
                 mr-2
                 text-light
-                col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6
+                col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6
               "
             ></button>
           </div>
