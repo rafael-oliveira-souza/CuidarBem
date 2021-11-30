@@ -3,8 +3,8 @@ export const environment = {
   // api_local_server: "http://localhost:4200",
   // apiServer: "https://crescer-df.herokuapp.com" /*node*/,
   // apiServer: "http://localhost:3300"  /*node*/,
-  apiServer: "http://localhost:8080" /*java*/,
-  // apiServer: "https://ajudando-seu-filho-crescer.herokuapp.com" /*java*/,
+  // apiServer: "http://localhost:8080" /*java*/,
+  apiServer: "https://ajudando-seu-filho-crescer.herokuapp.com" /*java*/,
   apiCrescerBemServer: "https://crescerdf.com",
   mercadoPago: "https://api.mercadopago.com",
   mercadoPagoToken:
