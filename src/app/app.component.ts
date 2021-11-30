@@ -13,6 +13,7 @@ import { StorageService } from "./shared/servicos/storage.service";
 import { UtilService } from "./shared/servicos/util.service";
 import * as moment from "moment";
 import { StorageUtilsConstante } from "./shared/models/constantes/StorageUtilsConstante";
+import { DataUtilsConstants } from "./shared/models/constantes/DataUtilsConstante";
 
 declare var require: any;
 
@@ -67,6 +68,19 @@ export class AppComponent {
   }
 
   public limparCache() {
+    let objetoEnvio: ObjetoEnvio = StorageUtilsConstante.getItem<ObjetoEnvio>(
+      StorageEnum.OBJETO_ENVIO
+    );
+
+    if (
+      objetoEnvio != null &&
+      DataUtilsConstants.diff(objetoEnvio.dataCriacao, new Date(), "hours") > 2
+    ) {
+      this.limparLixo();
+      this.limparCacheProdutos();
+      this.limparCacheDadosUsuario();
+    }
+
     setInterval(this.limparLixo, 3000);
 
     //limpa os dados dos produtos a cada 30 min
@@ -84,7 +98,7 @@ export class AppComponent {
       StorageEnum.CLIENTE
     );
     let objetoEnvio: ObjetoEnvio = StorageUtilsConstante.getItem<ObjetoEnvio>(
-      StorageEnum.USUARIO
+      StorageEnum.OBJETO_ENVIO
     );
 
     if (user && !cliente) {

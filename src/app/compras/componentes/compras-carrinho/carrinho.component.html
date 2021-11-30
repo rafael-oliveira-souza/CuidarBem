@@ -26,7 +26,6 @@
       [value]="objetoEnvio.produtos"
       styleClass="tabela-carrinho "
       [scrollable]="true"
-      scrollHeight="55vh"
     >
       <ng-template pTemplate="header">
         <tr *ngIf="objetoEnvio.produtos.length > 0">
@@ -62,13 +61,16 @@
           <td>{{ produto.estoque }}</td>
           <td colspan="2">
             <select
-              *ngIf="pacotes.length > 0"
+              *ngIf="produto.pacotes && produto.pacotes.length > 0"
               pInputText
               class="col-12"
-              [(ngModel)]="produto.pacote"
-              [value]="produto.pacote"
+              #selectPacote1
+              (change)="updateValor(produto, selectPacote1.value)"
             >
-              <option *ngFor="let pacote of pacotes" [value]="pacote.id">
+              <option
+                *ngFor="let pacote of produto.pacotes"
+                [value]="pacote.id"
+              >
                 {{ pacote.qtd_dias }} dias
               </option>
             </select>
@@ -139,13 +141,13 @@
         <div class="col-6">
           Locação:
           <select
-            *ngIf="pacotes.length > 0"
+            *ngIf="produto.pacotes && produto.pacotes.length > 0"
             pInputText
             class="col-12"
-            [(ngModel)]="produto.pacote"
-            [value]="produto.pacote"
+            #selectPacote
+            (change)="updateValor(produto, selectPacote.value)"
           >
-            <option *ngFor="let pacote of pacotes" [value]="pacote.id">
+            <option *ngFor="let pacote of produto.pacotes" [value]="pacote.id">
               {{ pacote.qtd_dias }} dias
             </option>
           </select>
@@ -193,7 +195,7 @@
         </span>
         <span>
           Valor total:
-          {{ getValorTotal(objetoEnvio.produtos, pacotes) | moeda }}
+          {{ getValorTotal(objetoEnvio.produtos) | moeda }}
         </span>
       </div>
       <span class="p-2 float-right form-inline">

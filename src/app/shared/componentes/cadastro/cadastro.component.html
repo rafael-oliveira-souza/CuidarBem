@@ -1,7 +1,7 @@
 <div class="container">
   <div class="p-4 text-center mb-2">
     <img
-      class="col-12 col-sm-12 col-md-6 col-lg-6 col-xs-6"
+      class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
       src="../../../../assets/images/crescer.png"
     />
   </div>
@@ -40,11 +40,11 @@
         <label for="nascimento"> Nascimento:</label>
       </span>
     </div> -->
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
       <span class="p-float-label">
         <input
           id="email"
-          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12"
+          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
           type="text"
           pInputText
           [formControl]="form.controls.email"
@@ -55,11 +55,11 @@
         <label for="email"> <i class="pi pi-envelope mr-2"></i>Email:</label>
       </span>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12 mt-4">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-4">
       <span class="p-float-label form-inline">
         <input
           id="senha"
-          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12"
+          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
           [type]="tipoInput"
           pInputText
           [formControl]="form.controls.senha"
@@ -75,12 +75,12 @@
         <i [class]="classeIcone" (click)="mostrarSenha(1)"></i>
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12 mt-4">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-4">
       <span class="p-float-label form-inline">
         <input
           id="confirmarSenha"
           (keyup)="validarSenhas()"
-          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12"
+          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
           [type]="tipoInput2"
           pInputText
           [formControl]="form.controls.confirmarSenha"
@@ -96,7 +96,7 @@
         <i [class]="classeIcone2" (click)="mostrarSenha(2)"></i>
       </div>
     </div>
-    <small class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12 mt-2 erro">{{
+    <small class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 erro">{{
       msgErro
     }}</small>
   </form>
@@ -105,7 +105,7 @@
       d-flex
       justify-content-center
       p-4
-      col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12
+      col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12
       text-center
     "
   >
@@ -113,7 +113,7 @@
       (click)="cadastrar()"
       class="
         text-center
-        col-12 col-sm-12 col-md-4 col-lg-4 col-xs-4
+        col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4
         btn btn-success
       "
     >

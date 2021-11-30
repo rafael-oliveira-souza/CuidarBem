@@ -41,7 +41,8 @@ export class ProdutoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getImagem(this.produto.diretorioImagens + "/" + this.produto.imagem);
+    let imagem = this.produto?.imagens[0];
+    this.getImagem(imagem.diretorio + "/" + imagem.nome);
   }
 
   public getImagem(imagem: string) {

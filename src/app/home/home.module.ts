@@ -21,6 +21,7 @@ import { HomeHigienizacaoComponent } from "./componentes/home-higienizacao/home-
 import { HomeDialogandoComponent } from "./componentes/home-dialogando/home-dialogando.component";
 import { HomeAlugarComponent } from "./componentes/home-alugar/home-alugar.component";
 import { HomeCarrouselComponent } from "./componentes/home-carrousel/home-carrousel.component";
+import { HomeRodapeComponent } from "./componentes/home-rodape/home-rodape.component";
 
 @NgModule({
   declarations: [
@@ -42,9 +43,10 @@ import { HomeCarrouselComponent } from "./componentes/home-carrousel/home-carrou
     HomeDialogandoComponent,
     HomeAlugarComponent,
     HomeCarrouselComponent,
+    HomeRodapeComponent,
   ],
   imports: [CommonModule, HomeRoutingModule, SharedModule],
-  exports: [HomeCarrouselComponent],
+  exports: [HomeCarrouselComponent, HomeRodapeComponent],
   entryComponents: [HomeMinhaContaComponent],
 })
 export class HomeModule {}

@@ -20,6 +20,59 @@ body {
   height: 100%;
 }
 
+.header {
+  background: $branco !important;
+  z-index: 10;
+  width: 100% !important;
+  top: 0;
+}
+
+@media screen and (min-width: 50rem) {
+  .header {
+    position: fixed !important;
+  }
+  .body {
+    margin-top: 200px !important;
+  }
+}
+
+@media screen and (max-width: 50rem) {
+  .header {
+    position: sticky !important;
+  }
+}
+
+// @media screen and (max-height: 640px) {
+//   .header {
+//     position: sticky !important;
+//   }
+// }
+
+// @media screen and (min-height: 650px) and (max-height: 740px) {
+//   .header {
+//     position: fixed !important;
+//   }
+//   body {
+//     margin-top: 400px !important;
+//   }
+// }
+
+// @media screen and (min-height: 745px) {
+//   .header {
+//     position: fixed !important;
+//   }
+//   body {
+//     margin-top: 100px !important;
+//   }
+// }
+
+.borda-separacao {
+  margin-top: 10px;
+  // margin-bottom: 15px;
+  border: 5px solid $verde;
+  width: 100%;
+}
+
 .pi {
   font-family: "primeicons" !important;
 }

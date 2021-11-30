@@ -1,29 +1,40 @@
-<div class="bg-header">
+<div class="header bg-header">
   <div>
-    <app-barra-de-acoes *ngIf="exibeBarraAcao"></app-barra-de-acoes>
+    <!-- *ngIf="exibeBarraAcao" -->
+    <app-barra-de-acoes></app-barra-de-acoes>
   </div>
-  <div class="col-12 d-flex justify-content-end align-items-end">
+  <div class="header-menu col-12 d-flex justify-content-end align-items-end">
     <div class="form-inline text-end">
-      <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xs-3">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
         <img
           class="col-12"
           src="/assets/images/crescer.png"
           (click)="navegar(items[0])"
         />
       </div>
-      <div class="col form-inline mt-5">
-        <div class="ml-3" *ngFor="let item of items; let i = index">
-          <button
-            [ngClass]="
-              item.selecionado ? ' btn-tela selecionado' : '  btn-tela'
-            "
-            (click)="navegar(item)"
+      <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 mt-5">
+        <div class="row justify-content-start">
+          <div
+            class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3"
+            *ngFor="let item of items; let i = index"
           >
-            <h4>{{ item.titulo }}</h4>
-          </button>
+            <button
+              [ngClass]="
+                item.selecionado ? ' btn-tela selecionado' : '  btn-tela'
+              "
+              (click)="navegar(item)"
+            >
+              <h4>{{ item.titulo }}</h4>
+            </button>
+          </div>
         </div>
       </div>
-      <!-- <span class="p-input-icon-right ml-4">
+    </div>
+  </div>
+  <div class="header-borda borda-separacao"></div>
+</div>
+
+<!-- <span class="p-input-icon-right ml-4">
         <i class="pi pi-search"></i>
         <input
           type="text"
@@ -32,6 +43,3 @@
           placeholder="Pesquise um produto"
         />
       </span> -->
-    </div>
-  </div>
-</div>

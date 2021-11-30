@@ -9,7 +9,6 @@ import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProduto
 import { StorageEnum } from "src/app/shared/models/enums/StorageEnum";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
-import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 import { HomeProdutosSaibaMaisComponent } from "../home-produtos-saiba-mais/home-produtos-saiba-mais.component";
@@ -26,7 +25,6 @@ export class HomeProdutosComponent implements OnInit {
   public produtosBackup: Array<Produto> = [];
   public categorias: Array<Categoria> = [];
   public produtos: Array<Produto> = [];
-  public pacotes: Array<Pacote> = [];
 
   public maxItems: number = 6;
   public images: string[] = [];
@@ -34,7 +32,6 @@ export class HomeProdutosComponent implements OnInit {
   constructor(
     private _compraService: CompraService,
     private _produtoService: ProdutoService,
-    private _pacoteService: PacoteService,
     private _categoriaService: CategoriaService,
     private _dialogService: DialogService,
     private _storageService: StorageService
@@ -43,7 +40,6 @@ export class HomeProdutosComponent implements OnInit {
   ngOnInit() {
     this.getProdutos();
     this.getCategorias();
-    this.getPacotes();
     this.images.push("/assets/images/paginainicialsite.png");
   }
 
@@ -54,13 +50,6 @@ export class HomeProdutosComponent implements OnInit {
       this.produtosBackup = produtos;
       this.produtos = produtos;
       this.carregarCarrinho();
-    });
-  }
-
-  public getPacotes() {
-    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this._storageService.setItem<Pacote[]>(StorageEnum.PACOTES, pacotes);
-      this.pacotes = pacotes;
     });
   }
 
@@ -117,7 +106,7 @@ export class HomeProdutosComponent implements OnInit {
       // header: "Detalhamento de produto",
       width: "80%",
       data: {
-        pacotes: this.pacotes,
+        pacotes: detalhe.produto.pacotes,
         produto: detalhe.produto,
         categoria: detalhe.categoria,
         objetoEnvio: this.objetoEnvio,

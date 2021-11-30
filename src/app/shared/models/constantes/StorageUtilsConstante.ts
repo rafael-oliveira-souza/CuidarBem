@@ -32,7 +32,7 @@ export const StorageUtilsConstante = {
   },
 
   setItem<T>(key: StorageEnum, value: T): void {
-    if (value) {
+    if (value && value instanceof Object) {
       value["dataCriacao"] = DataUtilsConstants.newDate();
     }
 

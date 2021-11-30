@@ -9,11 +9,9 @@ import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { SituacaoProdutoEnum } from "src/app/shared/models/enums/SituacaoProdutoEnum";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { FotoService } from "src/app/shared/servicos/foto.service";
-import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
 import { Categoria } from "src/app/shared/models/classes/Categoria";
-import { ImagemProduto } from "src/app/shared/models/classes/ImagemProduto";
 import { Imagem } from "src/app/shared/models/classes/Imagem";
 import { FaixaEtariaService } from "src/app/shared/servicos/faixa-etaria.service";
 import { FaixaEtaria } from "src/app/shared/models/classes/FaixaEtaria";
@@ -36,7 +34,6 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   public faixas: FaixaEtaria[] = [];
   public imagens: any[] = [];
   public produtoIndisponivel: boolean = false;
-  public pacotes: Pacote[] = [];
 
   constructor(
     public _router: Router,
@@ -50,12 +47,11 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pacotes = this._config.data.pacotes;
     this.produto = this._config.data.produto;
     this.categoria = this._config.data.categoria;
     this.objetoEnvio = this._config.data.objetoEnvio;
 
-    this.pacotes.sort(function (a, b) {
+    this.produto.pacotes.sort(function (a, b) {
       if (a.qtd_dias > b.qtd_dias) {
         return 1;
       }
@@ -69,20 +65,16 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     this.produtoIndisponivel =
       this.produto.situacao == SituacaoProdutoEnum.INDISPONIVEL;
 
-    this.getImagens(this.produto.diretorioImagens);
+    this.getImagens(this.produto.imagens);
     this.getFaixasEtarias();
   }
 
-  public getImagens(diretorio: string) {
-    this._fotoService
-      .getImagensPorDiretorios(diretorio)
-      .subscribe((imagens: Imagem[]) => {
-        if (imagens.length > 0) {
-          this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);
-        } else {
-          this.imagens = ["/assets/images/produtos/produtoSemImagem.png"];
-        }
-      });
+  public getImagens(imagens: Imagem[]) {
+    if (imagens.length > 0) {
+      this.imagens = imagens.map((img) => `${img.diretorio}/${img.nome}`);
+    } else {
+      this.imagens = ["/assets/images/produtos/produtoSemImagem.png"];
+    }
   }
 
   public getFaixasEtarias() {
@@ -111,10 +103,7 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   }
 
   public getValor(): number {
-    return this._produtoService.getValorTotalProdutos(
-      [this.produto],
-      this.pacotes
-    );
+    return this._produtoService.getValorTotalProdutos([this.produto]);
   }
 
   public continuarComprando(): void {
@@ -125,5 +114,11 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     } else {
       this._alertaService.alerta(MensagemEnum.PRODUTO_INDISPONIVEL);
     }
+  }
+
+  public updateValor(pacoteId: number) {
+    this.produto.pacotes.forEach((pacote) => {
+      pacote.ativo = pacote.id == pacoteId;
+    });
   }
 }

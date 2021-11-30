@@ -13,9 +13,6 @@ import { MoedaPipe } from "src/app/shared/pipes/moeda.pipe";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { CompraService } from "src/app/shared/servicos/compra.service";
-import { FotoService } from "src/app/shared/servicos/foto.service";
-import { PacoteService } from "src/app/shared/servicos/pacote.service";
-import { PdfService } from "src/app/shared/servicos/pdf.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 
@@ -28,7 +25,6 @@ export class CarrinhoComponent implements OnInit {
   public moedaPipe = new MoedaPipe();
   public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
   public categorias: Categoria[] = [];
-  public pacotes: Pacote[] = [];
   public imagens: Imagem[] = [];
   public cliente: Cliente;
   public numeroPedido: number;
@@ -39,9 +35,6 @@ export class CarrinhoComponent implements OnInit {
     private _produtoService: ProdutoService,
     private _categoriaService: CategoriaService,
     private _compraService: CompraService,
-    private _pacoteService: PacoteService,
-    private _fotoService: FotoService,
-    private _pdfService: PdfService,
     private _storageService: StorageService
   ) {}
 
@@ -50,7 +43,6 @@ export class CarrinhoComponent implements OnInit {
     this.cliente = this._storageService.getItem<Cliente>(StorageEnum.CLIENTE);
     this.carregarCarrinho();
     if (this.objetoEnvio) {
-      this.getPacotes();
       this.getCategorias();
     } else {
       this.objetoEnvio = new ObjetoEnvio();
@@ -81,19 +73,9 @@ export class CarrinhoComponent implements OnInit {
     return categoria.nome;
   }
 
-  public getPacotes() {
-    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this.pacotes = pacotes;
-      // this.getValorTotal(this.objetoEnvio.produtos, pacotes);
-    });
-  }
-
   public getValor(produto: Produto) {
     this._compraService.salvarCarrinho(this.objetoEnvio);
-    let valorTotal = this._produtoService.getValorTotalProdutos(
-      [produto],
-      this.pacotes
-    );
+    let valorTotal = this._produtoService.getValorTotalProdutos([produto]);
 
     return this.moedaPipe.transform(valorTotal);
   }
@@ -111,8 +93,8 @@ export class CarrinhoComponent implements OnInit {
     this._compraService.removerProdutoCarrinho(this.objetoEnvio, produto);
   }
 
-  public getValorTotal(produtos: Produto[], pacotes: Pacote[]) {
-    return this._produtoService.getValorTotalProdutos(produtos, pacotes);
+  public getValorTotal(produtos: Produto[]) {
+    return this._produtoService.getValorTotalProdutos(produtos);
   }
 
   public atualizarQuantidade(value: number, produto: Produto) {
@@ -135,7 +117,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public finalizarCompra() {
-    if (this.getValorTotal(this.objetoEnvio.produtos, this.pacotes) <= 0) {
+    if (this.getValorTotal(this.objetoEnvio.produtos) <= 0) {
       this._alertaService.alerta(MensagemEnum.CARRINHO_VAZIO);
       // this._alertaService.alerta(MensagemEnum.COMPRA_SEM_QUANTIDADE_ITEMS);
     } else {
@@ -163,9 +145,8 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public getImage(produto: Produto) {
-    let imagem = produto.diretorioImagens + "/" + produto.imagem;
-    if (imagem != null) {
-      return [imagem];
+    if (produto.imagens != null) {
+      return produto.imagens;
     } else {
       return ["/assets/images/produtos/produtoSemImagem.png"];
     }
@@ -181,5 +162,11 @@ export class CarrinhoComponent implements OnInit {
 
   public formatarEndereco(cliente: Cliente) {
     return `${cliente.logradouro} - Numero: ${cliente.numero} - ${cliente.complemento} - ${cliente.municipio} - ${cliente.estado} -  CEP: ${cliente.cep}`;
+  }
+
+  public updateValor(produto: Produto, pacoteId: number) {
+    produto.pacotes.forEach((pacote) => {
+      pacote.ativo = pacote.id == pacoteId;
+    });
   }
 }

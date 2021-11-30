@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   public items: { titulo: string; rota: string; selecionado: boolean }[] = [
     { titulo: "Produtos", rota: RotasEnum.LOJA, selecionado: true },
     { titulo: "Como Alugar", rota: RotasEnum.ALUGAR, selecionado: false },
-    { titulo: "Por Idade", rota: RotasEnum.IDADE, selecionado: false },
+    // { titulo: "Por Idade", rota: RotasEnum.IDADE, selecionado: false },
     { titulo: "Dialogando", rota: RotasEnum.DIALOGANDO, selecionado: false },
     {
       titulo: "Higienização",
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
       rota: RotasEnum.TERMOS,
       selecionado: false,
     },
-    { titulo: "Contato", rota: RotasEnum.CONTATO, selecionado: false },
+    // { titulo: "Contato", rota: RotasEnum.CONTATO, selecionado: false },
   ];
 
   public selecionado: number = 0;

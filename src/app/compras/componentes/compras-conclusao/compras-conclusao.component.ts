@@ -15,7 +15,6 @@ import { Pix } from "src/app/shared/models/classes/Pix";
 import { Produto } from "src/app/shared/models/classes/Produto";
 import { Usuario } from "src/app/shared/models/classes/Usuario";
 import { DataUtilsConstants } from "src/app/shared/models/constantes/DataUtilsConstante";
-import { EnumUtilsConstants } from "src/app/shared/models/constantes/EnumUtilsConstante";
 import { MensagemEnum } from "src/app/shared/models/enums/MensagemEnum";
 import { RotasEnum } from "src/app/shared/models/enums/RotasEnum";
 import { StatusPagamentoMercadoPagoEnum } from "src/app/shared/models/enums/StatusPagamentoMercadoPagoEnum";
@@ -24,7 +23,6 @@ import { MoedaPipe } from "src/app/shared/pipes/moeda.pipe";
 import { AlertaService } from "src/app/shared/servicos/alerta.service";
 import { CategoriaService } from "src/app/shared/servicos/categoria.service";
 import { EmailService } from "src/app/shared/servicos/email.service";
-import { PacoteService } from "src/app/shared/servicos/pacote.service";
 import { PagamentoService } from "src/app/shared/servicos/pagamento.service";
 import { PedidoService } from "src/app/shared/servicos/pedido.service";
 import { ProdutoService } from "src/app/shared/servicos/produto.service";
@@ -45,7 +43,6 @@ export class ComprasConclusaoComponent implements OnInit {
 
   public objetoEnvio: ObjetoEnvio = new ObjetoEnvio();
   public valorPagamento: number = 0;
-  public pacotes: Pacote[] = [];
   public urlMercadoPago: string;
   public altura: string;
   public mercadoOn = false;
@@ -64,7 +61,6 @@ export class ComprasConclusaoComponent implements OnInit {
     private _alertaService: AlertaService,
     private _storageService: StorageService,
     private _pagamentoService: PagamentoService,
-    private _pacoteService: PacoteService,
     private _produtoService: ProdutoService,
     private _pedidoService: PedidoService,
     private _alerta: AlertaService,
@@ -119,13 +115,9 @@ export class ComprasConclusaoComponent implements OnInit {
     );
 
     if (this.objetoEnvio && this.objetoEnvio.produtos.length > 0) {
-      this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
-        this.pacotes = pacotes;
-        this.valorPagamento = this._produtoService.getValorTotalProdutos(
-          this.objetoEnvio.produtos,
-          this.pacotes
-        );
-      });
+      this.valorPagamento = this._produtoService.getValorTotalProdutos(
+        this.objetoEnvio.produtos
+      );
     } else {
       this._alertaService.erro(MensagemEnum.CARRINHO_VAZIO);
       this._router.navigate([RotasEnum.HOME, RotasEnum.LOJA]);
@@ -146,10 +138,7 @@ export class ComprasConclusaoComponent implements OnInit {
         dataRef.getTime();
 
       this.objetoEnvio.produtos.forEach((prod) => {
-        let valor = this._produtoService.getValorTotalProdutos(
-          [prod],
-          this.pacotes
-        );
+        let valor = this._produtoService.getValorTotalProdutos([prod]);
 
         pedido.items.push({
           title: prod.id + "-" + prod.nome,
@@ -244,10 +233,7 @@ export class ComprasConclusaoComponent implements OnInit {
         pedido.descricao = prod.descricao;
         pedido.numero = this.numeroPedido;
 
-        pedido.valor = this._produtoService.getValorTotalProdutos(
-          [prod],
-          this.pacotes
-        );
+        pedido.valor = this._produtoService.getValorTotalProdutos([prod]);
         this.pedidos.push(pedido);
       });
     }
@@ -311,10 +297,7 @@ export class ComprasConclusaoComponent implements OnInit {
   }
 
   public getValor(produto: Produto) {
-    let valorTotal = this._produtoService.getValorTotalProdutos(
-      [produto],
-      this.pacotes
-    );
+    let valorTotal = this._produtoService.getValorTotalProdutos([produto]);
 
     return this.moedaPipe.transform(valorTotal);
   }
@@ -331,11 +314,11 @@ export class ComprasConclusaoComponent implements OnInit {
     return categoria.nome;
   }
 
-  public getQtdDiasPacote(id: number) {
+  public getQtdDiasPacote(pacotes: Pacote[]) {
     let pacote: Pacote = new Pacote();
 
-    this.pacotes.forEach((pac: Pacote) => {
-      if (pac.id == id) {
+    pacotes.forEach((pac: Pacote) => {
+      if (pac.ativo) {
         pacote = pac;
       }
     });
@@ -343,8 +326,8 @@ export class ComprasConclusaoComponent implements OnInit {
     return pacote.qtd_dias;
   }
 
-  public getValorTotal(produtos: Produto[], pacotes: Pacote[]) {
-    return this._produtoService.getValorTotalProdutos(produtos, pacotes);
+  public getValorTotal(produtos: Produto[]) {
+    return this._produtoService.getValorTotalProdutos(produtos);
   }
 
   public formatarTelefone(tel: string) {

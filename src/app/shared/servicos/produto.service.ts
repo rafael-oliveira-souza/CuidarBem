@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { Categoria } from "../models/classes/Categoria";
-import { ImagemProduto } from "../models/classes/ImagemProduto";
 import { Pacote } from "../models/classes/Pacote";
 import { Produto } from "../models/classes/Produto";
 import { EnumUtilsConstants } from "../models/constantes/EnumUtilsConstante";
@@ -11,7 +10,6 @@ import { SituacaoProdutoEnum } from "../models/enums/SituacaoProdutoEnum";
 import { StorageEnum } from "../models/enums/StorageEnum";
 import { CategoriaService } from "./categoria.service";
 import { FotoService } from "./foto.service";
-import { PacoteService } from "./pacote.service";
 import { StorageService } from "./storage.service";
 
 @Injectable({
@@ -20,19 +18,13 @@ import { StorageService } from "./storage.service";
 export class ProdutoService {
   private objectSource = new BehaviorSubject([]);
   private observableObject = this.objectSource.asObservable();
-  private pacotes: Pacote[] = [];
 
   constructor(
     private _fotoService: FotoService,
-    private _pacoteService: PacoteService,
     private _categoriaService: CategoriaService,
     private _storageService: StorageService,
     private _http: HttpClient
-  ) {
-    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this.pacotes = pacotes;
-    });
-  }
+  ) {}
 
   public getProdutos(): Observable<Produto[]> {
     let produtos: Produto[] = this._storageService.getItem(
@@ -72,13 +64,13 @@ export class ProdutoService {
     }
   }
 
-  public getValorTotalProdutos(produtos: Produto[], pacotes: Pacote[]): number {
+  public getValorTotalProdutos(produtos: Produto[]): number {
     let total: number = 0;
 
     if (produtos) {
       produtos.forEach((prod: Produto) => {
         // let qtd: number = prod.quantidade > 0 ? prod.quantidade : 1;
-        let valorPacote = this.getValorPacote(prod, pacotes);
+        let valorPacote = this.getValorPacote(prod);
         total += valorPacote * prod.valor * prod.quantidade;
       });
     }
@@ -86,11 +78,11 @@ export class ProdutoService {
     return total;
   }
 
-  public getValorPacote(produto: Produto, pacotes: Pacote[]): number {
+  public getValorPacote(produto: Produto): number {
     let valorPacote: number = 0;
 
-    pacotes.forEach((pacote: Pacote) => {
-      if (pacote.id == produto.pacote) {
+    produto.pacotes?.forEach((pacote: Pacote) => {
+      if (pacote.ativo) {
         valorPacote = pacote.pct_desconto;
       }
     });

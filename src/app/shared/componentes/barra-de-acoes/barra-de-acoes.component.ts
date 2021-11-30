@@ -16,7 +16,6 @@ import { AlertaService } from "../../servicos/alerta.service";
 import { ClienteService } from "../../servicos/cliente.service";
 import { CompraService } from "../../servicos/compra.service";
 import { LoadService } from "../../servicos/load.service";
-import { PacoteService } from "../../servicos/pacote.service";
 import { ProdutoService } from "../../servicos/produto.service";
 import { StorageService } from "../../servicos/storage.service";
 import { UsuarioService } from "../../servicos/usuario.service";
@@ -42,10 +41,8 @@ export class BarraDeAcoesComponent implements OnInit {
     private _router: Router,
     private _storageService: StorageService,
     private _alerta: AlertaService,
-    private _pacoteService: PacoteService,
     private _compraService: CompraService,
     private _produtoService: ProdutoService,
-    private _usuarioService: UsuarioService,
     private _clienteService: ClienteService,
     private _loadService: LoadService
   ) {
@@ -56,10 +53,7 @@ export class BarraDeAcoesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._pacoteService.getPacotes().subscribe((pacotes: Pacote[]) => {
-      this.pacotes = pacotes;
-      this.carregarCarrinho();
-    });
+    this.carregarCarrinho();
   }
 
   carregarMenu(): void {
@@ -126,7 +120,7 @@ export class BarraDeAcoesComponent implements OnInit {
         );
 
         let produtos = this.objEnvio ? this.objEnvio.produtos : [];
-        this.getValorTotal(produtos, this.pacotes);
+        this.getValorTotal(produtos);
         this.carregarMenu();
       },
       (erro) => {
@@ -136,11 +130,9 @@ export class BarraDeAcoesComponent implements OnInit {
     );
   }
 
-  public getValorTotal(produtos: Produto[], pacotes: Pacote[]) {
-    let valorTotal: number = this._produtoService.getValorTotalProdutos(
-      produtos,
-      pacotes
-    );
+  public getValorTotal(produtos: Produto[]) {
+    let valorTotal: number =
+      this._produtoService.getValorTotalProdutos(produtos);
 
     this.setLabelCarrinho(produtos.length, valorTotal);
   }
