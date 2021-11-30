@@ -43,11 +43,11 @@
           <span class="col-12 text-center">
             Prazo de Locação:
             <select
-              #selectPacote
               class="ml-3 mt-2 mb-2"
               pInputText
+              [(ngModel)]="produto.pacote"
+              [value]="produto.pacote"
               [disabled]="produtoIndisponivel"
-              (change)="updateValor(selectPacote.value)"
             >
               <option
                 *ngFor="let pacote of produto.pacotes"

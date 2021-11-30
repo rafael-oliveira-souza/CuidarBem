@@ -64,8 +64,8 @@
               *ngIf="produto.pacotes && produto.pacotes.length > 0"
               pInputText
               class="col-12"
-              #selectPacote1
-              (change)="updateValor(produto, selectPacote1.value)"
+              [(ngModel)]="produto.pacote"
+              [value]="produto.pacote"
             >
               <option
                 *ngFor="let pacote of produto.pacotes"
@@ -144,8 +144,8 @@
             *ngIf="produto.pacotes && produto.pacotes.length > 0"
             pInputText
             class="col-12"
-            #selectPacote
-            (change)="updateValor(produto, selectPacote.value)"
+            [(ngModel)]="produto.pacote"
+            [value]="produto.pacote"
           >
             <option *ngFor="let pacote of produto.pacotes" [value]="pacote.id">
               {{ pacote.qtd_dias }} dias

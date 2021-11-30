@@ -7,6 +7,7 @@ export class Produto {
   public descricao: string = null;
   public nome: string = null;
   public valor: number = null;
+  public pacote: number = null;
   public pacotes: Pacote[] = [];
   public imagens: Imagem[] = [];
   public estoque: number = null;

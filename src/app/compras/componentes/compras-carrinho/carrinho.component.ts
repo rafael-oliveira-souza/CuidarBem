@@ -145,8 +145,9 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public getImage(produto: Produto) {
-    if (produto.imagens != null) {
-      return produto.imagens;
+    let imagens = produto.imagens.map((img) => `${img.diretorio}/${img.nome}`);
+    if (imagens != null && imagens.length > 0) {
+      return imagens;
     } else {
       return ["/assets/images/produtos/produtoSemImagem.png"];
     }
@@ -162,11 +163,5 @@ export class CarrinhoComponent implements OnInit {
 
   public formatarEndereco(cliente: Cliente) {
     return `${cliente.logradouro} - Numero: ${cliente.numero} - ${cliente.complemento} - ${cliente.municipio} - ${cliente.estado} -  CEP: ${cliente.cep}`;
-  }
-
-  public updateValor(produto: Produto, pacoteId: number) {
-    produto.pacotes.forEach((pacote) => {
-      pacote.ativo = pacote.id == pacoteId;
-    });
   }
 }

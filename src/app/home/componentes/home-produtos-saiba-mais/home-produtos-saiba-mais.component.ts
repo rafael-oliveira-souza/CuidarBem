@@ -34,6 +34,7 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
   public faixas: FaixaEtaria[] = [];
   public imagens: any[] = [];
   public produtoIndisponivel: boolean = false;
+  public pacote;
 
   constructor(
     public _router: Router,
@@ -114,11 +115,5 @@ export class HomeProdutosSaibaMaisComponent implements OnInit {
     } else {
       this._alertaService.alerta(MensagemEnum.PRODUTO_INDISPONIVEL);
     }
-  }
-
-  public updateValor(pacoteId: number) {
-    this.produto.pacotes.forEach((pacote) => {
-      pacote.ativo = pacote.id == pacoteId;
-    });
   }
 }

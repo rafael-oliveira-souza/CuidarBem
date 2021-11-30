@@ -314,11 +314,11 @@ export class ComprasConclusaoComponent implements OnInit {
     return categoria.nome;
   }
 
-  public getQtdDiasPacote(pacotes: Pacote[]) {
+  public getQtdDiasPacote(pacotes: Pacote[], idPacote: number) {
     let pacote: Pacote = new Pacote();
 
     pacotes.forEach((pac: Pacote) => {
-      if (pac.ativo) {
+      if (pac.id == idPacote) {
         pacote = pac;
       }
     });

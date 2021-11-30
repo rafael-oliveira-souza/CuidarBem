@@ -134,7 +134,7 @@
         <p>Nome: {{ obj.nome }}</p>
         <p>Descrição: {{ obj.descricao }}</p>
         <p>Categoria: {{ getNomeCategoria(obj.categoria) }}</p>
-        <p>Pacote: {{ getQtdDiasPacote(obj.pacotes) }} dia(s)</p>
+        <p>Pacote: {{ getQtdDiasPacote(obj.pacotes, obj.pacote) }} dia(s)</p>
         <p>Quantidade: {{ obj.quantidade }}</p>
         <p>Valor: {{ getValor(obj) }}</p>
       </div>

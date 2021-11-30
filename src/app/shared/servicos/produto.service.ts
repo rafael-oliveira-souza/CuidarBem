@@ -82,7 +82,7 @@ export class ProdutoService {
     let valorPacote: number = 0;
 
     produto.pacotes?.forEach((pacote: Pacote) => {
-      if (pacote.ativo) {
+      if (pacote.id == produto.pacote) {
         valorPacote = pacote.pct_desconto;
       }
     });
