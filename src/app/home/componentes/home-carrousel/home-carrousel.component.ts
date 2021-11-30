@@ -15,7 +15,6 @@ export class HomeCarrouselComponent implements OnInit {
   constructor(private _router: Router, private _fotoService: FotoService) {}
 
   ngOnInit(): void {
-    this.images.push("/assets/images/carrousel/heitor.jpeg");
     this._fotoService.getImagensPorDiretorios("carrousel").subscribe((imgs) => {
       if (imgs.length > 0) {
         imgs.forEach((img: Imagem) => {
