@@ -72,19 +72,24 @@ export class AppComponent {
       StorageEnum.OBJETO_ENVIO
     );
 
-    if (
-      objetoEnvio != null &&
-      DataUtilsConstants.diff(objetoEnvio.dataCriacao, new Date(), "hours") > 2
-    ) {
-      this.limparLixo();
-      this.limparCacheProdutos();
-      this.limparCacheDadosUsuario();
+    if (objetoEnvio != null) {
+      let diffHours = DataUtilsConstants.diff(
+        objetoEnvio.dataCriacao,
+        new Date(),
+        "hours"
+      );
+
+      if (diffHours > 2) {
+        this.limparLixo();
+        this.limparCacheProdutos();
+        this.limparCacheDadosUsuario();
+      }
     }
 
-    setInterval(this.limparLixo, 3000);
+    setInterval(this.limparLixo, 5400000);
 
     //limpa os dados dos produtos a cada 30 min
-    setInterval(this.limparCacheProdutos, 3000);
+    setInterval(this.limparCacheProdutos, 5400000);
 
     //limpa os dados dos produtos a cada 130 min
     setInterval(this.limparCacheDadosUsuario, 5400000);
