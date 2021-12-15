@@ -60,6 +60,7 @@ import { UploadImageComponent } from "./componentes/upload-image/upload-image.co
 import { ArquivosComponent } from "./componentes/arquivos/arquivos.component";
 import { NovaSenhaComponent } from "./componentes/nova-senha/nova-senha.component";
 import { MenuModule } from "primeng/menu";
+import { ConstrucaoComponent } from "./componentes/construcao/construcao.component";
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { MenuModule } from "primeng/menu";
     UploadImageComponent,
     ArquivosComponent,
     NovaSenhaComponent,
+    ConstrucaoComponent,
 
     //pipes
     CpfPipe,
@@ -88,6 +90,7 @@ import { MenuModule } from "primeng/menu";
     CepPipe,
     SemInfoPipe,
     SafePipe,
+    ConstrucaoComponent,
   ],
   imports: [
     CommonModule,
@@ -144,6 +147,7 @@ import { MenuModule } from "primeng/menu";
     UploadImageComponent,
     ArquivosComponent,
     NovaSenhaComponent,
+    ConstrucaoComponent,
 
     //pipes
     CpfPipe,

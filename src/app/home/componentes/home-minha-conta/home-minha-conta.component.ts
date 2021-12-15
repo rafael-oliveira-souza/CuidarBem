@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { Cep } from "src/app/shared/models/classes/Cep";
 import { Cliente } from "src/app/shared/models/classes/Cliente";
 import {
   Usuario,
@@ -18,6 +19,7 @@ import { CompraService } from "src/app/shared/servicos/compra.service";
 import { LoadService } from "src/app/shared/servicos/load.service";
 import { StorageService } from "src/app/shared/servicos/storage.service";
 import { UsuarioService } from "src/app/shared/servicos/usuario.service";
+import { UtilService } from "src/app/shared/servicos/util.service";
 
 @Component({
   selector: "app-home-minha-conta",
@@ -29,6 +31,7 @@ export class HomeMinhaContaComponent implements OnInit {
   public cliente: Cliente = new Cliente();
   public alteraSenha: Boolean = false;
   public formAlteraSenha: FormGroup;
+  public cepAtivo: boolean = false;
   public form: FormGroup;
   public ufs = UF;
 
@@ -40,7 +43,8 @@ export class HomeMinhaContaComponent implements OnInit {
     private _builder: FormBuilder,
     private _ref: DynamicDialogRef,
     private _clienteService: ClienteService,
-    private _loadService: LoadService
+    private _loadService: LoadService,
+    private _utilService: UtilService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +60,7 @@ export class HomeMinhaContaComponent implements OnInit {
       this.formatarCPF();
       this.formatarTelefone();
     } else {
-      this._clienteService.getClienteById(this.usuario.id).subscribe(
+      this._clienteService.getClienteByEmail(this.usuario.email).subscribe(
         (cliente: Cliente) => {
           if (cliente) {
             this.cliente = cliente;
@@ -158,15 +162,46 @@ export class HomeMinhaContaComponent implements OnInit {
 
   public formatarCEP() {
     if (this.form && this.form.controls) {
+      this.cepAtivo = false;
       let cep: string = this.form.controls.cep.value;
 
       if (cep) {
         cep = cep.replace(/\D/g, "");
+        this.carregarDadosEndereco(parseInt(cep));
         if (cep.length >= 8) {
           cep = cep.replace(/(\d{5})?(\d{3})/, "$1-$2").substring(0, 9);
         }
         this.form.controls.cep.setValue(cep);
       }
+    }
+  }
+
+  private carregarDadosEndereco(cep: number) {
+    if (cep.toString().length >= 8) {
+      this.cepAtivo = true;
+
+      if (
+        !this.form.controls.estado.value &&
+        !this.form.controls.municipio.value &&
+        !this.form.controls.logradouro.value
+      ) {
+        this._utilService.getEnderecoPorCep(cep).subscribe((cepData: Cep) => {
+          let logradouro =
+            (cepData?.logradouro ? cepData?.logradouro + " - " : "") +
+            (cepData?.bairro ? cepData?.bairro : "");
+          this.form.controls.estado.setValue(cepData?.uf);
+          this.form.controls.municipio.setValue(cepData?.localidade);
+          this.form.controls.complemento.setValue(cepData?.complemento);
+          this.form.controls.logradouro.setValue(logradouro);
+          this.form.controls.numero.setValue(null);
+        });
+      }
+    } else {
+      this.form.controls.estado.setValue(null);
+      this.form.controls.municipio.setValue(null);
+      this.form.controls.complemento.setValue(null);
+      this.form.controls.logradouro.setValue(null);
+      this.form.controls.numero.setValue(null);
     }
   }
 

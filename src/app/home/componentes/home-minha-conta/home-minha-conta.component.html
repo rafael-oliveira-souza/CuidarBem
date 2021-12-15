@@ -79,7 +79,10 @@
           <label for="cep">CEP:</label>
         </span>
       </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4">
+      <div
+        *ngIf="cepAtivo"
+        class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4"
+      >
         <small for="">UF:</small>
         <select
           pInputText
@@ -94,7 +97,10 @@
           </option>
         </select>
       </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4">
+      <div
+        *ngIf="cepAtivo"
+        class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4"
+      >
         <label for=""></label>
         <span class="p-float-label">
           <input
@@ -108,7 +114,10 @@
           <label for="municipio">Município:</label>
         </span>
       </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-4">
+      <div
+        *ngIf="cepAtivo"
+        class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-4"
+      >
         <span class="p-float-label">
           <input
             id="logradouro"
@@ -121,7 +130,10 @@
           <label for="logradouro">Logradouro:</label>
         </span>
       </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4">
+      <div
+        *ngIf="cepAtivo"
+        class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4"
+      >
         <span class="p-float-label">
           <input
             id="numero"
@@ -134,7 +146,7 @@
           <label for="numero">Número:</label>
         </span>
       </div>
-      <div class="col-12 mt-4">
+      <div *ngIf="cepAtivo" class="col-12 mt-4">
         <span class="p-float-label">
           <input
             id="complemento"

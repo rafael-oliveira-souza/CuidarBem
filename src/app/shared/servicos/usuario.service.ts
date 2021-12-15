@@ -31,7 +31,7 @@ export class UsuarioService {
     );
   }
 
-  public atualizarSenha(usuario: UsuarioTrocaSenha): Observable<Usuario> {
+  public atualizarSenha(usuario: UsuarioTrocaSenha): Observable<void> {
     return this._http.post<any>(
       `${environment.apiServer}/usuario/atualizarSenha`,
       usuario
@@ -52,7 +52,7 @@ export class UsuarioService {
     );
   }
 
-  public recuperarSenhaEEnviarEmail(email: Email): Observable<string> {
+  public recuperarSenhaEEnviarEmail(email: Email): Observable<void> {
     return this._http.post<any>(
       `${environment.apiServer}/usuario/recuperarSenhaEEnviarEmail`,
       email

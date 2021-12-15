@@ -20,9 +20,9 @@ export class ClienteService {
     );
   }
 
-  public getClienteById(idCliente: number): Observable<Cliente> {
+  public getClienteByEmail(email: string): Observable<Cliente> {
     return this._http.get<Cliente>(
-      `${environment.apiServer}/cliente/${idCliente}`
+      `${environment.apiServer}/cliente/buscarPorEmail/${email}`
     );
   }
 

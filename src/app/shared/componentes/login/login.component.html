@@ -10,7 +10,6 @@
     [formGroup]="form"
     class="p-3 row justify-content-center"
     autocomplete="off"
-    autocomplete="no"
   >
     <div class="col-12">
       <span class="p-float-label">
@@ -21,6 +20,10 @@
           pInputText
           [formControl]="form.controls.email"
           sclass=" ng-invalid ng-dirty"
+          name="email"
+          autocomplete="false"
+          readonly
+          onfocus="this.removeAttribute('readonly');"
         />
         <label for="email">Email</label>
       </span>
@@ -33,7 +36,12 @@
           [type]="tipoInput"
           pInputText
           [formControl]="form.controls.senha"
+          value=""
           sclass="ng-invalid ng-dirty"
+          name="senha"
+          autocomplete="false"
+          readonly
+          onfocus="this.removeAttribute('readonly');"
         />
         <label for="senha">Senha</label>
       </span>
