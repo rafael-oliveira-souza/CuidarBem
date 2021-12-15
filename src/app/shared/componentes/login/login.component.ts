@@ -83,8 +83,8 @@ export class LoginComponent implements OnInit {
       usuario.email = this.form.controls.email.value;
       usuario.senha = this.form.controls.senha.value;
       this._usuarioService.login(usuario).subscribe(
-        (user: Usuario) => {
-          this.salvarUsuario(user);
+        () => {
+          this.salvarUsuario(usuario);
           this._loaderService.setLoader(true);
           //this.instanciarObjetoEnvio();
           this._ref.close();

@@ -24,8 +24,8 @@ export class UsuarioService {
     );
   }
 
-  public login(usuario: Usuario): Observable<Usuario> {
-    return this._http.post<any>(
+  public login(usuario: Usuario): Observable<void> {
+    return this._http.post<void>(
       `${environment.apiServer}/usuario/login`,
       usuario
     );
