@@ -85,7 +85,7 @@ export class BarraDeAcoesComponent implements OnInit {
   carregarUsuario(): void {
     let usuario = this._storageService.getItem<Usuario>(StorageEnum.USUARIO);
     if (usuario) {
-      this._clienteService.getClienteById(usuario.id).subscribe(
+      this._clienteService.getClienteByEmail(usuario.email).subscribe(
         (cliente: Cliente) => {
           if (cliente) {
             this._storageService.setItem<Cliente>(StorageEnum.CLIENTE, cliente);

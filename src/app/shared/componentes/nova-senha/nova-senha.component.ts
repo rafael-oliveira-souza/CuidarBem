@@ -58,7 +58,7 @@ export class NovaSenhaComponent implements OnInit {
         let email: Email = new Email();
         email.destinatarios = emailUsuario;
         this._usuarioService.recuperarSenhaEEnviarEmail(email).subscribe(
-          (res: string) => {
+          () => {
             this._ref.close();
             this._alerta.alerta(this.RESULT_TROCA_SENHA, 4000);
           },

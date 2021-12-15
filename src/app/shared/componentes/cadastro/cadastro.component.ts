@@ -115,7 +115,7 @@ export class CadastroComponent implements OnInit {
         this.form.controls.senha.value
       ) {
         this._usuarioService.criarUsuario(usuario).subscribe(
-          (result) => {
+          () => {
             this._alerta.sucesso(MensagemEnum.CADASTRO_SUCESSO);
             this._ref.close();
           },
